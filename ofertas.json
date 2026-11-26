@@ -8,16 +8,6 @@
   },
   "ofertas": [
     {
-      "id": "MLB76221475",
-      "loja": "MERCADO LIVRE",
-      "titulo": "Liquidificador Oster OLIQ510",
-      "precoDe": 383.98,
-      "precoPor": 319.98,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_830019-MLA115513182733_082026-F.jpg",
-      "linkAfiliado": "https://www.mercadolivre.com.br/p/MLB76221475?matt_tool=45230315&matt_word=vitrine_site",
-      "ativo": true
-    },
-    {
       "id": "MLB83540764",
       "loja": "MERCADO LIVRE",
       "titulo": "Air Fryer Fritadeira Elétrica 6L Preta",
