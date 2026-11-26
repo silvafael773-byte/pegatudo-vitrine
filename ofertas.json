@@ -1,0 +1,21 @@
+{
+  "config": {
+    "nomeSite": "PegaTudo Ofertas",
+    "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
+    "instagram": "https://instagram.com",
+    "telegram": "https://t.me",
+    "atualizadoEm": "2026-11-26T06:00:00-03:00"
+  },
+  "ofertas": [
+    {
+      "id": "MLB83540764",
+      "loja": "MERCADO LIVRE",
+      "titulo": "Air Fryer Fritadeira Elétrica 6L Preta",
+      "precoDe": 299.90,
+      "precoPor": 179.91,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_827321-MLA114641229046_082026-F.jpg",
+      "linkAfiliado": "https://www.mercadolivre.com.br/p/MLB83540764?matt_tool=45230315&matt_word=vitrine_site",
+      "ativo": true
+    }
+  ]
+}
