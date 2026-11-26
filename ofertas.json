@@ -4,7 +4,18 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-26T08:30:00-03:00"
+    "atualizadoEm": "2026-11-26T12:04:50.374Z"
   },
-  "ofertas": []
+  "ofertas": [
+    {
+      "id": "MLB76221475",
+      "loja": "MERCADO LIVRE",
+      "titulo": "Liquidificador Oster OLIQ510",
+      "precoDe": 359.9,
+      "precoPor": 203.91,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_830019-MLA115513182733_082026-F.webp",
+      "linkAfiliado": "https://www.mercadolivre.com.br/p/MLB76221475?matt_tool=45230315&matt_word=vitrine_site",
+      "ativo": true
+    }
+  ]
 }
