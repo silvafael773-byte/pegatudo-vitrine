@@ -4,9 +4,19 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T00:02:07.082Z"
+    "atualizadoEm": "2026-11-27T00:22:14.669Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-91239",
+      "loja": "SHOPINFO",
+      "titulo": "SSD KingSpec 120GB P4-120 2.5” SATA III",
+      "precoDe": 249.9,
+      "precoPor": 209.99,
+      "imagem": "https://shopinfo.vteximg.com.br/arquivos/ids/1712281/1.png?v=638990826638770000",
+      "linkAfiliado": "https://lmdee.link/KVanu9v73wR0",
+      "ativo": true
+    },
     {
       "id": "LMD-116119",
       "loja": "TOYMANIA",
