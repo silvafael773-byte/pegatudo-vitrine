@@ -4,9 +4,57 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T18:00:34.966Z"
+    "atualizadoEm": "2026-11-27T20:36:10.373Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-143119",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "CASA",
+      "titulo": "Cafeteira Elétrica Electrolux CMP70 1,25L Preta 127V",
+      "precoDe": 1207.58,
+      "precoPor": 818,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/239330/1.jpg.jpg?v=639129180658000000",
+      "linkAfiliado": "https://lmdee.link/Wr8MyTXZeR07",
+      "adicionadoEm": "2026-11-27T20:36:10.373Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-148228",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "CASA",
+      "titulo": "Cafeteira Elétrica Britânia 800W Preto Inox 127V CP30",
+      "precoDe": 239.58,
+      "precoPor": 149,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/242417/1.jpg.jpg?v=639129180323030000",
+      "linkAfiliado": "https://lmdee.link/6fT6gw4OeipS",
+      "adicionadoEm": "2026-11-27T20:36:10.373Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-148229",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "CASA",
+      "titulo": "Cafeteira Britânia CP30 30 Xícaras Preto Inox 220V",
+      "precoDe": 239.58,
+      "precoPor": 144.29,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/242421/1.jpg.jpg?v=639129177014900000",
+      "linkAfiliado": "https://lmdee.link/WdqRdQk6LlbA",
+      "adicionadoEm": "2026-11-27T20:36:10.373Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-148227",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "CASA",
+      "titulo": "Cafeteira Elétrica Britânia CP15 600ml 550W Preto Inox 220V",
+      "precoDe": 215.38,
+      "precoPor": 108.33,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/242407/1.jpg.jpg?v=639129175065870000",
+      "linkAfiliado": "https://lmdee.link/39S94amC47Vq",
+      "adicionadoEm": "2026-11-27T20:36:10.373Z",
+      "ativo": true
+    },
     {
       "id": "LMD-CPN-6b09c043fe8d9cd25debe0a6",
       "loja": "CHINA IN BOX",
@@ -130,16 +178,6 @@
       "imagem": "https://candide.vtexassets.com/arquivos/ids/1454050/79170_0-.jpg?v=639294816987800000",
       "linkAfiliado": "https://lmdee.link/AyohJxC1HJ6u",
       "ativo": true
-    },
-    {
-      "id": "LMD-91239",
-      "loja": "SHOPINFO",
-      "titulo": "SSD KingSpec 120GB P4-120 2.5” SATA III",
-      "precoDe": 249.9,
-      "precoPor": 209.99,
-      "imagem": "https://shopinfo.com.br/cdn/shop/files/1_db6e24e3-c3d9-493b-af29-63a3875b48c8.png?v=1785373835",
-      "linkAfiliado": "https://lmdee.link/KVanu9v73wR0",
-      "ativo": false
     },
     {
       "id": "LMD-116119",
