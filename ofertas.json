@@ -4,9 +4,33 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T20:36:10.373Z"
+    "atualizadoEm": "2026-11-27T20:41:56.297Z"
   },
   "ofertas": [
+    {
+      "id": "MLB38338044",
+      "loja": "MERCADO LIVRE",
+      "categoria": "CASA",
+      "titulo": "Liquidificador portátil, Mini liquidificador recarregável USB, Liquidificador",
+      "precoDe": 159,
+      "precoPor": 75.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_887284-MLU78285122081_082024-F.jpg",
+      "linkAfiliado": "https://www.mercadolivre.com.br/p/MLB38338044?matt_tool=45230315&matt_word=vitrine_site",
+      "adicionadoEm": "2026-11-27T20:41:56.297Z",
+      "ativo": true
+    },
+    {
+      "id": "MLB48221921",
+      "loja": "MERCADO LIVRE",
+      "categoria": "CASA",
+      "titulo": "Liquidificador De Mão Liquidificador Elétrico Liquidificador",
+      "precoDe": 332.9,
+      "precoPor": 77.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_709344-MLA83744032741_042025-F.jpg",
+      "linkAfiliado": "https://www.mercadolivre.com.br/p/MLB48221921?matt_tool=45230315&matt_word=vitrine_site",
+      "adicionadoEm": "2026-11-27T20:41:56.297Z",
+      "ativo": true
+    },
     {
       "id": "LMD-143119",
       "loja": "FRIOPEÇAS PARAÍBA",
