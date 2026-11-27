@@ -138,11 +138,24 @@
       transition: background-color .2s ease, color .2s ease;
     }
 
+    /* ===== TOP ANNOUNCEMENT BAR ===== */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+      height: 30px;
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 12px;
+      text-align: center;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .top-bar span { color: var(--brand-gold); margin-left: 4px; }
+
     /* ===== HEADER ===== */
     .header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 30px; left: 0; right: 0; z-index: 100;
       background: var(--surface);
-      border-top: 3px solid var(--brand-blue);
       border-bottom: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
       transition: background-color .2s ease, border-color .2s ease;
@@ -184,13 +197,14 @@
     }
 
     .search-box {
-      flex: 1; max-width: 460px; position: relative;
+      flex: 1; max-width: 480px; position: relative;
+      display: flex; align-items: center;
     }
     .search-box input {
       width: 100%; height: 40px; border-radius: var(--radius-pill);
       border: 1.5px solid var(--border);
-      padding: 0 16px 0 40px;
-      font-size: 14px; font-family: inherit; color: var(--text-primary);
+      padding: 0 88px 0 38px;
+      font-size: 13.5px; font-family: inherit; color: var(--text-primary);
       background: var(--bg); outline: none; transition: border-color .2s, box-shadow .2s, background-color .2s;
     }
     .search-box input:focus {
@@ -203,9 +217,17 @@
     }
     .search-box input::placeholder { color: var(--text-muted); }
     .search-box svg {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
       width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;
     }
+    .search-btn {
+      position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+      height: 32px; padding: 0 14px; border-radius: var(--radius-pill);
+      border: none; background: var(--brand-blue); color: #FFFFFF;
+      font-size: 12px; font-weight: 700; font-family: inherit;
+      cursor: pointer; transition: background .2s;
+    }
+    .search-btn:hover { background: var(--brand-blue-dark); }
 
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
@@ -269,9 +291,21 @@
     .btn-insta:hover { background: var(--brand-blue-dark); transform: translateY(-1px); }
     .btn-insta svg { width: 16px; height: 16px; flex-shrink: 0; }
 
+    .btn-cupons-header {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 8px 13px; border-radius: var(--radius-pill);
+      background: var(--brand-gold); color: #141B2D;
+      font-size: 13px; font-weight: 800;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: transform .15s, filter .2s, box-shadow .2s;
+      box-shadow: 0 2px 6px rgba(216, 128, 28, .22);
+    }
+    .btn-cupons-header:hover { filter: brightness(.96); transform: translateY(-1px); }
+    .btn-cupons-header.active { box-shadow: 0 0 0 2.5px var(--brand-blue); }
+
     /* ===== CATEGORIES BAR ===== */
     .categories-bar {
-      position: fixed; top: 61px; left: 0; right: 0; z-index: 99;
+      position: fixed; top: 88px; left: 0; right: 0; z-index: 99;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
@@ -280,8 +314,74 @@
     .categories-wrap {
       max-width: 1280px; margin: 0 auto;
       position: relative;
-      display: flex; align-items: center;
-      padding: 0 12px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 16px;
+    }
+    .cat-dropdown-wrap {
+      position: relative; flex-shrink: 0;
+    }
+    .cat-dropdown-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 13px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: var(--surface-elevated); color: var(--text-primary);
+      font-size: 12.5px; font-weight: 700; font-family: inherit;
+      cursor: pointer; white-space: nowrap; transition: all .2s;
+    }
+    .cat-dropdown-btn:hover, .cat-dropdown-btn[aria-expanded="true"] {
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+    }
+    [data-theme="dark"] .cat-dropdown-btn:hover,
+    [data-theme="dark"] .cat-dropdown-btn[aria-expanded="true"] {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .cat-dropdown-menu {
+      display: none;
+      position: absolute; top: calc(100% + 6px); left: 0; z-index: 120;
+      min-width: 260px; max-height: 380px; overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 8px;
+    }
+    .cat-dropdown-menu.open { display: block; }
+    .cat-dropdown-heading {
+      font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--text-muted);
+      padding: 6px 8px 4px;
+    }
+    .cat-dropdown-item {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 7px 10px; border-radius: var(--radius-sm);
+      border: none; background: transparent; color: var(--text-secondary);
+      font-size: 12.5px; font-weight: 600; font-family: inherit;
+      cursor: pointer; text-align: left; transition: background .15s, color .15s;
+    }
+    .cat-dropdown-item:hover {
+      background: var(--brand-blue-soft); color: var(--primary);
+    }
+    .cat-dropdown-item.active {
+      background: var(--brand-blue); color: #FFFFFF;
+    }
+    .cat-dropdown-item-left { display: flex; align-items: center; gap: 7px; }
+    .cat-dropdown-count {
+      font-size: 11px; font-weight: 700; opacity: .75;
+    }
+    .btn-daily-coupons {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 12px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--coupon-border);
+      background: var(--coupon-bg); color: var(--coupon-text);
+      font-size: 12px; font-weight: 800; font-family: inherit;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      transition: all .2s;
+    }
+    .btn-daily-coupons:hover { background: var(--coupon-hover); }
+    .btn-daily-coupons.active {
+      background: var(--brand-gold); color: #141B2D; border-color: var(--brand-amber);
     }
     .categories-inner {
       flex: 1; min-width: 0;
@@ -388,8 +488,8 @@
     /* ===== MAIN ===== */
     .main-content {
       max-width: 1280px; margin: 0 auto;
-      padding: 0 16px 40px;
-      padding-top: 128px;
+      padding: 0 16px 64px;
+      padding-top: 152px;
     }
 
     /* ===== GRID ===== */
@@ -684,15 +784,88 @@
     .dot-magalu { background: #0086FF; }
     .dot-default { background: var(--accent); }
 
+    /* ===== FLOATING PRICE ALERT WIDGET ===== */
+    .price-alert-widget {
+      position: fixed; right: 16px; bottom: 16px; z-index: 95;
+      width: 300px; max-width: calc(100vw - 32px);
+      background: var(--surface);
+      border: 1.5px solid var(--brand-blue);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 14px 16px;
+      transition: bottom .25s ease;
+    }
+    .price-alert-widget.above-lgpd { bottom: 76px; }
+    .price-alert-widget.hidden { display: none; }
+    .price-alert-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .price-alert-title {
+      font-size: 13.5px; font-weight: 800; color: var(--text-primary);
+    }
+    .price-alert-close {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: none; background: var(--surface-elevated); color: var(--text-muted);
+      font-size: 15px; line-height: 1; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .price-alert-close:hover { color: var(--text-primary); background: var(--border); }
+    .price-alert-body {
+      font-size: 12px; color: var(--text-secondary); line-height: 1.45; margin-bottom: 10px;
+    }
+    .price-alert-cta {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 8px 12px; border-radius: var(--radius-sm);
+      background: var(--brand-green); color: #FFFFFF;
+      font-size: 12.5px; font-weight: 700; text-decoration: none;
+      transition: background .2s;
+    }
+    .price-alert-cta:hover { background: var(--brand-green-dark); }
+
+    /* ===== LGPD COOKIE BANNER ===== */
+    .lgpd-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 96;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, .08);
+      padding: 10px 16px;
+    }
+    .lgpd-banner.hidden { display: none; }
+    .lgpd-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .lgpd-text {
+      font-size: 12px; color: var(--text-secondary); flex: 1; min-width: 220px;
+    }
+    .lgpd-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-lgpd-decline {
+      padding: 6px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--surface-elevated);
+      color: var(--text-secondary); font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-lgpd-accept {
+      padding: 6px 14px; border-radius: var(--radius-sm);
+      border: none; background: var(--brand-blue);
+      color: #FFFFFF; font-size: 12px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-lgpd-accept:hover { background: var(--brand-blue-dark); }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .header-inner { flex-wrap: wrap; }
+      .top-bar { font-size: 11px; }
+      .header-inner { flex-wrap: wrap; gap: 8px; }
       .search-box { order: 3; max-width: 100%; width: 100%; }
-      .btn-insta span, .btn-vip span, .logo-sub { display: none; }
-      .btn-insta, .btn-vip { padding: 8px 10px; }
-      .categories-bar { top: 108px; }
-      .categories-wrap { padding: 0 8px; }
-      .main-content { padding-top: 162px; }
+      .btn-insta span, .btn-vip span, .btn-cupons-header span.cup-lbl, .logo-sub { display: none; }
+      .btn-insta, .btn-vip, .btn-cupons-header { padding: 8px 10px; }
+      .categories-bar { top: 134px; }
+      .categories-wrap { padding: 0 10px; }
+      .btn-daily-coupons { display: none; }
+      .main-content { padding-top: 188px; }
+      .price-alert-widget.above-lgpd { bottom: 108px; }
       .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .card-img { height: 160px; padding: 8px; }
       .card-price-current { font-size: 18px; }
@@ -709,6 +882,11 @@
   </style>
 </head>
 <body>
+  <!-- Top Announcement Bar -->
+  <div class="top-bar" role="region" aria-label="Aviso de ofertas">
+    🔥 Ofertas relâmpago e cupons verificados<span>atualizados automaticamente</span>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
@@ -727,7 +905,8 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input id="search-input" type="search" placeholder="Buscar produto, marca ou loja..." autocomplete="off" />
+        <input id="search-input" type="search" placeholder="O que você procura hoje? (ex: Airfryer, Fone Bluetooth, SSD...)" autocomplete="off" />
+        <button id="search-btn" type="button" class="search-btn">Buscar</button>
       </div>
 
       <nav class="header-actions" aria-label="Canais oficiais e tema">
@@ -748,6 +927,11 @@
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
           </span>
+        </button>
+
+        <button id="btn-header-cupons" type="button" class="btn-cupons-header" aria-label="Filtrar apenas ofertas com cupom">
+          <span>🏷️</span>
+          <span class="cup-lbl">Cupons</span>
         </button>
 
         <a id="btn-whatsapp" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="btn-vip">
@@ -772,6 +956,15 @@
   <!-- Categories Bar -->
   <nav class="categories-bar" aria-label="Categorias e filtros">
     <div class="categories-wrap">
+      <div class="cat-dropdown-wrap">
+        <button id="cat-dropdown-btn" type="button" class="cat-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+          <span>Todas as Categorias ▾</span>
+        </button>
+        <div id="cat-dropdown-menu" class="cat-dropdown-menu" role="menu">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
       <button id="cat-scroll-left" type="button" class="cat-arrow cat-arrow-left" aria-label="Rolar categorias para a esquerda">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="15 18 9 12 15 6"></polyline>
@@ -784,6 +977,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
+      </button>
+
+      <button id="btn-daily-coupons" type="button" class="btn-daily-coupons">
+        🏷️ Cupons Diários
       </button>
     </div>
   </nav>
@@ -822,6 +1019,29 @@
   <footer class="footer">
     <p>PegaTudo Ofertas &bull; Preços e disponibilidade sujeitos a alteração pelas lojas parceiras.</p>
   </footer>
+
+  <!-- Floating Price Alert Widget -->
+  <aside id="price-alert-widget" class="price-alert-widget hidden" aria-label="Ativar Alertas de Preço">
+    <div class="price-alert-head">
+      <span class="price-alert-title">🔔 Ativar Alertas de Preço</span>
+      <button id="close-price-alert" type="button" class="price-alert-close" aria-label="Fechar aviso de alertas">&times;</button>
+    </div>
+    <p class="price-alert-body">Entre no Grupo VIP ou ative notificações para ser avisado quando seus itens favoritados caírem de preço!</p>
+    <a id="price-alert-vip-link" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="price-alert-cta">
+      Entrar no Grupo VIP
+    </a>
+  </aside>
+
+  <!-- LGPD Privacy / Cookies Banner -->
+  <div id="lgpd-banner" class="lgpd-banner hidden" role="dialog" aria-label="Aviso de Privacidade e Cookies">
+    <div class="lgpd-inner">
+      <p class="lgpd-text">Usamos armazenamento local e cookies essenciais para salvar seus favoritos, tema preferido e melhorar sua experiência (LGPD).</p>
+      <div class="lgpd-actions">
+        <button id="lgpd-decline" type="button" class="btn-lgpd-decline">Recusar</button>
+        <button id="lgpd-accept" type="button" class="btn-lgpd-accept">Aceitar</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const SITE_URL = 'https://pegatudo-vitrine.pages.dev';
@@ -1019,9 +1239,9 @@
       return `
         <aside class="vip-banner" aria-label="Entre no Grupo VIP" data-vip-banner="${index}">
           <div class="vip-banner-text">
-            <div class="vip-banner-tag">⚡ Alertas em Primeira Mão</div>
-            <h3>Receba cupons relâmpago antes que acabem!</h3>
-            <p>Entre no <strong>Grupo VIP do WhatsApp</strong> e siga <strong>@pega.tudo.loja</strong> no Instagram para pegar achados e promoções todos os dias.</p>
+            <div class="vip-banner-tag">⚡ Canais Oficiais PegaTudo</div>
+            <h3>Quer receber ofertas antes de todo mundo? Entre nos canais oficiais!</h3>
+            <p>Entre no <strong>Grupo VIP do WhatsApp</strong> e siga <strong>@pega.tudo.loja</strong> no Instagram para receber alertas de cupons e descontos em tempo real.</p>
           </div>
           <div class="vip-banner-actions">
             <a href="${whatsappHref}" target="_blank" rel="noopener noreferrer" class="btn-vip">
@@ -1102,67 +1322,102 @@
 
     function renderTabs() {
       const container = document.getElementById('filter-tabs');
-      let html = '';
+      const dropdownMenu = document.getElementById('cat-dropdown-menu');
+      const headerCuponsBtn = document.getElementById('btn-header-cupons');
+      const dailyCuponsBtn = document.getElementById('btn-daily-coupons');
 
-      // Category tabs
+      const isCuponsActive = state.selectedCategory === 'CUPONS' && !state.selectedStore;
+      if (headerCuponsBtn) headerCuponsBtn.classList.toggle('active', isCuponsActive);
+      if (dailyCuponsBtn) dailyCuponsBtn.classList.toggle('active', isCuponsActive);
+
+      const getCatCount = (catKey) => {
+        if (catKey === 'TODOS') return state.ofertas.length;
+        if (catKey === 'SALVOS') return state.ofertas.filter((o) => state.savedIds.has(String(o.id))).length;
+        if (catKey === 'CUPONS') return state.ofertas.filter((o) => Boolean(String(o.cupom || '').trim())).length;
+        return state.ofertas.filter((o) => matchesCategory(o, catKey)).length;
+      };
+
+      // Clean main bar: TODOS, SALVOS (only if >0 or active), and main categories with count > 0
+      const MAIN_BAR_KEYS = ['TODOS', 'SALVOS', 'ELETRONICOS', 'CASA', 'ELETRODOMESTICOS', 'INFORMATICA', 'CELULARES'];
+      let barHtml = '';
       CATEGORIES.forEach((cat) => {
+        if (!MAIN_BAR_KEYS.includes(cat.key)) return;
+        const count = getCatCount(cat.key);
         const isActive = state.selectedCategory === cat.key && !state.selectedStore;
-        let count = 0;
-        if (cat.key === 'TODOS') {
-          count = state.ofertas.length;
-        } else if (cat.key === 'SALVOS') {
-          count = state.ofertas.filter((o) => state.savedIds.has(String(o.id))).length;
-        } else if (cat.key === 'CUPONS') {
-          count = state.ofertas.filter((o) => Boolean(String(o.cupom || '').trim())).length;
-        } else {
-          count = state.ofertas.filter((o) => matchesCategory(o, cat.key)).length;
-        }
+        if (cat.key !== 'TODOS' && count === 0 && !isActive) return;
 
-        html += `
+        barHtml += `
           <button type="button" role="tab" aria-selected="${isActive}" data-cat="${escapeHtml(cat.key)}"
             class="cat-btn ${isActive ? 'active' : ''}">
             <span style="font-size:13px">${cat.icon}</span>
             <span>${escapeHtml(cat.label)}</span>
-            <span class="cat-count">${count}</span>
+            ${cat.key === 'SALVOS' && count > 0 ? `<span class="cat-count">${count}</span>` : ''}
           </button>
         `;
       });
+      container.innerHTML = barHtml;
 
-      // Dynamic store filter tabs
-      const dynamicStores = getDynamicStores(state.ofertas);
-      if (dynamicStores.length > 0) {
-        html += `<span style="display:inline-block;width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0"></span>`;
-        dynamicStores.forEach((store) => {
-          const isActive = state.selectedStore === store.key;
-          html += `
-            <button type="button" role="tab" aria-selected="${isActive}" data-store="${escapeHtml(store.key)}"
-              class="cat-btn ${isActive ? 'active' : ''}">
-              <span class="cat-dot ${store.dot}"></span>
-              <span>${escapeHtml(store.label)}</span>
-              <span class="cat-count">${store.count}</span>
+      // Dropdown menu: ALL categories + active stores
+      if (dropdownMenu) {
+        let menuHtml = `<div class="cat-dropdown-heading">Categorias</div>`;
+        CATEGORIES.forEach((cat) => {
+          const count = getCatCount(cat.key);
+          const isActive = state.selectedCategory === cat.key && !state.selectedStore;
+          menuHtml += `
+            <button type="button" role="menuitem" data-cat="${escapeHtml(cat.key)}"
+              class="cat-dropdown-item ${isActive ? 'active' : ''}">
+              <span class="cat-dropdown-item-left"><span>${cat.icon}</span><span>${escapeHtml(cat.label)}</span></span>
+              <span class="cat-dropdown-count">${count}</span>
             </button>
           `;
         });
+
+        const dynamicStores = getDynamicStores(state.ofertas);
+        if (dynamicStores.length > 0) {
+          menuHtml += `<div class="cat-dropdown-heading" style="margin-top:6px;border-top:1px solid var(--border-light);padding-top:8px;">Lojas Ativas</div>`;
+          dynamicStores.forEach((store) => {
+            const isActive = state.selectedStore === store.key;
+            menuHtml += `
+              <button type="button" role="menuitem" data-store="${escapeHtml(store.key)}"
+                class="cat-dropdown-item ${isActive ? 'active' : ''}">
+                <span class="cat-dropdown-item-left"><span class="cat-dot ${store.dot}" style="width:8px;height:8px;border-radius:50%;display:inline-block;"></span><span>${escapeHtml(store.label)}</span></span>
+                <span class="cat-dropdown-count">${store.count}</span>
+              </button>
+            `;
+          });
+        }
+        dropdownMenu.innerHTML = menuHtml;
       }
 
-      container.innerHTML = html;
+      const bindCatStoreClicks = (root) => {
+        if (!root) return;
+        root.querySelectorAll('button[data-cat]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.selectedCategory = btn.getAttribute('data-cat');
+            state.selectedStore = '';
+            if (dropdownMenu) dropdownMenu.classList.remove('open');
+            const ddBtn = document.getElementById('cat-dropdown-btn');
+            if (ddBtn) ddBtn.setAttribute('aria-expanded', 'false');
+            renderTabs();
+            renderOffers();
+          });
+        });
+        root.querySelectorAll('button[data-store]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.selectedStore = btn.getAttribute('data-store');
+            state.selectedCategory = '';
+            if (dropdownMenu) dropdownMenu.classList.remove('open');
+            const ddBtn = document.getElementById('cat-dropdown-btn');
+            if (ddBtn) ddBtn.setAttribute('aria-expanded', 'false');
+            renderTabs();
+            renderOffers();
+          });
+        });
+      };
 
-      container.querySelectorAll('button[data-cat]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          state.selectedCategory = btn.getAttribute('data-cat');
-          state.selectedStore = '';
-          renderTabs();
-          renderOffers();
-        });
-      });
-      container.querySelectorAll('button[data-store]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          state.selectedStore = btn.getAttribute('data-store');
-          state.selectedCategory = '';
-          renderTabs();
-          renderOffers();
-        });
-      });
+      bindCatStoreClicks(container);
+      bindCatStoreClicks(dropdownMenu);
+
       if (typeof updateCategoryArrows === 'function') {
         requestAnimationFrame(updateCategoryArrows);
       }
@@ -1565,6 +1820,93 @@
         }
       }, true);
     }
+
+    // Search button, Cupons shortcuts, Dropdown, Price Alert & LGPD
+    const searchInputEl = document.getElementById('search-input');
+    const searchBtnEl = document.getElementById('search-btn');
+    if (searchBtnEl && searchInputEl) {
+      searchBtnEl.addEventListener('click', () => {
+        state.searchQuery = searchInputEl.value;
+        renderOffers();
+      });
+      searchInputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          state.searchQuery = searchInputEl.value;
+          renderOffers();
+        }
+      });
+    }
+
+    const toggleCouponsFilter = () => {
+      state.selectedStore = '';
+      state.selectedCategory = state.selectedCategory === 'CUPONS' ? 'TODOS' : 'CUPONS';
+      renderTabs();
+      renderOffers();
+    };
+    const headerCuponsBtn = document.getElementById('btn-header-cupons');
+    const dailyCuponsBtn = document.getElementById('btn-daily-coupons');
+    if (headerCuponsBtn) headerCuponsBtn.addEventListener('click', toggleCouponsFilter);
+    if (dailyCuponsBtn) dailyCuponsBtn.addEventListener('click', toggleCouponsFilter);
+
+    const dropdownBtn = document.getElementById('cat-dropdown-btn');
+    const dropdownMenuEl = document.getElementById('cat-dropdown-menu');
+    if (dropdownBtn && dropdownMenuEl) {
+      dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = dropdownMenuEl.classList.toggle('open');
+        dropdownBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdownMenuEl.contains(e.target) && !dropdownBtn.contains(e.target)) {
+          dropdownMenuEl.classList.remove('open');
+          dropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    const ALERT_DISMISSED_KEY = 'pegatudo_alert_dismissed_v1';
+    const LGPD_CONSENT_KEY = 'pegatudo_lgpd_consent_v1';
+    const alertWidget = document.getElementById('price-alert-widget');
+    const closeAlertBtn = document.getElementById('close-price-alert');
+    const lgpdBanner = document.getElementById('lgpd-banner');
+    const lgpdAcceptBtn = document.getElementById('lgpd-accept');
+    const lgpdDeclineBtn = document.getElementById('lgpd-decline');
+
+    function syncFloatingWidgets() {
+      let alertDismissed = false;
+      let lgpdDone = false;
+      try {
+        alertDismissed = localStorage.getItem(ALERT_DISMISSED_KEY) === '1';
+        lgpdDone = Boolean(localStorage.getItem(LGPD_CONSENT_KEY));
+      } catch (_) {}
+
+      if (lgpdBanner) lgpdBanner.classList.toggle('hidden', lgpdDone);
+      if (alertWidget) {
+        alertWidget.classList.toggle('hidden', alertDismissed);
+        alertWidget.classList.toggle('above-lgpd', !lgpdDone);
+      }
+    }
+
+    if (closeAlertBtn) {
+      closeAlertBtn.addEventListener('click', () => {
+        try { localStorage.setItem(ALERT_DISMISSED_KEY, '1'); } catch (_) {}
+        syncFloatingWidgets();
+      });
+    }
+    if (lgpdAcceptBtn) {
+      lgpdAcceptBtn.addEventListener('click', () => {
+        try { localStorage.setItem(LGPD_CONSENT_KEY, 'accepted'); } catch (_) {}
+        syncFloatingWidgets();
+      });
+    }
+    if (lgpdDeclineBtn) {
+      lgpdDeclineBtn.addEventListener('click', () => {
+        try { localStorage.setItem(LGPD_CONSENT_KEY, 'declined'); } catch (_) {}
+        syncFloatingWidgets();
+      });
+    }
+    syncFloatingWidgets();
 
     loadOffers();
   </script>
