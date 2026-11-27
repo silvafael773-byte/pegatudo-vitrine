@@ -4,9 +4,21 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T00:32:25.138Z"
+    "atualizadoEm": "2026-11-27T00:39:58.893Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-CPN-6b08ab1afe8d9cd25deae1a7",
+      "loja": "PEÇAS E ACESSÓRIOS",
+      "titulo": "10% de desconto - Não cumulativa com outros descontos (ex:pix) e Não se aplica a categoria de pneus e óleos lubrificantes. Cupom perene",
+      "precoDe": 0,
+      "precoPor": 0,
+      "imagem": "https://cdn.lomadee.com.br/logos/d4f00f2f-a064-4a3e-87a0-83c7589ee65d/logo",
+      "linkAfiliado": "https://lmdee.link/ZCITup9KqgeC",
+      "cupom": "NA10XTSH",
+      "regra_cupom": "10% DE DESCONTO — 10% de desconto - Não cumulativa com outros descontos (ex:pix) e Não se apl...",
+      "ativo": true
+    },
     {
       "id": "LMD-106531",
       "loja": "NUTRI BULLET",
