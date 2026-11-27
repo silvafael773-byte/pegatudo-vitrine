@@ -4,9 +4,19 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T00:00:31.572Z"
+    "atualizadoEm": "2026-11-27T00:02:07.082Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-116119",
+      "loja": "TOYMANIA",
+      "titulo": "Peppa Pig Caixa de Som - Fun Divirta-se",
+      "precoDe": 199.99,
+      "precoPor": 139.99,
+      "imagem": "https://toymania.vteximg.com.br/arquivos/ids/1011388/Peppa-Pig-Caixa-de-Som---Fun-Divirta-se-0.jpg?v=638959600270300000",
+      "linkAfiliado": "https://lmdee.link/ApkvWTKzmUOD",
+      "ativo": true
+    },
     {
       "id": "LMD-137291",
       "loja": "FRIOPEÇAS PARAÍBA",
