@@ -209,28 +209,42 @@
 
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    .btn-theme {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 38px; height: 38px; border-radius: var(--radius-pill);
+    .theme-switch {
+      width: 56px; height: 30px; border-radius: var(--radius-pill);
       border: 1.5px solid var(--border);
-      background: var(--surface-elevated); color: var(--text-secondary);
-      cursor: pointer; transition: all .2s; flex-shrink: 0;
+      background: var(--surface-elevated);
+      padding: 3px; cursor: pointer;
+      display: inline-flex; align-items: center;
+      position: relative; flex-shrink: 0;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
     }
-    .btn-theme:hover {
+    .theme-switch:hover {
       border-color: var(--brand-blue);
-      color: var(--brand-blue);
-      background: var(--brand-blue-soft);
     }
-    [data-theme="dark"] .btn-theme:hover {
+    [data-theme="dark"] .theme-switch {
+      background: #0F172A;
+      border-color: #334155;
+    }
+    [data-theme="dark"] .theme-switch:hover {
       border-color: var(--brand-gold);
-      color: var(--brand-gold);
-      background: rgba(250, 211, 48, 0.14);
     }
-    .btn-theme svg { width: 18px; height: 18px; }
-    .btn-theme .icon-sun { display: none; }
-    .btn-theme .icon-moon { display: block; }
-    [data-theme="dark"] .btn-theme .icon-sun { display: block; }
-    [data-theme="dark"] .btn-theme .icon-moon { display: none; }
+    .theme-switch-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--brand-blue); color: #FFFFFF;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .22);
+      transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    }
+    [data-theme="dark"] .theme-switch-thumb {
+      transform: translateX(26px);
+      background: var(--brand-gold);
+      color: #141B2D;
+    }
+    .theme-switch-thumb svg { width: 13px; height: 13px; }
+    .theme-switch .icon-sun { display: none; }
+    .theme-switch .icon-moon { display: block; }
+    [data-theme="dark"] .theme-switch .icon-sun { display: block; }
+    [data-theme="dark"] .theme-switch .icon-moon { display: none; }
 
     .btn-vip {
       display: inline-flex; align-items: center; gap: 6px;
@@ -387,7 +401,7 @@
 
     /* ===== CARD ===== */
     .card {
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: column; height: 100%;
       background: var(--surface);
       border-radius: var(--radius);
       border: 1px solid var(--border);
@@ -405,10 +419,11 @@
     }
 
     .card-img {
-      position: relative; aspect-ratio: 1/1;
-      background: var(--surface-img); padding: 12px;
+      position: relative; height: 190px;
+      background: #FFFFFF; padding: 12px;
       display: flex; align-items: center; justify-content: center;
       border-bottom: 1px solid var(--border-light);
+      overflow: hidden; flex-shrink: 0;
     }
     .card-img img {
       max-width: 100%; max-height: 100%;
@@ -426,23 +441,25 @@
       background: var(--badge-glass); backdrop-filter: blur(4px);
       border: 1px solid var(--border);
       color: var(--text-primary);
+      max-width: calc(100% - 58px);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .card-store-badge .store-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .card-store-badge .store-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-    .card-discount-badge {
-      position: absolute; top: 10px; right: 10px;
-      padding: 4px 10px; border-radius: var(--radius-sm);
-      font-size: 12px; font-weight: 800; color: #fff;
-      background: var(--brand-green);
-      box-shadow: 0 2px 6px rgba(36, 144, 84, .3);
+    .btn-fav-img {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, .12);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #64748B;
+      transition: transform .15s, color .2s, background-color .2s;
     }
-    .card-coupon-badge {
-      position: absolute; top: 10px; right: 10px;
-      padding: 4px 10px; border-radius: var(--radius-sm);
-      font-size: 11px; font-weight: 800; color: #141B2D;
-      background: var(--brand-gold);
-      box-shadow: 0 2px 6px rgba(216, 128, 28, .25);
-    }
+    .btn-fav-img:hover { transform: scale(1.08); color: #E11D48; }
+    .btn-fav-img.saved { color: #E11D48; background: #FFF1F2; border-color: rgba(225, 29, 72, .25); }
+    .btn-fav-img svg { width: 17px; height: 17px; }
 
     .card-time-badge {
       position: absolute; bottom: 8px; left: 10px;
@@ -470,14 +487,40 @@
       overflow: hidden;
     }
 
-    .card-pricing { margin-top: auto; padding-top: 12px; }
+    .card-pricing { margin-top: auto; padding-top: 10px; }
+    .badge-imperdivel {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 4px; padding: 2px 8px;
+      border-radius: 4px;
+      background: #DC2626; color: #FFFFFF;
+      font-size: 10px; font-weight: 800; letter-spacing: .4px;
+      text-transform: uppercase;
+    }
     .card-price-old {
       font-size: 12px; color: var(--text-muted);
       text-decoration: line-through;
     }
+    .card-price-row {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-top: 2px;
+    }
     .card-price-current {
       font-size: 22px; font-weight: 800; color: var(--accent-dark);
-      letter-spacing: -.5px; margin-top: 2px;
+      letter-spacing: -.5px; line-height: 1.15;
+    }
+    .price-discount-badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 7px; border-radius: 6px;
+      font-size: 11.5px; font-weight: 800; color: #FFFFFF;
+      background: var(--brand-green);
+      line-height: 1.2;
+    }
+    .price-coupon-badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 7px; border-radius: 6px;
+      font-size: 11px; font-weight: 800; color: #141B2D;
+      background: var(--brand-gold);
+      line-height: 1.2;
     }
 
     .card-coupon-only-label {
@@ -485,57 +528,57 @@
       color: var(--coupon-text); letter-spacing: .3px;
     }
     .card-coupon-only-value {
-      font-size: 17px; font-weight: 800; color: var(--accent-dark);
+      font-size: 16px; font-weight: 800; color: var(--accent-dark);
       margin-top: 2px;
       display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
     }
 
-    /* Coupon strip */
+    /* Compact 1-line Coupon Strip */
     .card-coupon-strip {
-      margin-top: 10px; padding: 8px 10px;
+      margin-top: 10px; padding: 6px 9px;
       border-radius: var(--radius-sm);
       border: 1.5px dashed var(--coupon-border);
       background: var(--coupon-bg);
-    }
-    .card-coupon-strip-top {
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
     }
+    .card-coupon-left {
+      display: flex; align-items: center; gap: 5px; min-width: 0; flex: 1;
+    }
     .card-coupon-strip-label {
-      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-      color: var(--coupon-text); letter-spacing: .3px;
+      font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+      color: var(--coupon-text); letter-spacing: .3px; white-space: nowrap;
     }
     .card-coupon-strip code {
-      font-size: 12px; font-weight: 800; letter-spacing: .5px;
+      font-size: 12px; font-weight: 800; letter-spacing: .4px;
       color: var(--coupon-text); background: var(--coupon-code-bg);
-      padding: 2px 8px; border-radius: 4px; border: 1px solid var(--coupon-border);
+      padding: 2px 7px; border-radius: 4px; border: 1px solid var(--coupon-border);
       font-family: 'Courier New', monospace;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .card-coupon-strip-rule {
-      font-size: 11px; color: var(--text-secondary); margin-top: 4px;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    .btn-copy-inline {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 7px; border-radius: 6px;
+      border: 1px solid var(--coupon-border);
+      background: rgba(255, 255, 255, .65);
+      color: var(--coupon-text);
+      font-size: 10.5px; font-weight: 700;
+      cursor: pointer; flex-shrink: 0; font-family: inherit;
+      transition: all .2s;
     }
-
-    /* Actions */
-    .card-actions { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-
-    .card-actions-row { display: flex; gap: 6px; }
-
-    .btn-copy-coupon {
-      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-      padding: 9px 12px; border-radius: var(--radius-sm);
-      border: 1.5px solid var(--coupon-border);
-      background: var(--coupon-bg); color: var(--coupon-text);
-      font-size: 12px; font-weight: 700;
-      cursor: pointer; transition: all .2s; flex-shrink: 0;
-      font-family: inherit;
+    [data-theme="dark"] .btn-copy-inline {
+      background: rgba(0, 0, 0, .25);
     }
-    .btn-copy-coupon:hover { background: var(--coupon-hover); }
-    .btn-copy-coupon.copied {
+    .btn-copy-inline:hover { background: var(--coupon-hover); }
+    .btn-copy-inline.copied {
       background: var(--accent-light) !important;
       border-color: var(--accent) !important;
       color: var(--accent-dark) !important;
     }
-    .btn-copy-coupon svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .btn-copy-inline svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* Actions */
+    .card-actions { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .card-actions-row { display: flex; gap: 6px; align-items: stretch; }
 
     .btn-ver-oferta {
       display: flex; flex: 1; align-items: center; justify-content: center; gap: 6px;
@@ -552,19 +595,20 @@
     }
     .btn-ver-oferta svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-    .btn-save, .btn-share {
-      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-      padding: 7px 10px; border-radius: var(--radius-sm);
+    .btn-share-compact {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; min-height: 40px; border-radius: var(--radius-sm);
       border: 1.5px solid var(--border);
       background: var(--surface); color: var(--text-secondary);
-      font-size: 11.5px; font-weight: 600;
-      cursor: pointer; transition: all .2s; flex: 1;
-      font-family: inherit; text-decoration: none;
+      cursor: pointer; transition: all .2s; flex-shrink: 0;
+      text-decoration: none;
     }
-    .btn-save:hover { border-color: var(--save-color); color: var(--save-color); }
-    .btn-save.saved { border-color: var(--save-color); background: var(--save-bg); color: var(--save-color); }
-    .btn-save svg, .btn-share svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .btn-share:hover { border-color: var(--brand-green); color: var(--accent-dark); }
+    .btn-share-compact:hover {
+      border-color: var(--brand-green);
+      background: var(--brand-green-soft);
+      color: var(--brand-green);
+    }
+    .btn-share-compact svg { width: 17px; height: 17px; }
 
     /* ===== VIP BANNER ===== */
     .vip-banner {
@@ -650,6 +694,7 @@
       .categories-wrap { padding: 0 8px; }
       .main-content { padding-top: 162px; }
       .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .card-img { height: 160px; padding: 8px; }
       .card-price-current { font-size: 18px; }
       .card-title { font-size: 12.5px; }
       .vip-banner { padding: 16px; }
@@ -658,9 +703,8 @@
     @media (max-width: 480px) {
       .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .card-body { padding: 10px; }
-      .card-img { padding: 8px; }
+      .card-img { height: 160px; padding: 8px; }
       .btn-ver-oferta { font-size: 11.5px; padding: 8px 10px; }
-      .btn-save span, .btn-share span { display: none; }
     }
   </style>
 </head>
@@ -687,21 +731,23 @@
       </div>
 
       <nav class="header-actions" aria-label="Canais oficiais e tema">
-        <button id="theme-toggle" type="button" class="btn-theme" aria-label="Alternar modo claro e escuro" title="Alternar tema">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+        <button id="theme-toggle" type="button" role="switch" aria-checked="false" class="theme-switch" aria-label="Alternar modo claro e escuro" title="Alternar tema">
+          <span class="theme-switch-thumb">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
         </button>
 
         <a id="btn-whatsapp" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="btn-vip">
@@ -798,19 +844,29 @@
       { key: 'ESPORTE', label: 'Esporte e Lazer', icon: '⚽', match: ['ESPORTE', 'LAZER', 'BICICLETA', 'TENIS', 'ACADEMIA', 'FITNESS', 'BRINQUEDO', 'JOGO'] },
     ];
 
-    const STORE_FILTERS = [
-      { key: 'MERCADO LIVRE', label: 'Mercado Livre', dot: 'dot-ml' },
-      { key: 'SHOPEE', label: 'Shopee', dot: 'dot-shopee' },
-      { key: 'AMAZON', label: 'Amazon', dot: 'dot-amazon' },
-      { key: 'MAGALU', label: 'Magalu', dot: 'dot-magalu' },
-    ];
-
     const STORE_DOTS = {
       'MERCADO LIVRE': 'dot-ml',
       'SHOPEE': 'dot-shopee',
       'AMAZON': 'dot-amazon',
       'MAGALU': 'dot-magalu',
     };
+
+    function getDynamicStores(ofertas) {
+      const counts = new Map();
+      ofertas.forEach((o) => {
+        const key = String(o.loja || '').trim().toUpperCase();
+        if (!key) return;
+        counts.set(key, (counts.get(key) || 0) + 1);
+      });
+      return Array.from(counts.entries())
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'pt-BR'))
+        .map(([key, count]) => ({
+          key,
+          label: key.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()),
+          dot: STORE_DOTS[key] || 'dot-default',
+          count,
+        }));
+    }
 
     function loadSavedIds() {
       try {
@@ -858,15 +914,13 @@
       },
     };
 
-    // Set initial category from URL
+    // Set initial category or store from URL
     const validCatKeys = CATEGORIES.map(c => c.key);
     if (validCatKeys.includes(urlState.catParam)) {
       state.selectedCategory = urlState.catParam;
-    } else {
-      const storeMatch = STORE_FILTERS.find(s => s.key === urlState.catParam);
-      if (storeMatch) {
-        state.selectedStore = storeMatch.key;
-      }
+    } else if (urlState.catParam) {
+      state.selectedStore = urlState.catParam;
+      state.selectedCategory = '';
     }
 
     const brlFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -928,6 +982,8 @@
     }
 
     function matchesCategory(item, catKey) {
+      const explicitCat = String(item?.categoria || '').trim().toUpperCase();
+      if (explicitCat && explicitCat === catKey) return true;
       const cat = CATEGORIES.find(c => c.key === catKey);
       if (!cat || !cat.match) return false;
       const titulo = normalizeText(item.titulo);
@@ -1072,22 +1128,22 @@
         `;
       });
 
-      // Separator
-      html += `<span style="display:inline-block;width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0"></span>`;
-
-      // Store filter tabs
-      STORE_FILTERS.forEach((store) => {
-        const isActive = state.selectedStore === store.key;
-        const count = state.ofertas.filter((o) => String(o.loja || '').toUpperCase() === store.key).length;
-        html += `
-          <button type="button" role="tab" aria-selected="${isActive}" data-store="${escapeHtml(store.key)}"
-            class="cat-btn ${isActive ? 'active' : ''}">
-            <span class="cat-dot ${store.dot}"></span>
-            <span>${escapeHtml(store.label)}</span>
-            <span class="cat-count">${count}</span>
-          </button>
-        `;
-      });
+      // Dynamic store filter tabs
+      const dynamicStores = getDynamicStores(state.ofertas);
+      if (dynamicStores.length > 0) {
+        html += `<span style="display:inline-block;width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0"></span>`;
+        dynamicStores.forEach((store) => {
+          const isActive = state.selectedStore === store.key;
+          html += `
+            <button type="button" role="tab" aria-selected="${isActive}" data-store="${escapeHtml(store.key)}"
+              class="cat-btn ${isActive ? 'active' : ''}">
+              <span class="cat-dot ${store.dot}"></span>
+              <span>${escapeHtml(store.label)}</span>
+              <span class="cat-count">${store.count}</span>
+            </button>
+          `;
+        });
+      }
 
       container.innerHTML = html;
 
@@ -1205,7 +1261,14 @@
                 <span class="store-dot ${dotClass}"></span>
                 ${escapeHtml(loja)}
               </span>
-              ${discount > 0 ? `<span class="card-discount-badge">-${discount}%</span>` : (cupom && !hasPrice ? `<span class="card-coupon-badge">CUPOM</span>` : '')}
+              <button type="button" data-save-offer="${escapeHtml(item.id)}" aria-pressed="${isSaved}"
+                aria-label="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
+                title="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
+                class="btn-fav-img ${isSaved ? 'saved' : ''}">
+                <svg viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                </svg>
+              </button>
               ${relativeTime ? `
                 <span class="card-time-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1218,60 +1281,53 @@
             </div>
 
             <div class="card-body">
-              ${isHighlighted ? '<span class="card-highlighted-tag">⭐ Oferta em destaque</span>' : ''}
+              ${isHighlighted ? '<span class="card-highlighted-tag">⭐ Oferta em Destaque do Grupo VIP</span>' : ''}
               <h2 class="card-title">${escapeHtml(item.titulo)}</h2>
 
               <div class="card-pricing">
                 ${hasPrice ? `
-                  ${hasOldPrice ? `<p class="card-price-old">De ${brlFormatter.format(Number(item.precoDe))}</p>` : '<p style="height:16px"></p>'}
-                  <p class="card-price-current">${brlFormatter.format(Number(item.precoPor))}</p>
+                  ${discount >= 35 ? '<span class="badge-imperdivel">🔥 OFERTA IMPERDÍVEL</span>' : ''}
+                  ${hasOldPrice ? `<p class="card-price-old">De ${brlFormatter.format(Number(item.precoDe))}</p>` : ''}
+                  <div class="card-price-row">
+                    <p class="card-price-current">${brlFormatter.format(Number(item.precoPor))}</p>
+                    ${discount > 0 ? `<span class="price-discount-badge">-${discount}% OFF</span>` : ''}
+                  </div>
                 ` : `
                   <p class="card-coupon-only-label">Cupom de Desconto</p>
-                  <p class="card-coupon-only-value">${escapeHtml(regraCupom || 'Desconto na Loja')}</p>
-                `}
-
-                ${cupom ? `
-                  <div class="card-coupon-strip">
-                    <div class="card-coupon-strip-top">
-                      <span class="card-coupon-strip-label">🎟️ Cupom</span>
-                      <code>${escapeHtml(cupom)}</code>
-                    </div>
-                    ${regraCupom && hasPrice ? `<p class="card-coupon-strip-rule">${escapeHtml(regraCupom)}</p>` : ''}
+                  <div class="card-price-row">
+                    <p class="card-coupon-only-value">${escapeHtml(regraCupom || 'Desconto na Loja')}</p>
+                    ${cupom ? '<span class="price-coupon-badge">CUPOM</span>' : ''}
                   </div>
-                ` : ''}
+                `}
               </div>
 
               <div class="card-actions">
-                <div class="card-actions-row">
-                  ${cupom ? `
-                    <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-coupon">
+                ${cupom ? `
+                  <div class="card-coupon-strip">
+                    <div class="card-coupon-left">
+                      <span class="card-coupon-strip-label">🎟️ CUPOM:</span>
+                      <code>${escapeHtml(cupom)}</code>
+                    </div>
+                    <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-inline" aria-label="Copiar cupom ${escapeHtml(cupom)}" title="Copiar cupom">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
-                      <span class="copy-label">Copiar Cupom</span>
+                      <span class="copy-label"></span>
                     </button>
-                  ` : ''}
+                  </div>
+                ` : ''}
+                <div class="card-actions-row">
                   <a href="${escapeHtml(item.linkAfiliado)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
                     <span>Ver Oferta na Loja</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                       <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
                     </svg>
                   </a>
-                </div>
-                <div class="card-actions-row">
-                  <button type="button" data-save-offer="${escapeHtml(item.id)}" aria-pressed="${isSaved}"
-                    class="btn-save ${isSaved ? 'saved' : ''}">
-                    <svg viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                    </svg>
-                    <span>${isSaved ? 'Salvo' : 'Salvar'}</span>
-                  </button>
-                  <a href="${escapeHtml(whatsappShareUrl)}" target="_blank" rel="noopener noreferrer" class="btn-share">
+                  <a href="${escapeHtml(whatsappShareUrl)}" target="_blank" rel="noopener noreferrer" class="btn-share-compact" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color:#25D366">
                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/>
                     </svg>
-                    <span>Compartilhar</span>
                   </a>
                 </div>
               </div>
@@ -1303,22 +1359,31 @@
           } catch (_) {}
           const label = btn.querySelector('.copy-label');
           if (!label) return;
-          const original = label.textContent;
-          label.textContent = 'Copiado! ✓';
+          label.textContent = 'Copiado!';
           btn.classList.add('copied');
-          setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2000);
+          setTimeout(() => { label.textContent = ''; btn.classList.remove('copied'); }, 2000);
         });
       });
 
-      // Save handlers
+      // Save handlers (heart on image)
       grid.querySelectorAll('button[data-save-offer]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const id = String(btn.getAttribute('data-save-offer') || '');
           if (!id) return;
-          if (state.savedIds.has(id)) { state.savedIds.delete(id); } else { state.savedIds.add(id); }
+          const nowSaved = !state.savedIds.has(id);
+          if (nowSaved) { state.savedIds.add(id); } else { state.savedIds.delete(id); }
           persistSavedIds(state.savedIds);
           renderTabs();
-          renderOffers();
+          if (state.selectedCategory === 'SALVOS') {
+            renderOffers();
+          } else {
+            btn.classList.toggle('saved', nowSaved);
+            btn.setAttribute('aria-pressed', String(nowSaved));
+            btn.setAttribute('aria-label', nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos');
+            btn.title = nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos';
+            const svg = btn.querySelector('svg');
+            if (svg) svg.setAttribute('fill', nowSaved ? 'currentColor' : 'none');
+          }
         });
       });
     }
@@ -1418,6 +1483,7 @@
       }
       if (themeToggleBtn) {
         themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+        themeToggleBtn.setAttribute('aria-checked', String(isDark));
         themeToggleBtn.title = isDark ? 'Mudar para Modo Claro' : 'Mudar para Modo Escuro';
       }
       try {
@@ -1428,6 +1494,7 @@
     if (themeToggleBtn) {
       const initialTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       themeToggleBtn.setAttribute('aria-pressed', String(initialTheme === 'dark'));
+      themeToggleBtn.setAttribute('aria-checked', String(initialTheme === 'dark'));
       themeToggleBtn.title = initialTheme === 'dark' ? 'Mudar para Modo Claro' : 'Mudar para Modo Escuro';
       themeToggleBtn.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
