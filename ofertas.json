@@ -4,9 +4,19 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T00:28:49.673Z"
+    "atualizadoEm": "2026-11-27T00:32:25.138Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-106531",
+      "loja": "NUTRI BULLET",
+      "titulo": "Fritadeira sem óleo Airfryer Digital Nutribullet 7L XXL 1700W com Tecnologia 360° Ultra",
+      "precoDe": 1299.99,
+      "precoPor": 279.99,
+      "imagem": "https://cdn.shopify.com/s/files/1/0762/8256/0757/files/image_2024_09_16T18_02_53_977Z.png?v=1761327050",
+      "linkAfiliado": "https://lmdee.link/H5G08caW4r69",
+      "ativo": true
+    },
     {
       "id": "LMD-4917",
       "loja": "CANDIDE",
