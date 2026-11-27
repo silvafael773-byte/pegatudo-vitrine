@@ -4,9 +4,57 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T20:41:56.297Z"
+    "atualizadoEm": "2026-11-27T22:00:21.297Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-1032681",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Vix 12000 BTU/h Frio AS-12CR2SLEDK02– 220 Volts",
+      "precoDe": 2857.8,
+      "precoPor": 1798,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/247274/foto2--1-.jpg.jpg?v=638786926209030000",
+      "linkAfiliado": "https://lmdee.link/VtyoPx31KDuz",
+      "adicionadoEm": "2026-11-27T22:00:21.297Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1032648",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Vix 9000 BTU/h Frio AS-09CR2SLDDK02 – 220 Volts",
+      "precoDe": 2527.8,
+      "precoPor": 1567,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/247266/foto2--1-.jpg.jpg?v=638804109125970000",
+      "linkAfiliado": "https://lmdee.link/Je3aPWmVwMu6",
+      "adicionadoEm": "2026-11-27T22:00:21.297Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-153955",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Cervejeira Imbera 453 Litros Porta Sólida Padrão Preta CCV315 - 127 Volts",
+      "precoDe": 8423.8,
+      "precoPor": 4678,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/239873/ccv315-porta-solida-padrao-cervejeira-frontal.jpg.jpg?v=638835248045170000",
+      "linkAfiliado": "https://lmdee.link/BXYnKG4m1oa8",
+      "adicionadoEm": "2026-11-27T22:00:21.297Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1029165",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Inverter Vix 24000 BTUs Frio AS-24TW2RBBDK03 – 220 Volts",
+      "precoDe": 5805.8,
+      "precoPor": 3232.25,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/233319/Split-Vix-.jpg?v=638536270244000000",
+      "linkAfiliado": "https://lmdee.link/D0XGuvI0iTcc",
+      "adicionadoEm": "2026-11-27T22:00:21.297Z",
+      "ativo": true
+    },
     {
       "id": "MLB38338044",
       "loja": "MERCADO LIVRE",
