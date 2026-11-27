@@ -753,12 +753,157 @@
     }
     .btn-reset:hover { border-color: var(--brand-blue); color: var(--primary); }
 
+    /* ===== BEST OF DAY SECTION ===== */
+    .best-day-section {
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1.5px solid var(--brand-gold);
+      box-shadow: var(--shadow-sm);
+    }
+    .best-day-section.hidden { display: none; }
+    .best-day-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .best-day-title {
+      font-size: 16px; font-weight: 900; color: var(--text-primary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .best-day-sub {
+      font-size: 11.5px; font-weight: 700; color: var(--brand-amber);
+      text-transform: uppercase; letter-spacing: .4px;
+    }
+    .best-day-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 1024px) {
+      .best-day-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ===== FOOTER ===== */
     .footer {
       border-top: 1px solid var(--border);
-      text-align: center; padding: 20px 16px;
-      font-size: 12px; color: var(--text-muted);
       background: var(--surface);
+      color: var(--text-secondary);
+      padding: 36px 16px 20px;
+      margin-top: 24px;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1.4fr;
+      gap: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-brand-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .footer-brand-logo {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: #FFFFFF; border: 1px solid var(--border);
+      padding: 2px; object-fit: contain;
+    }
+    .footer-brand-name {
+      font-size: 16px; font-weight: 900; letter-spacing: .3px;
+      color: var(--brand-blue);
+    }
+    [data-theme="dark"] .footer-brand-name { color: #FFFFFF; }
+    .footer-brand-desc {
+      font-size: 12.5px; line-height: 1.55; color: var(--text-muted);
+    }
+    .footer-col-title {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .footer-links {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+    }
+    .footer-links a, .footer-links button {
+      background: none; border: none; padding: 0; font-family: inherit;
+      font-size: 12.5px; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; cursor: pointer; text-align: left;
+      transition: color .15s;
+    }
+    .footer-links a:hover, .footer-links button:hover {
+      color: var(--brand-green);
+    }
+    .footer-compliance-box {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px; border-radius: var(--radius-sm);
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+    .footer-shield {
+      width: 20px; height: 20px; color: var(--brand-green); flex-shrink: 0; margin-top: 2px;
+    }
+    .footer-compliance-text {
+      font-size: 11.5px; line-height: 1.5; color: var(--text-muted);
+    }
+    .footer-bottom {
+      padding-top: 16px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .footer-legal-links {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    }
+    .footer-legal-links button {
+      background: none; border: none; padding: 0; font-family: inherit;
+      font-size: 12px; font-weight: 600; color: var(--text-secondary);
+      cursor: pointer; transition: color .15s;
+    }
+    .footer-legal-links button:hover { color: var(--brand-blue); }
+    [data-theme="dark"] .footer-legal-links button:hover { color: var(--primary); }
+
+    @media (max-width: 960px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+      .best-day-grid { gap: 8px; }
+      .best-day-section { padding: 12px; }
+    }
+
+    /* ===== LEGAL MODAL ===== */
+    .legal-modal-backdrop {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(15, 23, 42, .6);
+      backdrop-filter: blur(3px);
+      display: none; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .legal-modal-backdrop.open { display: flex; }
+    .legal-modal {
+      width: 100%; max-width: 520px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 20px;
+      color: var(--text-primary);
+    }
+    .legal-modal-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+    .legal-modal-title { font-size: 16px; font-weight: 800; }
+    .legal-modal-close {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: none; background: var(--surface-elevated); color: var(--text-muted);
+      font-size: 18px; cursor: pointer;
+    }
+    .legal-modal-body {
+      font-size: 13px; line-height: 1.6; color: var(--text-secondary);
+      max-height: 60vh; overflow-y: auto;
     }
 
     /* ===== SKELETON LOADER ===== */
@@ -987,6 +1132,17 @@
 
   <!-- Main Content -->
   <main class="main-content">
+    <!-- Melhores do Dia -->
+    <section id="best-of-day-section" class="best-day-section hidden" aria-label="Melhores ofertas do dia">
+      <div class="best-day-head">
+        <h2 class="best-day-title">🔥 Melhores do Dia</h2>
+        <span class="best-day-sub">Maiores descontos selecionados</span>
+      </div>
+      <div id="best-of-day-grid" class="best-day-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
     <div class="sort-bar">
       <span id="offers-count" class="count"></span>
       <div>
@@ -1017,8 +1173,78 @@
   </main>
 
   <footer class="footer">
-    <p>PegaTudo Ofertas &bull; Preços e disponibilidade sujeitos a alteração pelas lojas parceiras.</p>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-head">
+            <img src="./assets/favicon.png" alt="Logo PegaTudo" class="footer-brand-logo" width="36" height="36" />
+            <span class="footer-brand-name">PEGA TUDO</span>
+          </div>
+          <p class="footer-brand-desc">
+            Seu portal inteligente para encontrar as melhores ofertas, achados e cupons de desconto verificados nas principais lojas do Brasil.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">Lojas Monitoradas</h3>
+          <ul class="footer-links">
+            <li><button type="button" data-footer-store="MERCADO LIVRE">Mercado Livre</button></li>
+            <li><button type="button" data-footer-store="SHOPEE">Shopee</button></li>
+            <li><button type="button" data-footer-store="AMAZON">Amazon Brasil</button></li>
+            <li><button type="button" data-footer-store="MAGALU">Magazine Luiza</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">Recursos &amp; Grupos</h3>
+          <ul class="footer-links">
+            <li><a href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer">🔥 Grupos VIP de Ofertas</a></li>
+            <li><a id="footer-whatsapp-link" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer">WhatsApp VIP (Entrar)</a></li>
+            <li><a id="footer-instagram-link" href="https://www.instagram.com/pega.tudo.loja/" target="_blank" rel="noopener noreferrer">Instagram (@pega.tudo.loja)</a></li>
+            <li><button type="button" data-footer-action="search">Buscar Produtos</button></li>
+            <li><button type="button" data-footer-action="coupons">Cupons do Dia</button></li>
+            <li><button type="button" data-footer-action="alerts">Alertas de Preço</button></li>
+            <li><button type="button" data-legal-modal="contato">Fale Conosco</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">Transparência &amp; Afiliados</h3>
+          <div class="footer-compliance-box">
+            <svg class="footer-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <p class="footer-compliance-text">
+              O PegaTudo é gratuito para os usuários. Podemos receber uma comissão quando você realiza uma compra através de nossos links de afiliados, sem nenhum custo adicional para você. Como participante do Programa de Associados da Amazon, sou remunerado pelas compras qualificadas efetuadas. Os preços e a disponibilidade dos produtos estão sujeitos a alterações pelas lojas parceiras.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 PegaTudo (pegatudo-vitrine.pages.dev). Todos os direitos reservados.</span>
+        <div class="footer-legal-links">
+          <button type="button" data-legal-modal="privacidade">Privacidade</button>
+          <button type="button" data-legal-modal="termos">Termos de Uso</button>
+          <button type="button" data-legal-modal="divulgacao">Divulgação</button>
+          <button type="button" data-legal-modal="contato">Contato</button>
+          <button type="button" data-footer-action="cookies">Preferências de cookies</button>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- Legal Modal -->
+  <div id="legal-modal-backdrop" class="legal-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title">
+    <div class="legal-modal">
+      <div class="legal-modal-head">
+        <h3 id="legal-modal-title" class="legal-modal-title">Informação</h3>
+        <button id="legal-modal-close" type="button" class="legal-modal-close" aria-label="Fechar janela">&times;</button>
+      </div>
+      <div id="legal-modal-body" class="legal-modal-body"></div>
+    </div>
+  </div>
 
   <!-- Floating Price Alert Widget -->
   <aside id="price-alert-widget" class="price-alert-widget hidden" aria-label="Ativar Alertas de Preço">
@@ -1454,7 +1680,186 @@
       return copy;
     }
 
+    function renderOfferCardHtml(item) {
+      const loja = String(item.loja || 'OFERTA').toUpperCase();
+      const dotClass = STORE_DOTS[loja] || 'dot-default';
+      const discount = getDiscountPercent(item.precoDe, item.precoPor);
+      const hasPrice = Number(item.precoPor) > 0;
+      const hasOldPrice = hasPrice && Number(item.precoDe) > Number(item.precoPor);
+      const cupom = String(item.cupom || '').trim();
+      const regraCupom = String(item.regra_cupom || '').trim();
+      const relativeTime = formatRelativeTime(item, state.config.atualizadoEm);
+      const isSaved = state.savedIds.has(String(item.id));
+      const isHighlighted = state.highlightedId && String(item.id) === String(state.highlightedId);
+      const whatsappShareUrl = buildWhatsAppShareUrl(item);
+
+      return `
+        <article class="card ${isHighlighted ? 'highlighted' : ''}">
+          <div class="card-img">
+            <img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.titulo)}" loading="lazy"
+              onerror="this.src='https://placehold.co/400x400/f5f5f5/aaa?text=PegaTudo'" />
+            <span class="card-store-badge">
+              <span class="store-dot ${dotClass}"></span>
+              ${escapeHtml(loja)}
+            </span>
+            <button type="button" data-save-offer="${escapeHtml(item.id)}" aria-pressed="${isSaved}"
+              aria-label="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
+              title="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
+              class="btn-fav-img ${isSaved ? 'saved' : ''}">
+              <svg viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+              </svg>
+            </button>
+            ${relativeTime ? `
+              <span class="card-time-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                ${escapeHtml(relativeTime)}
+              </span>
+            ` : ''}
+          </div>
+
+          <div class="card-body">
+            ${isHighlighted ? '<span class="card-highlighted-tag">⭐ Oferta em Destaque do Grupo VIP</span>' : ''}
+            <h2 class="card-title">${escapeHtml(item.titulo)}</h2>
+
+            <div class="card-pricing">
+              ${hasPrice ? `
+                ${discount >= 35 ? '<span class="badge-imperdivel">🔥 OFERTA IMPERDÍVEL</span>' : ''}
+                ${hasOldPrice ? `<p class="card-price-old">De ${brlFormatter.format(Number(item.precoDe))}</p>` : ''}
+                <div class="card-price-row">
+                  <p class="card-price-current">${brlFormatter.format(Number(item.precoPor))}</p>
+                  ${discount > 0 ? `<span class="price-discount-badge">-${discount}% OFF</span>` : ''}
+                </div>
+              ` : `
+                <p class="card-coupon-only-label">Cupom de Desconto</p>
+                <div class="card-price-row">
+                  <p class="card-coupon-only-value">${escapeHtml(regraCupom || 'Desconto na Loja')}</p>
+                  ${cupom ? '<span class="price-coupon-badge">CUPOM</span>' : ''}
+                </div>
+              `}
+            </div>
+
+            <div class="card-actions">
+              ${cupom ? `
+                <div class="card-coupon-strip">
+                  <div class="card-coupon-left">
+                    <span class="card-coupon-strip-label">🎟️ CUPOM:</span>
+                    <code>${escapeHtml(cupom)}</code>
+                  </div>
+                  <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-inline" aria-label="Copiar cupom ${escapeHtml(cupom)}" title="Copiar cupom">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span class="copy-label"></span>
+                  </button>
+                </div>
+              ` : ''}
+              <div class="card-actions-row">
+                <a href="${escapeHtml(item.linkAfiliado)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
+                  <span>Ver Oferta na Loja</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+                <a href="${escapeHtml(whatsappShareUrl)}" target="_blank" rel="noopener noreferrer" class="btn-share-compact" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color:#25D366">
+                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function bindCardInteractions(root) {
+      if (!root) return;
+      root.querySelectorAll('button[data-copy-coupon]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const code = btn.getAttribute('data-copy-coupon') || '';
+          if (!code) return;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(code);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+              document.body.appendChild(ta); ta.select();
+              document.execCommand('copy'); document.body.removeChild(ta);
+            }
+          } catch (_) {}
+          const label = btn.querySelector('.copy-label');
+          if (!label) return;
+          label.textContent = 'Copiado!';
+          btn.classList.add('copied');
+          setTimeout(() => { label.textContent = ''; btn.classList.remove('copied'); }, 2000);
+        });
+      });
+
+      root.querySelectorAll('button[data-save-offer]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = String(btn.getAttribute('data-save-offer') || '');
+          if (!id) return;
+          const nowSaved = !state.savedIds.has(id);
+          if (nowSaved) { state.savedIds.add(id); } else { state.savedIds.delete(id); }
+          persistSavedIds(state.savedIds);
+          renderTabs();
+          if (state.selectedCategory === 'SALVOS') {
+            renderOffers();
+          } else {
+            document.querySelectorAll(`button[data-save-offer="${CSS.escape(id)}"]`).forEach((el) => {
+              el.classList.toggle('saved', nowSaved);
+              el.setAttribute('aria-pressed', String(nowSaved));
+              el.setAttribute('aria-label', nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos');
+              el.title = nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos';
+              const svg = el.querySelector('svg');
+              if (svg) svg.setAttribute('fill', nowSaved ? 'currentColor' : 'none');
+            });
+          }
+        });
+      });
+    }
+
+    function renderBestOfDay() {
+      const section = document.getElementById('best-of-day-section');
+      const grid = document.getElementById('best-of-day-grid');
+      if (!section || !grid) return;
+
+      const hasFilter = Boolean(state.searchQuery.trim()) || Boolean(state.selectedStore) || state.selectedCategory !== 'TODOS';
+      if (hasFilter || state.ofertas.length === 0) {
+        section.classList.add('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      const topOffers = state.ofertas
+        .slice()
+        .sort((a, b) => {
+          const da = getDiscountPercent(a.precoDe, a.precoPor);
+          const db = getDiscountPercent(b.precoDe, b.precoPor);
+          if (db !== da) return db - da;
+          return (b.cupom ? 1 : 0) - (a.cupom ? 1 : 0);
+        })
+        .slice(0, 4);
+
+      if (topOffers.length === 0) {
+        section.classList.add('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      grid.innerHTML = topOffers.map(renderOfferCardHtml).join('');
+      section.classList.remove('hidden');
+      bindCardInteractions(grid);
+    }
+
     function renderOffers() {
+      renderBestOfDay();
       const grid = document.getElementById('offers-grid');
       const empty = document.getElementById('empty-state');
       const countEl = document.getElementById('offers-count');
@@ -1495,152 +1900,14 @@
 
       const chunks = [];
       sorted.forEach((item, index) => {
-        const loja = String(item.loja || 'OFERTA').toUpperCase();
-        const dotClass = STORE_DOTS[loja] || 'dot-default';
-        const discount = getDiscountPercent(item.precoDe, item.precoPor);
-        const hasPrice = Number(item.precoPor) > 0;
-        const hasOldPrice = hasPrice && Number(item.precoDe) > Number(item.precoPor);
-        const cupom = String(item.cupom || '').trim();
-        const regraCupom = String(item.regra_cupom || '').trim();
-        const relativeTime = formatRelativeTime(item, state.config.atualizadoEm);
-        const isSaved = state.savedIds.has(String(item.id));
-        const isHighlighted = state.highlightedId && String(item.id) === String(state.highlightedId);
-        const whatsappShareUrl = buildWhatsAppShareUrl(item);
-
-        chunks.push(`
-          <article class="card ${isHighlighted ? 'highlighted' : ''}">
-            <div class="card-img">
-              <img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.titulo)}" loading="lazy"
-                onerror="this.src='https://placehold.co/400x400/f5f5f5/aaa?text=PegaTudo'" />
-              <span class="card-store-badge">
-                <span class="store-dot ${dotClass}"></span>
-                ${escapeHtml(loja)}
-              </span>
-              <button type="button" data-save-offer="${escapeHtml(item.id)}" aria-pressed="${isSaved}"
-                aria-label="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
-                title="${isSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}"
-                class="btn-fav-img ${isSaved ? 'saved' : ''}">
-                <svg viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                </svg>
-              </button>
-              ${relativeTime ? `
-                <span class="card-time-badge">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  ${escapeHtml(relativeTime)}
-                </span>
-              ` : ''}
-            </div>
-
-            <div class="card-body">
-              ${isHighlighted ? '<span class="card-highlighted-tag">⭐ Oferta em Destaque do Grupo VIP</span>' : ''}
-              <h2 class="card-title">${escapeHtml(item.titulo)}</h2>
-
-              <div class="card-pricing">
-                ${hasPrice ? `
-                  ${discount >= 35 ? '<span class="badge-imperdivel">🔥 OFERTA IMPERDÍVEL</span>' : ''}
-                  ${hasOldPrice ? `<p class="card-price-old">De ${brlFormatter.format(Number(item.precoDe))}</p>` : ''}
-                  <div class="card-price-row">
-                    <p class="card-price-current">${brlFormatter.format(Number(item.precoPor))}</p>
-                    ${discount > 0 ? `<span class="price-discount-badge">-${discount}% OFF</span>` : ''}
-                  </div>
-                ` : `
-                  <p class="card-coupon-only-label">Cupom de Desconto</p>
-                  <div class="card-price-row">
-                    <p class="card-coupon-only-value">${escapeHtml(regraCupom || 'Desconto na Loja')}</p>
-                    ${cupom ? '<span class="price-coupon-badge">CUPOM</span>' : ''}
-                  </div>
-                `}
-              </div>
-
-              <div class="card-actions">
-                ${cupom ? `
-                  <div class="card-coupon-strip">
-                    <div class="card-coupon-left">
-                      <span class="card-coupon-strip-label">🎟️ CUPOM:</span>
-                      <code>${escapeHtml(cupom)}</code>
-                    </div>
-                    <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-inline" aria-label="Copiar cupom ${escapeHtml(cupom)}" title="Copiar cupom">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                      <span class="copy-label"></span>
-                    </button>
-                  </div>
-                ` : ''}
-                <div class="card-actions-row">
-                  <a href="${escapeHtml(item.linkAfiliado)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
-                    <span>Ver Oferta na Loja</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                      <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                  </a>
-                  <a href="${escapeHtml(whatsappShareUrl)}" target="_blank" rel="noopener noreferrer" class="btn-share-compact" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color:#25D366">
-                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-        `);
-
+        chunks.push(renderOfferCardHtml(item));
         if ((index + 1) % 8 === 0) {
           chunks.push(renderVipBanner(index + 1));
         }
       });
 
       grid.innerHTML = chunks.join('');
-
-      // Coupon copy handlers
-      grid.querySelectorAll('button[data-copy-coupon]').forEach((btn) => {
-        btn.addEventListener('click', async () => {
-          const code = btn.getAttribute('data-copy-coupon') || '';
-          if (!code) return;
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(code);
-            } else {
-              const ta = document.createElement('textarea');
-              ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
-              document.body.appendChild(ta); ta.select();
-              document.execCommand('copy'); document.body.removeChild(ta);
-            }
-          } catch (_) {}
-          const label = btn.querySelector('.copy-label');
-          if (!label) return;
-          label.textContent = 'Copiado!';
-          btn.classList.add('copied');
-          setTimeout(() => { label.textContent = ''; btn.classList.remove('copied'); }, 2000);
-        });
-      });
-
-      // Save handlers (heart on image)
-      grid.querySelectorAll('button[data-save-offer]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const id = String(btn.getAttribute('data-save-offer') || '');
-          if (!id) return;
-          const nowSaved = !state.savedIds.has(id);
-          if (nowSaved) { state.savedIds.add(id); } else { state.savedIds.delete(id); }
-          persistSavedIds(state.savedIds);
-          renderTabs();
-          if (state.selectedCategory === 'SALVOS') {
-            renderOffers();
-          } else {
-            btn.classList.toggle('saved', nowSaved);
-            btn.setAttribute('aria-pressed', String(nowSaved));
-            btn.setAttribute('aria-label', nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos');
-            btn.title = nowSaved ? 'Remover dos favoritos' : 'Salvar nos favoritos';
-            const svg = btn.querySelector('svg');
-            if (svg) svg.setAttribute('fill', nowSaved ? 'currentColor' : 'none');
-          }
-        });
-      });
+      bindCardInteractions(grid);
     }
 
     function applyConfig(config) {
@@ -1877,7 +2144,7 @@
       let alertDismissed = false;
       let lgpdDone = false;
       try {
-        alertDismissed = localStorage.getItem(ALERT_DISMISSED_KEY) === '1';
+        alertDismissed = sessionStorage.getItem(ALERT_DISMISSED_KEY) === '1';
         lgpdDone = Boolean(localStorage.getItem(LGPD_CONSENT_KEY));
       } catch (_) {}
 
@@ -1890,7 +2157,7 @@
 
     if (closeAlertBtn) {
       closeAlertBtn.addEventListener('click', () => {
-        try { localStorage.setItem(ALERT_DISMISSED_KEY, '1'); } catch (_) {}
+        try { sessionStorage.setItem(ALERT_DISMISSED_KEY, '1'); } catch (_) {}
         syncFloatingWidgets();
       });
     }
@@ -1907,6 +2174,79 @@
       });
     }
     syncFloatingWidgets();
+
+    // Footer actions & legal modal
+    const LEGAL_TEXTS = {
+      privacidade: {
+        title: 'Política de Privacidade (LGPD)',
+        body: '<p>O PegaTudo Ofertas não coleta dados pessoais sensíveis nem exige cadastro para navegar. Usamos apenas armazenamento local no seu navegador (localStorage e sessionStorage) para lembrar seus favoritos, preferência de tema (claro/escuro) e consentimento de cookies.</p>',
+      },
+      termos: {
+        title: 'Termos de Uso',
+        body: '<p>As ofertas e cupons exibidos no PegaTudo são selecionados de lojas parceiras. Os preços, estoques e regras de cupom podem mudar a qualquer momento sem aviso prévio diretamente nos sites das lojas.</p>',
+      },
+      divulgacao: {
+        title: 'Divulgação de Afiliados',
+        body: '<p>O PegaTudo é gratuito para os usuários. Podemos receber uma comissão quando você realiza uma compra através de nossos links de afiliados, sem nenhum custo adicional para você. Como participante do Programa de Associados da Amazon, sou remunerado pelas compras qualificadas efetuadas.</p>',
+      },
+      contato: {
+        title: 'Fale Conosco',
+        body: '<p>Para dúvidas, sugestões de ofertas ou parcerias, fale conosco pelo Instagram <strong>@pega.tudo.loja</strong> ou entre no nosso <strong>Grupo VIP do WhatsApp</strong>.</p>',
+      },
+    };
+    const legalBackdrop = document.getElementById('legal-modal-backdrop');
+    const legalTitle = document.getElementById('legal-modal-title');
+    const legalBody = document.getElementById('legal-modal-body');
+    const legalClose = document.getElementById('legal-modal-close');
+
+    document.querySelectorAll('[data-legal-modal]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-legal-modal');
+        const info = LEGAL_TEXTS[key];
+        if (!info || !legalBackdrop) return;
+        legalTitle.textContent = info.title;
+        legalBody.innerHTML = info.body;
+        legalBackdrop.classList.add('open');
+      });
+    });
+    if (legalClose && legalBackdrop) {
+      legalClose.addEventListener('click', () => legalBackdrop.classList.remove('open'));
+      legalBackdrop.addEventListener('click', (e) => {
+        if (e.target === legalBackdrop) legalBackdrop.classList.remove('open');
+      });
+    }
+
+    document.querySelectorAll('[data-footer-store]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.selectedStore = btn.getAttribute('data-footer-store') || '';
+        state.selectedCategory = '';
+        renderTabs();
+        renderOffers();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('[data-footer-action]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-footer-action');
+        if (action === 'coupons') {
+          state.selectedStore = '';
+          state.selectedCategory = 'CUPONS';
+          renderTabs();
+          renderOffers();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (action === 'search') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => { const inp = document.getElementById('search-input'); if (inp) inp.focus(); }, 250);
+        } else if (action === 'alerts') {
+          try { sessionStorage.removeItem(ALERT_DISMISSED_KEY); } catch (_) {}
+          syncFloatingWidgets();
+        } else if (action === 'cookies') {
+          try { localStorage.removeItem(LGPD_CONSENT_KEY); } catch (_) {}
+          syncFloatingWidgets();
+        }
+      });
+    });
 
     loadOffers();
   </script>
