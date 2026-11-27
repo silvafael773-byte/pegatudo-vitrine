@@ -4,9 +4,57 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T22:30:15.029Z"
+    "atualizadoEm": "2026-11-27T23:00:22.653Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-1032942",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall Philco 24000 BTU/h Frio PAC24FI – 220 Volts",
+      "precoDe": 4998,
+      "precoPor": 3698,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/235081/761322.png?v=638804112294230000",
+      "linkAfiliado": "https://lmdee.link/w0ngEJiy7SAm",
+      "adicionadoEm": "2026-11-27T23:00:22.653Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1032877",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Philco 12000 BTUs Frio Branco 220V PAC12FI",
+      "precoDe": 2748,
+      "precoPor": 1997.89,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/235094/761322.jpg?v=639096333533330000",
+      "linkAfiliado": "https://lmdee.link/VNAnpH0DWmPW",
+      "adicionadoEm": "2026-11-27T23:00:22.653Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1026733",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Inverter 12.000 Btus LG Dual Compact +IA Frio S3-Q12JAQAL - 220 Volts",
+      "precoDe": 3737.8,
+      "precoPor": 2658,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/230309/1025660.jpg?v=638851840606570000",
+      "linkAfiliado": "https://lmdee.link/y5VsPMaexV1J",
+      "adicionadoEm": "2026-11-27T23:00:22.653Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1032069",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Inverter TCL 24000 BTUs Frio Branco 220V TAC24CTG2INV",
+      "precoDe": 5893.8,
+      "precoPor": 4124.21,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/251428/1.jpg?v=639087360827370000",
+      "linkAfiliado": "https://lmdee.link/JWf0ajaqp983",
+      "adicionadoEm": "2026-11-27T23:00:22.653Z",
+      "ativo": true
+    },
     {
       "id": "LMD-1033791",
       "loja": "FRIOPEÇAS PARAÍBA",
