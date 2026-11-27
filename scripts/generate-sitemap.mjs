@@ -41,7 +41,10 @@ function validateStorefrontHtml() {
   const scriptMatches = [...html.matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)];
 
   const inlineScripts = scriptMatches
-    .filter((match) => !/\bsrc\s*=|\btype\s*=\s*["']application\/ld\+json["']/i.test(match[0]))
+    .filter((match) => {
+      const openTag = (match[0].match(/<script[^>]*>/i) || [''])[0];
+      return !/\bsrc\s*=|\btype\s*=\s*["']application\/ld\+json["']/i.test(openTag);
+    })
     .map((match) => match[1].trim())
     .filter(Boolean);
 

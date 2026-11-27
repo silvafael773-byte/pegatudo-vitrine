@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,181 +14,542 @@
   <meta id="og-title" property="og:title" content="PegaTudo Ofertas — As Melhores Ofertas e Cupons do Dia" />
   <meta id="og-description" property="og:description" content="Descontos reais e cupons atualizados das maiores lojas do Brasil." />
   <meta id="og-url" property="og:url" content="https://pegatudo-vitrine.pages.dev/" />
-  <meta id="og-image" property="og:image" content="https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas" />
+  <meta id="og-image" property="og:image" content="https://placehold.co/1200x630/1a73e8/ffffff?text=PegaTudo+Ofertas" />
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta id="twitter-title" name="twitter:title" content="PegaTudo Ofertas — As Melhores Ofertas e Cupons do Dia" />
   <meta id="twitter-description" name="twitter:description" content="Descontos reais e cupons atualizados das maiores lojas do Brasil." />
-  <meta id="twitter-image" name="twitter:image" content="https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas" />
+  <meta id="twitter-image" name="twitter:image" content="https://placehold.co/1200x630/1a73e8/ffffff?text=PegaTudo+Ofertas" />
 
   <script id="structured-data" type="application/ld+json">{}</script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            bg: '#0b0f19',
-            surface: '#111827',
-            card: '#161f32',
-          }
-        }
-      }
-    };
-  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F5F5;
+      --white: #FFFFFF;
+      --text-primary: #1A1A2E;
+      --text-secondary: #555770;
+      --text-muted: #8E8EA0;
+      --border: #E5E7EB;
+      --border-light: #F0F0F3;
+      --accent: #00C853;
+      --accent-dark: #00A843;
+      --accent-light: #E8F5E9;
+      --danger: #FF3D00;
+      --coupon-bg: #F3E5F5;
+      --coupon-border: #CE93D8;
+      --coupon-text: #7B1FA2;
+      --save-color: #E91E63;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+    }
+
     body {
-      background-color: #0b0f19;
-      color: #f8fafc;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .header-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; color: var(--text-primary); flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, #00C853, #00BFA5);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: #fff;
+      box-shadow: 0 2px 8px rgba(0,200,83,.25);
+    }
+    .logo-text { font-size: 18px; font-weight: 800; letter-spacing: -.3px; }
+    .logo-text span { color: var(--accent); }
+
+    .search-box {
+      flex: 1; max-width: 480px; position: relative;
+    }
+    .search-box input {
+      width: 100%; height: 40px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      padding: 0 16px 0 40px;
+      font-size: 14px; font-family: inherit; color: var(--text-primary);
+      background: var(--bg); outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,200,83,.12);
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box svg {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    .btn-vip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: var(--radius-pill);
+      background: #25D366; color: #fff;
+      font-size: 13px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(37,211,102,.25);
+    }
+    .btn-vip:hover { background: #1FAD55; }
+    .btn-vip svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .btn-insta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--radius-pill);
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff; font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .btn-insta:hover { opacity: .9; }
+    .btn-insta svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ===== CATEGORIES BAR ===== */
+    .categories-bar {
+      position: fixed; top: 57px; left: 0; right: 0; z-index: 99;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .categories-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      overflow-x: auto;
+      -ms-overflow-style: none; scrollbar-width: none;
+    }
+    .categories-inner::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      background: var(--white); color: var(--text-secondary);
+      font-size: 12.5px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      transition: all .2s;
+    }
+    .cat-btn:hover { border-color: var(--accent); color: var(--accent-dark); }
+    .cat-btn.active {
+      background: var(--accent); color: #fff;
+      border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,200,83,.2);
+    }
+    .cat-btn .cat-count {
+      font-size: 10.5px; font-weight: 700;
+      background: rgba(0,0,0,.08); padding: 1px 6px;
+      border-radius: var(--radius-pill);
+    }
+    .cat-btn.active .cat-count { background: rgba(255,255,255,.25); }
+    .cat-btn .cat-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+    }
+
+    /* ===== SORTING BAR ===== */
+    .sort-bar {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px 8px;
+    }
+    .sort-bar .count { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+    .sort-select {
+      padding: 7px 12px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 13px; font-weight: 600; color: var(--text-secondary);
+      font-family: inherit; cursor: pointer; outline: none;
+      transition: border-color .2s;
+    }
+    .sort-select:focus { border-color: var(--accent); }
+
+    /* ===== MAIN ===== */
+    .main-content {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 16px 40px;
+      padding-top: 118px;
+    }
+
+    /* ===== GRID ===== */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      display: flex; flex-direction: column;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .card.highlighted {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,200,83,.12);
+    }
+
+    .card-img {
+      position: relative; aspect-ratio: 1/1;
+      background: #FAFAFA; padding: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-img img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      transition: transform .3s;
+    }
+    .card:hover .card-img img { transform: scale(1.05); }
+
+    .card-store-badge {
+      position: absolute; top: 10px; left: 10px;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      font-size: 10.5px; font-weight: 700; letter-spacing: .3px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .card-store-badge .store-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    .card-discount-badge {
+      position: absolute; top: 10px; right: 10px;
+      padding: 4px 10px; border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 800; color: #fff;
+      background: var(--accent);
+    }
+    .card-coupon-badge {
+      position: absolute; top: 10px; right: 10px;
+      padding: 4px 10px; border-radius: var(--radius-sm);
+      font-size: 11px; font-weight: 800; color: #fff;
+      background: var(--coupon-text);
+    }
+
+    .card-time-badge {
+      position: absolute; bottom: 8px; left: 10px;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: var(--radius-sm);
+      font-size: 10.5px; font-weight: 600; color: var(--text-secondary);
+      background: rgba(255,255,255,.92); backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+    }
+    .card-time-badge svg { width: 12px; height: 12px; color: var(--accent); }
+
+    .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; }
+
+    .card-highlighted-tag {
+      display: inline-block; margin-bottom: 6px;
+      padding: 2px 8px; border-radius: var(--radius-pill);
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      background: var(--accent-light); color: var(--accent-dark);
+    }
+
+    .card-title {
+      font-size: 14px; font-weight: 600; line-height: 1.4;
+      color: var(--text-primary);
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-pricing { margin-top: auto; padding-top: 12px; }
+    .card-price-old {
+      font-size: 12px; color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .card-price-current {
+      font-size: 22px; font-weight: 800; color: var(--accent-dark);
+      letter-spacing: -.5px; margin-top: 2px;
+    }
+
+    .card-coupon-only-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      color: var(--coupon-text); letter-spacing: .3px;
+    }
+    .card-coupon-only-value {
+      font-size: 17px; font-weight: 800; color: var(--accent-dark);
+      margin-top: 2px;
+      display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* Coupon strip */
+    .card-coupon-strip {
+      margin-top: 10px; padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1.5px dashed var(--coupon-border);
+      background: var(--coupon-bg);
+    }
+    .card-coupon-strip-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+    }
+    .card-coupon-strip-label {
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      color: var(--coupon-text); letter-spacing: .3px;
+    }
+    .card-coupon-strip code {
+      font-size: 12px; font-weight: 800; letter-spacing: .5px;
+      color: var(--coupon-text); background: rgba(123,31,162,.08);
+      padding: 2px 8px; border-radius: 4px; border: 1px solid var(--coupon-border);
+      font-family: 'Courier New', monospace;
+    }
+    .card-coupon-strip-rule {
+      font-size: 11px; color: var(--text-secondary); margin-top: 4px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* Actions */
+    .card-actions { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+
+    .card-actions-row { display: flex; gap: 6px; }
+
+    .btn-copy-coupon {
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 9px 12px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--coupon-border);
+      background: var(--coupon-bg); color: var(--coupon-text);
+      font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: all .2s; flex-shrink: 0;
+      font-family: inherit;
+    }
+    .btn-copy-coupon:hover { background: #E1BEE7; }
+    .btn-copy-coupon.copied {
+      background: var(--accent-light) !important;
+      border-color: var(--accent) !important;
+      color: var(--accent-dark) !important;
+    }
+    .btn-copy-coupon svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .btn-ver-oferta {
+      display: flex; flex: 1; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 14px; border-radius: var(--radius-sm);
+      background: var(--accent); color: #fff;
+      font-size: 13px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 2px 6px rgba(0,200,83,.2);
+    }
+    .btn-ver-oferta:hover { background: var(--accent-dark); box-shadow: 0 4px 12px rgba(0,200,83,.3); }
+    .btn-ver-oferta svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .btn-save, .btn-share {
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 7px 10px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: var(--white); color: var(--text-secondary);
+      font-size: 11.5px; font-weight: 600;
+      cursor: pointer; transition: all .2s; flex: 1;
+      font-family: inherit; text-decoration: none;
+    }
+    .btn-save:hover { border-color: var(--save-color); color: var(--save-color); }
+    .btn-save.saved { border-color: var(--save-color); background: #FCE4EC; color: var(--save-color); }
+    .btn-save svg, .btn-share svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .btn-share:hover { border-color: #25D366; color: #25D366; }
+
+    /* ===== VIP BANNER ===== */
+    .vip-banner {
+      grid-column: 1 / -1;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #E8F5E9 0%, #F3E5F5 100%);
+      border: 1.5px solid var(--accent);
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .vip-banner-text { flex: 1; min-width: 200px; }
+    .vip-banner-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      background: var(--accent); color: #fff;
+      font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .5px; margin-bottom: 6px;
+    }
+    .vip-banner h3 {
+      font-size: 17px; font-weight: 800; color: var(--text-primary);
+    }
+    .vip-banner p {
+      font-size: 13px; color: var(--text-secondary); margin-top: 4px; max-width: 500px;
+    }
+    .vip-banner-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      display: none; text-align: center; padding: 48px 20px;
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      background: var(--white);
+    }
+    .empty-state.visible { display: block; }
+    .empty-state h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .empty-state p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .btn-reset {
+      margin-top: 14px; padding: 9px 20px;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+      background: var(--white); color: var(--text-secondary);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all .2s;
+    }
+    .btn-reset:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 20px 16px;
+      font-size: 12px; color: var(--text-muted);
+      background: var(--white);
+    }
+
+    /* ===== SKELETON LOADER ===== */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--white); border: 1px solid var(--border-light);
+    }
+    .skeleton-block {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 6px;
+    }
+
+    /* ===== STORE DOT COLORS ===== */
+    .dot-ml { background: #FFE600; }
+    .dot-shopee { background: #EE4D2D; }
+    .dot-amazon { background: #FF9900; }
+    .dot-magalu { background: #0086FF; }
+    .dot-default { background: var(--accent); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-inner { flex-wrap: wrap; }
+      .search-box { order: 3; max-width: 100%; width: 100%; }
+      .btn-insta span, .btn-vip span { display: none; }
+      .btn-insta, .btn-vip { padding: 8px 10px; }
+      .main-content { padding-top: 155px; }
+      .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .card-price-current { font-size: 18px; }
+      .card-title { font-size: 12.5px; }
+      .vip-banner { padding: 16px; }
+      .vip-banner h3 { font-size: 15px; }
+    }
+    @media (max-width: 480px) {
+      .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .card-body { padding: 10px; }
+      .card-img { padding: 8px; }
+      .btn-ver-oferta { font-size: 11.5px; padding: 8px 10px; }
+      .btn-save span, .btn-share span { display: none; }
     }
   </style>
 </head>
-<body class="min-h-screen bg-[#0b0f19] text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
-  <!-- Cabeçalho Fixo -->
-  <header class="fixed top-0 inset-x-0 z-50 border-b border-slate-800/80 bg-[#0b0f19]/90 backdrop-blur-md">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-      <a href="./" class="flex items-center gap-2.5 shrink-0">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 font-black text-slate-950 shadow-lg shadow-emerald-500/20">
-          PT
-        </div>
-        <div class="leading-tight">
-          <span id="site-title" class="block text-base font-extrabold tracking-tight text-white sm:text-lg">
-            PegaTudo Ofertas
-          </span>
-          <span class="hidden text-[11px] font-medium text-emerald-400 sm:block">
-            Achados &amp; Promoções Verificadas
-          </span>
-        </div>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="./" class="logo">
+        <div class="logo-icon">PT</div>
+        <div class="logo-text">Pega<span>Tudo</span></div>
       </a>
 
-      <nav aria-label="Canais oficiais" class="flex items-center gap-2">
-        <a
-          id="btn-whatsapp"
-          href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-2 text-xs font-bold text-slate-950 shadow-md shadow-emerald-500/20 transition hover:bg-emerald-400 sm:px-3.5 sm:text-sm"
-        >
-          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="search-input" type="search" placeholder="Buscar produto, marca ou loja..." autocomplete="off" />
+      </div>
+
+      <nav class="header-actions" aria-label="Canais oficiais">
+        <a id="btn-whatsapp" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="btn-vip">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
           </svg>
           <span>Grupo VIP</span>
         </a>
 
-        <a
-          id="btn-instagram"
-          href="https://www.instagram.com/pega.tudo.loja/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram @pega.tudo.loja"
-          class="inline-flex items-center gap-1.5 rounded-xl border border-pink-500/30 bg-pink-500/10 px-2.5 py-2 text-xs font-semibold text-pink-300 transition hover:bg-pink-500/20 sm:px-3 sm:text-sm"
-        >
-          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <a id="btn-instagram" href="https://www.instagram.com/pega.tudo.loja/" target="_blank" rel="noopener noreferrer" class="btn-insta" aria-label="Instagram @pega.tudo.loja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
-          <span class="hidden md:inline">Instagram</span>
-        </a>
-
-        <a
-          id="btn-telegram"
-          href="https://t.me"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Telegram"
-          class="inline-flex items-center gap-1.5 rounded-xl border border-sky-500/30 bg-sky-500/10 px-2.5 py-2 text-xs font-semibold text-sky-300 transition hover:bg-sky-500/20 sm:px-3 sm:text-sm"
-        >
-          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M21.94 4.66c.22-.94-.34-1.31-1-.99L3.25 10.5c-1.2.48-1.19 1.15-.22 1.45l4.54 1.42 10.51-6.63c.5-.3.95-.14.58.19l-8.52 7.69-.31 4.67c.46 0 .66-.21.92-.46l2.2-2.14 4.58 3.38c.84.47 1.45.23 1.66-.78l2.75-13.63z" />
-          </svg>
-          <span class="hidden md:inline">Telegram</span>
+          <span>Instagram</span>
         </a>
       </nav>
     </div>
   </header>
 
-  <!-- Conteúdo Principal -->
-  <main class="mx-auto max-w-7xl px-4 pb-16 pt-24 sm:px-6">
-    <!-- Hero + Busca + Filtros -->
-    <section class="mb-8 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 shadow-xl sm:p-6">
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <h1 class="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
-            Ofertas selecionadas em tempo real
-          </h1>
-          <p class="mt-1 text-sm text-slate-400">
-            Descontos garimpados das maiores lojas do Brasil. Clique para conferir na loja oficial.
-          </p>
-        </div>
+  <!-- Categories Bar -->
+  <nav class="categories-bar" aria-label="Categorias e filtros">
+    <div id="filter-tabs" class="categories-inner" role="tablist">
+      <!-- Rendered via JS -->
+    </div>
+  </nav>
 
-        <!-- Busca instantânea -->
-        <div class="relative w-full lg:max-w-md">
-          <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Buscar produto, marca ou loja..."
-            autocomplete="off"
-            class="w-full rounded-xl border border-slate-700/80 bg-[#0b0f19] py-2.5 pl-10 pr-4 text-sm text-slate-100 placeholder-slate-500 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-          />
-        </div>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="sort-bar">
+      <span id="offers-count" class="count"></span>
+      <div>
+        <label for="sort-select" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Ordenar ofertas</label>
+        <select id="sort-select" class="sort-select">
+          <option value="recent">Mais Recentes</option>
+          <option value="discount">Maior Desconto (%)</option>
+          <option value="price_asc">Menor Preço</option>
+        </select>
       </div>
+    </div>
 
-      <!-- Abas de Filtro + Ordenação -->
-      <div class="mt-5 flex flex-col gap-3 border-t border-slate-800/80 pt-4 md:flex-row md:items-center md:justify-between">
-        <div id="filter-tabs" class="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Filtrar por loja">
-          <!-- Renderizado via JS -->
-        </div>
-
-        <div class="flex shrink-0 items-center justify-between gap-3 md:justify-end">
-          <span id="offers-count" class="text-xs font-medium text-slate-400"></span>
-          <label for="sort-select" class="sr-only">Ordenar ofertas</label>
-          <select
-            id="sort-select"
-            class="rounded-xl border border-slate-700/80 bg-[#0b0f19] px-3 py-2 text-xs font-bold text-slate-200 transition focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-          >
-            <option value="recent">Mais Recentes</option>
-            <option value="discount">Maior Desconto (%)</option>
-            <option value="price_asc">Menor Preço</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <!-- Grid de Produtos -->
+    <!-- Offers Grid -->
     <section aria-live="polite">
-      <div id="offers-grid" class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <!-- Cards renderizados via JS -->
+      <div id="offers-grid" class="offers-grid">
+        <!-- Cards rendered via JS -->
       </div>
 
-      <div id="empty-state" class="hidden rounded-2xl border border-dashed border-slate-800 bg-slate-900/40 px-6 py-14 text-center">
-        <p class="text-base font-semibold text-slate-200">Nenhuma oferta encontrada</p>
-        <p class="mt-1 text-sm text-slate-400">Tente limpar a busca ou selecionar outra loja.</p>
-        <button
-          id="reset-filters-btn"
-          type="button"
-          class="mt-4 rounded-xl bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-slate-700"
-        >
+      <div id="empty-state" class="empty-state">
+        <p style="font-size:32px;margin-bottom:8px;">🔍</p>
+        <h3>Nenhuma oferta encontrada</h3>
+        <p>Tente limpar a busca ou selecionar outra categoria.</p>
+        <button id="reset-filters-btn" type="button" class="btn-reset">
           Mostrar todas as ofertas
         </button>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+  <footer class="footer">
     <p>PegaTudo Ofertas &bull; Preços e disponibilidade sujeitos a alteração pelas lojas parceiras.</p>
   </footer>
 
@@ -199,44 +560,32 @@
     const DEFAULT_WHATSAPP_VIP = 'https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE';
     const DEFAULT_INSTAGRAM_URL = 'https://www.instagram.com/pega.tudo.loja/';
 
-    const STORES = ['TODOS', 'SALVOS', 'CUPONS', 'MERCADO LIVRE', 'SHOPEE', 'AMAZON', 'MAGALU'];
+    const CATEGORIES = [
+      { key: 'TODOS', label: 'Todas as Ofertas', icon: '🏷️' },
+      { key: 'CUPONS', label: 'Cupons', icon: '🎟️' },
+      { key: 'SALVOS', label: 'Salvos', icon: '❤️' },
+      { key: 'ELETRONICOS', label: 'Eletrônicos', icon: '📱', match: ['ELETRONICO', 'ELETRONICA', 'TV', 'FONE', 'CAIXA DE SOM', 'SMARTWATCH', 'SOM'] },
+      { key: 'CASA', label: 'Casa e Cozinha', icon: '🏠', match: ['CASA', 'COZINHA', 'LIQUIDIFICADOR', 'CAFETEIRA', 'AIRFRYER', 'FRITADEIRA', 'PANELA'] },
+      { key: 'ELETRODOMESTICOS', label: 'Eletrodomésticos', icon: '🔌', match: ['ELETRODOMESTICO', 'ASPIRADOR', 'VENTILADOR', 'FERRO', 'LAVADORA', 'GELADEIRA'] },
+      { key: 'CELULARES', label: 'Celulares', icon: '📲', match: ['CELULAR', 'SMARTPHONE', 'IPHONE', 'SAMSUNG GALAXY', 'MOTOROLA', 'XIAOMI'] },
+      { key: 'INFORMATICA', label: 'Informática', icon: '💻', match: ['INFORMATICA', 'NOTEBOOK', 'SSD', 'HD', 'TECLADO', 'MOUSE', 'MONITOR', 'COMPUTADOR', 'MEMORIA', 'PROCESSADOR'] },
+      { key: 'BELEZA', label: 'Beleza e Saúde', icon: '💄', match: ['BELEZA', 'SAUDE', 'PERFUME', 'MAQUIAGEM', 'SHAMPOO', 'CREME', 'COSMETICO'] },
+      { key: 'AUTOMOTIVO', label: 'Automotivo', icon: '🚗', match: ['AUTOMOTIVO', 'CARRO', 'MOTO', 'PNEU', 'PECAS', 'OLEO', 'ACESSORIO AUTO'] },
+      { key: 'ESPORTE', label: 'Esporte e Lazer', icon: '⚽', match: ['ESPORTE', 'LAZER', 'BICICLETA', 'TENIS', 'ACADEMIA', 'FITNESS', 'BRINQUEDO', 'JOGO'] },
+    ];
 
-    const STORE_STYLES = {
-      'SALVOS': {
-        badge: 'bg-rose-500/15 text-rose-300 border-rose-500/40',
-        dot: 'bg-rose-400',
-        tabActive: 'bg-rose-500 text-white border-rose-500 shadow-rose-500/20',
-      },
-      'CUPONS': {
-        badge: 'bg-violet-500/15 text-violet-300 border-violet-500/40',
-        dot: 'bg-violet-400',
-        tabActive: 'bg-violet-500 text-white border-violet-500 shadow-violet-500/20',
-      },
-      'MERCADO LIVRE': {
-        badge: 'bg-yellow-400/15 text-yellow-300 border-yellow-400/40',
-        dot: 'bg-yellow-400',
-        tabActive: 'bg-yellow-400 text-slate-950 border-yellow-400 shadow-yellow-400/20',
-      },
-      'SHOPEE': {
-        badge: 'bg-orange-500/15 text-orange-300 border-orange-500/40',
-        dot: 'bg-orange-500',
-        tabActive: 'bg-orange-500 text-white border-orange-500 shadow-orange-500/20',
-      },
-      'AMAZON': {
-        badge: 'bg-amber-400/15 text-amber-200 border-amber-400/40',
-        dot: 'bg-amber-400',
-        tabActive: 'bg-amber-400 text-slate-950 border-amber-400 shadow-amber-400/20',
-      },
-      'MAGALU': {
-        badge: 'bg-sky-500/15 text-sky-300 border-sky-500/40',
-        dot: 'bg-sky-400',
-        tabActive: 'bg-sky-500 text-white border-sky-500 shadow-sky-500/20',
-      },
-      'TODOS': {
-        badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
-        dot: 'bg-emerald-400',
-        tabActive: 'bg-emerald-500 text-slate-950 border-emerald-500 shadow-emerald-500/20',
-      }
+    const STORE_FILTERS = [
+      { key: 'MERCADO LIVRE', label: 'Mercado Livre', dot: 'dot-ml' },
+      { key: 'SHOPEE', label: 'Shopee', dot: 'dot-shopee' },
+      { key: 'AMAZON', label: 'Amazon', dot: 'dot-amazon' },
+      { key: 'MAGALU', label: 'Magalu', dot: 'dot-magalu' },
+    ];
+
+    const STORE_DOTS = {
+      'MERCADO LIVRE': 'dot-ml',
+      'SHOPEE': 'dot-shopee',
+      'AMAZON': 'dot-amazon',
+      'MAGALU': 'dot-magalu',
     };
 
     function loadSavedIds() {
@@ -260,10 +609,10 @@
         const params = new URLSearchParams(window.location.search);
         return {
           ofertaId: params.get('oferta') || '',
-          lojaParam: (params.get('loja') || '').toUpperCase(),
+          catParam: (params.get('cat') || params.get('loja') || '').toUpperCase(),
         };
       } catch (_) {
-        return { ofertaId: '', lojaParam: '' };
+        return { ofertaId: '', catParam: '' };
       }
     }
 
@@ -271,7 +620,8 @@
 
     const state = {
       ofertas: [],
-      selectedStore: STORES.includes(urlState.lojaParam) ? urlState.lojaParam : 'TODOS',
+      selectedCategory: 'TODOS',
+      selectedStore: '',
       searchQuery: '',
       sortBy: 'recent',
       savedIds: loadSavedIds(),
@@ -284,26 +634,25 @@
       },
     };
 
-    const brlFormatter = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    });
+    // Set initial category from URL
+    const validCatKeys = CATEGORIES.map(c => c.key);
+    if (validCatKeys.includes(urlState.catParam)) {
+      state.selectedCategory = urlState.catParam;
+    } else {
+      const storeMatch = STORE_FILTERS.find(s => s.key === urlState.catParam);
+      if (storeMatch) {
+        state.selectedStore = storeMatch.key;
+      }
+    }
+
+    const brlFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
     function normalizeText(value) {
-      return String(value || '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .trim();
+      return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
     }
 
     function escapeHtml(str) {
-      return String(str ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+      return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
     function isValidHttpUrl(url) {
@@ -330,23 +679,17 @@
       const fallbackMs = fallbackIso ? Date.parse(fallbackIso) : NaN;
       const targetMs = itemMs !== null ? itemMs : (!Number.isNaN(fallbackMs) ? fallbackMs : null);
       if (targetMs === null) return '';
-
       const diffMs = Math.max(0, Date.now() - targetMs);
       const diffMinutes = Math.floor(diffMs / 60000);
       if (diffMinutes < 5) return 'Agora';
       if (diffMinutes < 60) return `Há ${diffMinutes} min`;
-
       const diffHours = Math.floor(diffMinutes / 60);
-      if (diffHours < 24) {
-        return diffHours === 1 ? 'Há 1 hora' : `Há ${diffHours} horas`;
-      }
-
+      if (diffHours < 24) return diffHours === 1 ? 'Há 1 hora' : `Há ${diffHours} horas`;
       const now = new Date();
       const target = new Date(targetMs);
       const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
       const startOfTarget = new Date(target.getFullYear(), target.getMonth(), target.getDate()).getTime();
       const diffDays = Math.round((startOfToday - startOfTarget) / 86400000);
-
       if (diffDays <= 0) return 'Hoje';
       if (diffDays === 1) return 'Ontem';
       if (diffDays < 7) return `Há ${diffDays} dias`;
@@ -360,31 +703,32 @@
       return Math.round(((de - por) / de) * 100);
     }
 
+    function matchesCategory(item, catKey) {
+      const cat = CATEGORIES.find(c => c.key === catKey);
+      if (!cat || !cat.match) return false;
+      const titulo = normalizeText(item.titulo);
+      const loja = normalizeText(item.loja);
+      const haystack = titulo + ' ' + loja;
+      return cat.match.some(kw => haystack.includes(normalizeText(kw)));
+    }
+
     function buildWhatsAppShareUrl(item) {
       const cupom = String(item.cupom || '').trim();
       const regra = String(item.regra_cupom || '').trim();
       const hasPrice = Number(item.precoPor) > 0;
       const discount = getDiscountPercent(item.precoDe, item.precoPor);
-      const ofertaUrl = item.id
-        ? `${SITE_URL}/?oferta=${encodeURIComponent(String(item.id))}`
-        : `${SITE_URL}/`;
-
+      const ofertaUrl = item.id ? `${SITE_URL}/?oferta=${encodeURIComponent(String(item.id))}` : `${SITE_URL}/`;
       const lines = [
         `🔥 *${item.titulo}*`,
         `🏪 Loja: ${String(item.loja || 'Oferta').toUpperCase()}`,
       ];
-
       if (hasPrice) {
         const discountLabel = discount > 0 ? ` (-${discount}%)` : '';
         lines.push(`💰 Por apenas *${brlFormatter.format(Number(item.precoPor))}*${discountLabel}`);
       } else if (regra) {
         lines.push(`🏷️ Benefício: *${regra}*`);
       }
-
-      if (cupom) {
-        lines.push(`🎟️ Cupom: *${cupom}*`);
-      }
-
+      if (cupom) lines.push(`🎟️ Cupom: *${cupom}*`);
       lines.push(`👉 Confira na vitrine: ${ofertaUrl}`);
       return `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
     }
@@ -392,53 +736,22 @@
     function renderVipBanner(index) {
       const whatsappHref = escapeHtml(state.config.whatsappVip || DEFAULT_WHATSAPP_VIP);
       const instaHref = escapeHtml(state.config.instagram || DEFAULT_INSTAGRAM_URL);
-
       return `
-        <aside
-          aria-label="Entre no Grupo VIP e siga no Instagram"
-          data-vip-banner="${index}"
-          class="col-span-full overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/70 via-slate-900 to-pink-950/50 p-5 shadow-xl sm:p-6"
-        >
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div class="space-y-1.5">
-              <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-emerald-300">
-                ⚡ Alertas em Primeira Mão
-              </span>
-              <h3 class="text-lg font-extrabold tracking-tight text-white sm:text-xl">
-                Receba cupons relâmpago antes que acabem!
-              </h3>
-              <p class="max-w-2xl text-xs text-slate-300 sm:text-sm">
-                Entre no nosso <strong class="text-emerald-300">Grupo VIP do WhatsApp</strong> e siga <strong class="text-pink-300">@pega.tudo.loja</strong> no Instagram para pegar achados, promoções bugadas e códigos exclusivos todos os dias.
-              </p>
-            </div>
-
-            <div class="flex flex-col gap-2.5 sm:flex-row sm:items-center shrink-0">
-              <a
-                href="${whatsappHref}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs font-extrabold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400 sm:text-sm"
-              >
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
-                </svg>
-                <span>Entrar no Grupo VIP</span>
-              </a>
-
-              <a
-                href="${instaHref}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2 rounded-xl border border-pink-500/40 bg-pink-500/15 px-4 py-2.5 text-xs font-extrabold text-pink-200 transition hover:bg-pink-500/25 sm:text-sm"
-              >
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-                <span>Seguir @pega.tudo.loja</span>
-              </a>
-            </div>
+        <aside class="vip-banner" aria-label="Entre no Grupo VIP" data-vip-banner="${index}">
+          <div class="vip-banner-text">
+            <div class="vip-banner-tag">⚡ Alertas em Primeira Mão</div>
+            <h3>Receba cupons relâmpago antes que acabem!</h3>
+            <p>Entre no <strong>Grupo VIP do WhatsApp</strong> e siga <strong>@pega.tudo.loja</strong> no Instagram para pegar achados e promoções todos os dias.</p>
+          </div>
+          <div class="vip-banner-actions">
+            <a href="${whatsappHref}" target="_blank" rel="noopener noreferrer" class="btn-vip">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></svg>
+              <span>Entrar no Grupo VIP</span>
+            </a>
+            <a href="${instaHref}" target="_blank" rel="noopener noreferrer" class="btn-insta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <span>Seguir @pega.tudo.loja</span>
+            </a>
           </div>
         </aside>
       `;
@@ -453,13 +766,11 @@
       let title = `${siteName} — As Melhores Ofertas e Cupons do Dia`;
       let description = `Confira ${offers.length} ofertas e cupons verificados do Mercado Livre, Shopee, Amazon, Magalu e grandes lojas atualizados em tempo real.`;
       let pageUrl = `${SITE_URL}/`;
-      let image = offers[0]?.imagem || 'https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas';
+      let image = offers[0]?.imagem || 'https://placehold.co/1200x630/1a73e8/ffffff?text=PegaTudo+Ofertas';
 
       if (focused) {
         const cupomTxt = focused.cupom ? ` | Cupom: ${focused.cupom}` : '';
-        const precoTxt = Number(focused.precoPor) > 0
-          ? ` por ${brlFormatter.format(Number(focused.precoPor))}`
-          : '';
+        const precoTxt = Number(focused.precoPor) > 0 ? ` por ${brlFormatter.format(Number(focused.precoPor))}` : '';
         title = `${focused.titulo}${precoTxt} — ${siteName}`;
         description = `Oferta na loja ${String(focused.loja || '').toUpperCase()}${precoTxt}${cupomTxt}. Garimpada pelo ${siteName}.`;
         pageUrl = `${SITE_URL}/?oferta=${encodeURIComponent(String(focused.id))}`;
@@ -467,11 +778,7 @@
       }
 
       document.title = title;
-      const setAttr = (id, attr, val) => {
-        const el = document.getElementById(id);
-        if (el) el.setAttribute(attr, val);
-      };
-
+      const setAttr = (id, attr, val) => { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); };
       setAttr('meta-description', 'content', description);
       setAttr('canonical-link', 'href', pageUrl);
       setAttr('og-site-name', 'content', siteName);
@@ -488,9 +795,7 @@
         const ldJson = {
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: title,
-          description,
-          url: pageUrl,
+          name: title, description, url: pageUrl,
           numberOfItems: offers.length,
           itemListElement: offers.slice(0, 20).map((item, idx) => ({
             '@type': 'ListItem',
@@ -500,10 +805,7 @@
               '@type': 'Product',
               name: item.titulo,
               image: item.imagem,
-              brand: {
-                '@type': 'Brand',
-                name: String(item.loja || 'PegaTudo Ofertas'),
-              },
+              brand: { '@type': 'Brand', name: String(item.loja || 'PegaTudo Ofertas') },
               offers: {
                 '@type': 'Offer',
                 priceCurrency: 'BRL',
@@ -520,48 +822,63 @@
 
     function renderTabs() {
       const container = document.getElementById('filter-tabs');
-      container.innerHTML = STORES.map((store) => {
-        const isActive = state.selectedStore === store;
-        const style = STORE_STYLES[store] || STORE_STYLES['TODOS'];
+      let html = '';
+
+      // Category tabs
+      CATEGORIES.forEach((cat) => {
+        const isActive = state.selectedCategory === cat.key && !state.selectedStore;
         let count = 0;
-        if (store === 'TODOS') {
+        if (cat.key === 'TODOS') {
           count = state.ofertas.length;
-        } else if (store === 'SALVOS') {
+        } else if (cat.key === 'SALVOS') {
           count = state.ofertas.filter((o) => state.savedIds.has(String(o.id))).length;
-        } else if (store === 'CUPONS') {
+        } else if (cat.key === 'CUPONS') {
           count = state.ofertas.filter((o) => Boolean(String(o.cupom || '').trim())).length;
         } else {
-          count = state.ofertas.filter((o) => String(o.loja || '').toUpperCase() === store).length;
+          count = state.ofertas.filter((o) => matchesCategory(o, cat.key)).length;
         }
 
-        const classes = isActive
-          ? `${style.tabActive} shadow-md`
-          : 'border-slate-700/80 bg-[#0b0f19] text-slate-300 hover:border-slate-600 hover:text-white';
-
-        return `
-          <button
-            type="button"
-            role="tab"
-            aria-selected="${isActive}"
-            data-store="${escapeHtml(store)}"
-            class="inline-flex shrink-0 items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-bold tracking-wide transition ${classes}"
-          >
-            ${store === 'SALVOS' ? `
-              <svg class="h-3.5 w-3.5 ${isActive ? 'text-white fill-current' : 'text-rose-400 fill-current'}" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            ` : `
-              <span class="h-2 w-2 rounded-full ${isActive ? 'bg-current opacity-80' : style.dot}"></span>
-            `}
-            <span>${escapeHtml(store)}</span>
-            <span class="rounded-md bg-black/20 px-1.5 py-0.5 text-[10px] font-bold">${count}</span>
+        html += `
+          <button type="button" role="tab" aria-selected="${isActive}" data-cat="${escapeHtml(cat.key)}"
+            class="cat-btn ${isActive ? 'active' : ''}">
+            <span style="font-size:13px">${cat.icon}</span>
+            <span>${escapeHtml(cat.label)}</span>
+            <span class="cat-count">${count}</span>
           </button>
         `;
-      }).join('');
+      });
 
+      // Separator
+      html += `<span style="display:inline-block;width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0"></span>`;
+
+      // Store filter tabs
+      STORE_FILTERS.forEach((store) => {
+        const isActive = state.selectedStore === store.key;
+        const count = state.ofertas.filter((o) => String(o.loja || '').toUpperCase() === store.key).length;
+        html += `
+          <button type="button" role="tab" aria-selected="${isActive}" data-store="${escapeHtml(store.key)}"
+            class="cat-btn ${isActive ? 'active' : ''}">
+            <span class="cat-dot ${store.dot}"></span>
+            <span>${escapeHtml(store.label)}</span>
+            <span class="cat-count">${count}</span>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('button[data-cat]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.selectedCategory = btn.getAttribute('data-cat');
+          state.selectedStore = '';
+          renderTabs();
+          renderOffers();
+        });
+      });
       container.querySelectorAll('button[data-store]').forEach((btn) => {
         btn.addEventListener('click', () => {
           state.selectedStore = btn.getAttribute('data-store');
+          state.selectedCategory = '';
           renderTabs();
           renderOffers();
         });
@@ -570,14 +887,11 @@
 
     function sortOffers(list) {
       const copy = list.slice();
-
       if (state.sortBy === 'discount') {
         copy.sort((a, b) => {
           const discDiff = getDiscountPercent(b.precoDe, b.precoPor) - getDiscountPercent(a.precoDe, a.precoPor);
           if (discDiff !== 0) return discDiff;
-          const aCoupon = a.cupom ? 1 : 0;
-          const bCoupon = b.cupom ? 1 : 0;
-          return bCoupon - aCoupon;
+          return (b.cupom ? 1 : 0) - (a.cupom ? 1 : 0);
         });
       } else if (state.sortBy === 'price_asc') {
         copy.sort((a, b) => {
@@ -595,15 +909,10 @@
           return (a._sourceIndex ?? 0) - (b._sourceIndex ?? 0);
         });
       }
-
       if (state.highlightedId && state.sortBy === 'recent') {
         const idx = copy.findIndex((o) => String(o.id) === String(state.highlightedId));
-        if (idx > 0) {
-          const [match] = copy.splice(idx, 1);
-          copy.unshift(match);
-        }
+        if (idx > 0) { const [match] = copy.splice(idx, 1); copy.unshift(match); }
       }
-
       return copy;
     }
 
@@ -617,12 +926,19 @@
         const loja = String(item.loja || '').toUpperCase();
         const temCupom = Boolean(String(item.cupom || '').trim());
         const isSaved = state.savedIds.has(String(item.id));
-        const matchesStore =
-          state.selectedStore === 'TODOS' ||
-          (state.selectedStore === 'SALVOS'
-            ? isSaved
-            : (state.selectedStore === 'CUPONS' ? temCupom : loja === state.selectedStore));
-        if (!matchesStore) return false;
+
+        // Store filter
+        if (state.selectedStore) {
+          if (loja !== state.selectedStore) return false;
+        }
+        // Category filter
+        else if (state.selectedCategory === 'SALVOS') {
+          if (!isSaved) return false;
+        } else if (state.selectedCategory === 'CUPONS') {
+          if (!temCupom) return false;
+        } else if (state.selectedCategory && state.selectedCategory !== 'TODOS') {
+          if (!matchesCategory(item, state.selectedCategory)) return false;
+        }
 
         if (!query) return true;
         const haystack = normalizeText(`${item.titulo} ${item.loja} ${item.id} ${item.cupom || ''} ${item.regra_cupom || ''}`);
@@ -630,21 +946,19 @@
       });
 
       const sorted = sortOffers(filtered);
-
       countEl.textContent = `${sorted.length} ${sorted.length === 1 ? 'oferta' : 'ofertas'}`;
 
       if (sorted.length === 0) {
         grid.innerHTML = '';
-        empty.classList.remove('hidden');
+        empty.classList.add('visible');
         return;
       }
+      empty.classList.remove('visible');
 
-      empty.classList.add('hidden');
       const chunks = [];
-
       sorted.forEach((item, index) => {
         const loja = String(item.loja || 'OFERTA').toUpperCase();
-        const storeStyle = STORE_STYLES[loja] || STORE_STYLES['TODOS'];
+        const dotClass = STORE_DOTS[loja] || 'dot-default';
         const discount = getDiscountPercent(item.precoDe, item.precoPor);
         const hasPrice = Number(item.precoPor) > 0;
         const hasOldPrice = hasPrice && Number(item.precoDe) > Number(item.precoPor);
@@ -656,31 +970,18 @@
         const whatsappShareUrl = buildWhatsAppShareUrl(item);
 
         chunks.push(`
-          <article class="group flex flex-col overflow-hidden rounded-2xl border ${isHighlighted ? 'border-emerald-400 ring-2 ring-emerald-400/30' : 'border-slate-800/90 hover:border-slate-700'} bg-slate-900/70 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40">
-            <div class="relative aspect-square w-full overflow-hidden bg-white p-4">
-              <img
-                src="${escapeHtml(item.imagem)}"
-                alt="${escapeHtml(item.titulo)}"
-                loading="lazy"
-                onerror="this.src='https://placehold.co/600x600/111827/94a3b8?text=PegaTudo+Ofertas'"
-                class="h-full w-full object-contain transition duration-300 group-hover:scale-105"
-              />
-              <span class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] font-extrabold tracking-wide backdrop-blur-md bg-slate-950/85 ${storeStyle.badge}">
-                <span class="h-1.5 w-1.5 rounded-full ${storeStyle.dot}"></span>
+          <article class="card ${isHighlighted ? 'highlighted' : ''}">
+            <div class="card-img">
+              <img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.titulo)}" loading="lazy"
+                onerror="this.src='https://placehold.co/400x400/f5f5f5/aaa?text=PegaTudo'" />
+              <span class="card-store-badge">
+                <span class="store-dot ${dotClass}"></span>
                 ${escapeHtml(loja)}
               </span>
-              ${discount > 0 ? `
-                <span class="absolute right-3 top-3 rounded-lg bg-emerald-500 px-2 py-1 text-xs font-black text-slate-950 shadow">
-                  -${discount}%
-                </span>
-              ` : (cupom ? `
-                <span class="absolute right-3 top-3 rounded-lg bg-violet-500 px-2 py-1 text-xs font-black text-white shadow">
-                  CUPOM
-                </span>
-              ` : '')}
+              ${discount > 0 ? `<span class="card-discount-badge">-${discount}%</span>` : (cupom && !hasPrice ? `<span class="card-coupon-badge">CUPOM</span>` : '')}
               ${relativeTime ? `
-                <span class="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-lg border border-slate-700/80 bg-slate-950/85 px-2 py-0.5 text-[11px] font-semibold text-slate-200 backdrop-blur-md">
-                  <svg class="h-3 w-3 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <span class="card-time-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
@@ -689,108 +990,61 @@
               ` : ''}
             </div>
 
-            <div class="flex flex-1 flex-col justify-between p-4">
-              <div>
-                ${isHighlighted ? `
-                  <span class="mb-1.5 inline-block rounded-md bg-emerald-500/15 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-emerald-300">
-                    Oferta em destaque
-                  </span>
-                ` : ''}
-                <h2 class="line-clamp-2 text-sm font-semibold leading-snug text-slate-100 sm:text-base">
-                  ${escapeHtml(item.titulo)}
-                </h2>
-              </div>
+            <div class="card-body">
+              ${isHighlighted ? '<span class="card-highlighted-tag">⭐ Oferta em destaque</span>' : ''}
+              <h2 class="card-title">${escapeHtml(item.titulo)}</h2>
 
-              <div class="mt-4">
+              <div class="card-pricing">
                 ${hasPrice ? `
-                  ${hasOldPrice ? `
-                    <p class="text-xs text-slate-500 line-through">
-                      De ${brlFormatter.format(Number(item.precoDe))}
-                    </p>
-                  ` : '<p class="text-xs text-transparent select-none">-</p>'}
-
-                  <p class="mt-0.5 text-2xl font-black tracking-tight text-emerald-400">
-                    ${brlFormatter.format(Number(item.precoPor))}
-                  </p>
+                  ${hasOldPrice ? `<p class="card-price-old">De ${brlFormatter.format(Number(item.precoDe))}</p>` : '<p style="height:16px"></p>'}
+                  <p class="card-price-current">${brlFormatter.format(Number(item.precoPor))}</p>
                 ` : `
-                  <p class="text-xs font-semibold uppercase tracking-wide text-violet-300">
-                    Cupom de Desconto
-                  </p>
-                  <p class="mt-0.5 line-clamp-1 text-lg font-black tracking-tight text-emerald-400">
-                    ${escapeHtml(regraCupom || 'Desconto na Loja')}
-                  </p>
+                  <p class="card-coupon-only-label">Cupom de Desconto</p>
+                  <p class="card-coupon-only-value">${escapeHtml(regraCupom || 'Desconto na Loja')}</p>
                 `}
 
                 ${cupom ? `
-                  <div class="mt-3 rounded-xl border border-dashed border-violet-400/50 bg-violet-500/10 px-3 py-2">
-                    <div class="flex items-center justify-between gap-2">
-                      <span class="text-[11px] font-bold uppercase tracking-wider text-violet-300">
-                        🎟️ Cupom
-                      </span>
-                      <code class="rounded bg-slate-950/80 px-2 py-0.5 font-mono text-xs font-black tracking-wider text-violet-200 border border-violet-500/30">
-                        ${escapeHtml(cupom)}
-                      </code>
+                  <div class="card-coupon-strip">
+                    <div class="card-coupon-strip-top">
+                      <span class="card-coupon-strip-label">🎟️ Cupom</span>
+                      <code>${escapeHtml(cupom)}</code>
                     </div>
-                    ${regraCupom && hasPrice ? `
-                      <p class="mt-1 line-clamp-2 text-[11px] leading-snug text-slate-300">
-                        ${escapeHtml(regraCupom)}
-                      </p>
-                    ` : ''}
+                    ${regraCupom && hasPrice ? `<p class="card-coupon-strip-rule">${escapeHtml(regraCupom)}</p>` : ''}
                   </div>
                 ` : ''}
+              </div>
 
-                <div class="mt-3 flex items-stretch gap-2">
+              <div class="card-actions">
+                <div class="card-actions-row">
                   ${cupom ? `
-                    <button
-                      type="button"
-                      data-copy-coupon="${escapeHtml(cupom)}"
-                      class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl border border-violet-400/50 bg-violet-500/20 px-3 py-2.5 text-xs font-extrabold text-violet-200 transition hover:bg-violet-500/30 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-offset-2 focus:ring-offset-slate-900"
-                    >
-                      <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                    <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-coupon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
                       <span class="copy-label">Copiar Cupom</span>
                     </button>
                   ` : ''}
-
-                  <a
-                    href="${escapeHtml(item.linkAfiliado)}"
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
-                    class="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-2.5 text-center text-xs font-extrabold text-slate-950 transition hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-slate-900 sm:text-sm"
-                  >
+                  <a href="${escapeHtml(item.linkAfiliado)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
                     <span>Ver Oferta na Loja</span>
-                    <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
                     </svg>
                   </a>
                 </div>
-
-                <div class="mt-2 grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    data-save-offer="${escapeHtml(item.id)}"
-                    aria-pressed="${isSaved}"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-2 text-xs font-bold transition ${isSaved ? 'border-rose-500/60 bg-rose-500/20 text-rose-200 hover:bg-rose-500/30' : 'border-slate-700/80 bg-slate-950/60 text-slate-300 hover:border-rose-500/40 hover:text-rose-200'}"
-                  >
-                    <svg class="h-3.5 w-3.5 shrink-0 ${isSaved ? 'fill-rose-400 text-rose-400' : 'fill-none text-current'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <div class="card-actions-row">
+                  <button type="button" data-save-offer="${escapeHtml(item.id)}" aria-pressed="${isSaved}"
+                    class="btn-save ${isSaved ? 'saved' : ''}">
+                    <svg viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
                     </svg>
                     <span>${isSaved ? 'Salvo' : 'Salvar'}</span>
                   </button>
-
-                  <a
-                    href="${escapeHtml(whatsappShareUrl)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-2 text-xs font-bold text-emerald-300 transition hover:bg-emerald-500/20"
-                  >
-                    <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
+                  <a href="${escapeHtml(whatsappShareUrl)}" target="_blank" rel="noopener noreferrer" class="btn-share">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color:#25D366">
+                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/>
                     </svg>
-                    <span>Enviar no WhatsApp</span>
+                    <span>Compartilhar</span>
                   </a>
                 </div>
               </div>
@@ -805,6 +1059,7 @@
 
       grid.innerHTML = chunks.join('');
 
+      // Coupon copy handlers
       grid.querySelectorAll('button[data-copy-coupon]').forEach((btn) => {
         btn.addEventListener('click', async () => {
           const code = btn.getAttribute('data-copy-coupon') || '';
@@ -814,38 +1069,26 @@
               await navigator.clipboard.writeText(code);
             } else {
               const ta = document.createElement('textarea');
-              ta.value = code;
-              ta.style.position = 'fixed';
-              ta.style.opacity = '0';
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand('copy');
-              document.body.removeChild(ta);
+              ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+              document.body.appendChild(ta); ta.select();
+              document.execCommand('copy'); document.body.removeChild(ta);
             }
           } catch (_) {}
           const label = btn.querySelector('.copy-label');
           if (!label) return;
           const original = label.textContent;
-          label.textContent = 'Copiado!';
-          btn.classList.add('border-emerald-400', 'bg-emerald-500/20', 'text-emerald-200');
-          btn.classList.remove('border-violet-400/50', 'bg-violet-500/20', 'text-violet-200');
-          setTimeout(() => {
-            label.textContent = original;
-            btn.classList.remove('border-emerald-400', 'bg-emerald-500/20', 'text-emerald-200');
-            btn.classList.add('border-violet-400/50', 'bg-violet-500/20', 'text-violet-200');
-          }, 2000);
+          label.textContent = 'Copiado! ✓';
+          btn.classList.add('copied');
+          setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2000);
         });
       });
 
+      // Save handlers
       grid.querySelectorAll('button[data-save-offer]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const id = String(btn.getAttribute('data-save-offer') || '');
           if (!id) return;
-          if (state.savedIds.has(id)) {
-            state.savedIds.delete(id);
-          } else {
-            state.savedIds.add(id);
-          }
+          if (state.savedIds.has(id)) { state.savedIds.delete(id); } else { state.savedIds.add(id); }
           persistSavedIds(state.savedIds);
           renderTabs();
           renderOffers();
@@ -858,40 +1101,33 @@
       state.config.atualizadoEm = config.atualizadoEm || '';
       if (config.nomeSite) {
         state.config.nomeSite = config.nomeSite;
-        document.getElementById('site-title').textContent = config.nomeSite;
       }
       if (config.whatsappVip) {
         state.config.whatsappVip = config.whatsappVip;
         document.getElementById('btn-whatsapp').href = config.whatsappVip;
       }
-      const hasCustomInsta =
-        config.instagram && !/^https?:\/\/(www\.)?instagram\.com\/?$/i.test(String(config.instagram).trim());
+      const hasCustomInsta = config.instagram && !/^https?:\/\/(www\.)?instagram\.com\/?$/i.test(String(config.instagram).trim());
       state.config.instagram = hasCustomInsta ? config.instagram : DEFAULT_INSTAGRAM_URL;
       document.getElementById('btn-instagram').href = state.config.instagram;
-      if (config.telegram) {
-        document.getElementById('btn-telegram').href = config.telegram;
-      }
     }
 
     async function loadOffers() {
       const grid = document.getElementById('offers-grid');
-      grid.innerHTML = Array.from({ length: 4 }).map(() => `
-        <div class="animate-pulse overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60">
-          <div class="aspect-square bg-slate-800/80"></div>
-          <div class="space-y-3 p-4">
-            <div class="h-4 w-4/5 rounded bg-slate-800"></div>
-            <div class="h-4 w-2/3 rounded bg-slate-800"></div>
-            <div class="h-7 w-1/2 rounded bg-slate-800"></div>
-            <div class="h-10 w-full rounded-xl bg-slate-800"></div>
+      grid.innerHTML = Array.from({ length: 8 }).map(() => `
+        <div class="skeleton">
+          <div style="aspect-ratio:1/1;padding:16px"><div class="skeleton-block" style="width:100%;height:100%"></div></div>
+          <div style="padding:14px;display:flex;flex-direction:column;gap:8px">
+            <div class="skeleton-block" style="height:14px;width:85%"></div>
+            <div class="skeleton-block" style="height:14px;width:60%"></div>
+            <div class="skeleton-block" style="height:24px;width:45%"></div>
+            <div class="skeleton-block" style="height:38px;width:100%;border-radius:8px"></div>
           </div>
         </div>
       `).join('');
 
       try {
         const response = await fetch("./ofertas.json?v=" + Date.now(), { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         applyConfig(data.config);
         const rawOffers = Array.isArray(data.ofertas) ? data.ofertas : [];
@@ -915,7 +1151,7 @@
       } catch (err) {
         console.error('Erro ao carregar ofertas:', err);
         grid.innerHTML = '';
-        document.getElementById('empty-state').classList.remove('hidden');
+        document.getElementById('empty-state').classList.add('visible');
         renderTabs();
       }
     }
@@ -931,7 +1167,8 @@
     });
 
     document.getElementById('reset-filters-btn').addEventListener('click', () => {
-      state.selectedStore = 'TODOS';
+      state.selectedCategory = 'TODOS';
+      state.selectedStore = '';
       state.searchQuery = '';
       state.sortBy = 'recent';
       state.highlightedId = '';
