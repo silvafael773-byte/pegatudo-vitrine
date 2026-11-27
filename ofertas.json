@@ -4,9 +4,23 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T12:00:39.882Z"
+    "atualizadoEm": "2026-11-27T15:00:39.775Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-CPN-6b09938cfe8d9cd25debb197",
+      "loja": "LOJA PARCEIRA",
+      "categoria": "OUTROS",
+      "titulo": "Black Friday com 12% off sem regras",
+      "precoDe": 0,
+      "precoPor": 0,
+      "imagem": "https://cdn.lomadee.com.br/logos/b89e4834-6f7c-4ac8-9972-5d579488432c/logo",
+      "linkAfiliado": "https://lmdee.link/9DwaMCqinFCf",
+      "cupom": "BLACK12",
+      "regra_cupom": "Black Friday com 12% off sem regras",
+      "adicionadoEm": "2026-11-27T15:00:39.775Z",
+      "ativo": true
+    },
     {
       "id": "LMD-994242156",
       "loja": "BRINOX",
