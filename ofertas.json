@@ -4,9 +4,45 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T23:00:22.653Z"
+    "atualizadoEm": "2026-11-27T23:30:14.546Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-1027435",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall Philco Eco U/h Frio Inverter 18000 BTU/h Monofásico PAC18000IFM15 – 220 Volts",
+      "precoDe": 4287.8,
+      "precoPor": 3548,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/233482/231955-800-auto.jpg?v=638543308960730000",
+      "linkAfiliado": "https://lmdee.link/2WNIZYCkoF7X",
+      "adicionadoEm": "2026-11-27T23:30:14.546Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1030906",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall Inverter Elgin Eco Dream 12000 BTU/h Quente e Frio 45HIQI12C2WA – 220 Volts",
+      "precoDe": 3517.8,
+      "precoPor": 2734.74,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/232442/Split-Elgin.jpg?v=639075436747100000",
+      "linkAfiliado": "https://lmdee.link/TfIZk6ss41b8",
+      "adicionadoEm": "2026-11-27T23:30:14.546Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1034307",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall Inverter Philco 12000 BTU/h Frio PAC12FC – 220 Volts",
+      "precoDe": 3132.8,
+      "precoPor": 2348,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/246155/181038-600-auto.jpg.jpg?v=638911482684070000",
+      "linkAfiliado": "https://lmdee.link/VwK2pbkqo3k1",
+      "adicionadoEm": "2026-11-27T23:30:14.546Z",
+      "ativo": true
+    },
     {
       "id": "LMD-1032942",
       "loja": "FRIOPEÇAS PARAÍBA",
