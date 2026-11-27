@@ -1076,6 +1076,23 @@
       .vip-banner { padding: 16px; }
       .vip-banner h3 { font-size: 15px; }
     }
+    @media (max-width: 640px) {
+      .card-coupon-strip {
+        flex-direction: column; align-items: stretch; gap: 6px; padding: 7px 8px;
+      }
+      .card-coupon-left {
+        flex-wrap: wrap; justify-content: space-between; gap: 4px; width: 100%;
+      }
+      .card-coupon-strip code {
+        order: 3; width: 100%; text-align: center;
+        white-space: normal; word-break: break-all;
+        overflow: visible; text-overflow: clip;
+        font-size: 11.5px; padding: 4px 6px;
+      }
+      .btn-copy-inline {
+        width: 100%; justify-content: center; padding: 5px 8px;
+      }
+    }
     @media (max-width: 480px) {
       .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .card-body { padding: 10px; }
