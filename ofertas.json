@@ -4,9 +4,21 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T16:00:37.487Z"
+    "atualizadoEm": "2026-11-27T17:00:35.233Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-86340",
+      "loja": "NUTRI BULLET",
+      "categoria": "CASA",
+      "titulo": "Liquidificador Individual Blender e Extrator Nutribullet Ultra 1000W",
+      "precoDe": 1099.99,
+      "precoPor": 749.99,
+      "imagem": "https://cdn.shopify.com/s/files/1/0762/8256/0757/files/uLTRA_-_2.png?v=1765459189",
+      "linkAfiliado": "https://lmdee.link/bDlOMhiOJSia",
+      "adicionadoEm": "2026-11-27T17:00:35.233Z",
+      "ativo": true
+    },
     {
       "id": "LMD-CPN-6b09a4c9fe8d9cd25debc755",
       "loja": "LOJA PARCEIRA",
