@@ -2154,7 +2154,7 @@
           });
           const data = await resp.json().catch(() => ({}));
           if (!resp.ok || data.ok === false) {
-            throw new Error(data.message || 'Erro ao salvar alerta.');
+            throw new Error(data.message || `Erro ao salvar alerta (HTTP ${resp.status}).`);
           }
           statusEl.className = 'alert-status ok';
           statusEl.textContent = data.message || 'Alerta ativado! Confira seu WhatsApp.';

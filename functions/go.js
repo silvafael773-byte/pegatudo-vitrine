@@ -1,4 +1,4 @@
-const N8N_CLICK_WEBHOOK = 'http://163.176.38.216:5678/webhook/pegatudo-click';
+const N8N_CLICK_WEBHOOK = 'http://163-176-38-216.sslip.io:5678/webhook/pegatudo-click';
 const FALLBACK_URL = 'https://pegatudo-vitrine.pages.dev/';
 
 function isValidHttpUrl(url) {
