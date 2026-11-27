@@ -1469,6 +1469,36 @@
       return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
     }
 
+    function normalizeSearchTerm(value) {
+      let s = normalizeText(value)
+        .replace(/\bplastation\b|\bplaystaton\b|\bplaystantion\b|\bplay\s*station\b/g, 'playstation')
+        .replace(/\biphon\b|\biphones\b/g, 'iphone')
+        .replace(/\bair\s*fryer\b/g, 'airfryer')
+        .replace(/\bsmart\s*watch\b/g, 'smartwatch');
+      return s;
+    }
+
+    function getSearchVariants(rawQuery) {
+      const base = normalizeSearchTerm(rawQuery);
+      if (!base) return [];
+      const variants = new Set([base]);
+      if (/\bplaystation\s*5\b/.test(base)) variants.add(base.replace(/\bplaystation\s*5\b/g, 'ps5'));
+      if (/\bps5\b/.test(base)) variants.add(base.replace(/\bps5\b/g, 'playstation 5'));
+      if (/\bairfryer\b/.test(base)) variants.add(base.replace(/\bairfryer\b/g, 'air fryer'));
+      if (/\biphone\b/.test(base) && !/\bapple\b/.test(base)) variants.add(`apple ${base}`);
+      return [...variants];
+    }
+
+    function matchesSearchQuery(item, rawQuery) {
+      const variants = getSearchVariants(rawQuery);
+      if (variants.length === 0) return true;
+      const haystack = normalizeSearchTerm(`${item.titulo} ${item.loja} ${item.categoria || ''} ${item.id} ${item.cupom || ''} ${item.regra_cupom || ''}`);
+      return variants.some((v) => {
+        const tokens = v.split(/\s+/).filter(Boolean);
+        return tokens.length > 0 && tokens.every((t) => haystack.includes(t));
+      });
+    }
+
     function escapeHtml(str) {
       return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
@@ -2015,8 +2045,7 @@
         if (pMax !== null && !Number.isNaN(pMax) && (precoPor <= 0 || precoPor > pMax)) return false;
 
         if (!query) return true;
-        const haystack = normalizeText(`${item.titulo} ${item.loja} ${item.id} ${item.cupom || ''} ${item.regra_cupom || ''}`);
-        return haystack.includes(query);
+        return matchesSearchQuery(item, state.searchQuery);
       });
 
       const sorted = sortOffers(filtered);

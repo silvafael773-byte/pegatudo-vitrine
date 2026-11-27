@@ -2,9 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>hourly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=MLB38338044</loc>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=MLB48221921</loc>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-143119</loc>
+    <lastmod>2026-11-27T20:36:10.373Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-148228</loc>
+    <lastmod>2026-11-27T20:36:10.373Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-148229</loc>
+    <lastmod>2026-11-27T20:36:10.373Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-148227</loc>
+    <lastmod>2026-11-27T20:36:10.373Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-CPN-6b09c043fe8d9cd25debe0a6</loc>
@@ -50,37 +86,37 @@
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-CPN-6b08ab1afe8d9cd25deae1a7</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-106531</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-4917</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-116119</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=LMD-137291</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pegatudo-vitrine.pages.dev/?oferta=MLB76221475</loc>
-    <lastmod>2026-11-27T18:00:34.966Z</lastmod>
+    <lastmod>2026-11-27T20:41:56.297Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
