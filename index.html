@@ -3,8 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PegaTudo Ofertas — As Melhores Ofertas do Dia</title>
-  <meta name="description" content="Vitrine de ofertas selecionadas do Mercado Livre, Shopee, Amazon e Magalu com descontos atualizados." />
+  <title>PegaTudo Ofertas — As Melhores Ofertas e Cupons do Dia</title>
+  <meta id="meta-description" name="description" content="Vitrine de ofertas selecionadas e cupons verificados do Mercado Livre, Shopee, Amazon, Magalu e grandes lojas com descontos atualizados em tempo real." />
+  <meta name="robots" content="index, follow" />
+  <link id="canonical-link" rel="canonical" href="https://pegatudo-vitrine.pages.dev/" />
+
+  <!-- Open Graph / Social -->
+  <meta id="og-type" property="og:type" content="website" />
+  <meta id="og-site-name" property="og:site_name" content="PegaTudo Ofertas" />
+  <meta id="og-title" property="og:title" content="PegaTudo Ofertas — As Melhores Ofertas e Cupons do Dia" />
+  <meta id="og-description" property="og:description" content="Descontos reais e cupons atualizados das maiores lojas do Brasil." />
+  <meta id="og-url" property="og:url" content="https://pegatudo-vitrine.pages.dev/" />
+  <meta id="og-image" property="og:image" content="https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="twitter-title" name="twitter:title" content="PegaTudo Ofertas — As Melhores Ofertas e Cupons do Dia" />
+  <meta id="twitter-description" name="twitter:description" content="Descontos reais e cupons atualizados das maiores lojas do Brasil." />
+  <meta id="twitter-image" name="twitter:image" content="https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas" />
+
+  <script id="structured-data" type="application/ld+json">{}</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -68,10 +86,10 @@
 
         <a
           id="btn-instagram"
-          href="https://instagram.com"
+          href="https://www.instagram.com/pega.tudo.loja/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Instagram"
+          aria-label="Instagram @pega.tudo.loja"
           class="inline-flex items-center gap-1.5 rounded-xl border border-pink-500/30 bg-pink-500/10 px-2.5 py-2 text-xs font-semibold text-pink-300 transition hover:bg-pink-500/20 sm:px-3 sm:text-sm"
         >
           <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -129,12 +147,24 @@
         </div>
       </div>
 
-      <!-- Abas de Filtro -->
-      <div class="mt-5 flex items-center justify-between gap-4 border-t border-slate-800/80 pt-4">
+      <!-- Abas de Filtro + Ordenação -->
+      <div class="mt-5 flex flex-col gap-3 border-t border-slate-800/80 pt-4 md:flex-row md:items-center md:justify-between">
         <div id="filter-tabs" class="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Filtrar por loja">
           <!-- Renderizado via JS -->
         </div>
-        <span id="offers-count" class="hidden shrink-0 text-xs font-medium text-slate-400 sm:inline"></span>
+
+        <div class="flex shrink-0 items-center justify-between gap-3 md:justify-end">
+          <span id="offers-count" class="text-xs font-medium text-slate-400"></span>
+          <label for="sort-select" class="sr-only">Ordenar ofertas</label>
+          <select
+            id="sort-select"
+            class="rounded-xl border border-slate-700/80 bg-[#0b0f19] px-3 py-2 text-xs font-bold text-slate-200 transition focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          >
+            <option value="recent">Mais Recentes</option>
+            <option value="discount">Maior Desconto (%)</option>
+            <option value="price_asc">Menor Preço</option>
+          </select>
+        </div>
       </div>
     </section>
 
@@ -163,9 +193,20 @@
   </footer>
 
   <script>
-    const STORES = ['TODOS', 'CUPONS', 'MERCADO LIVRE', 'SHOPEE', 'AMAZON', 'MAGALU'];
+    const SITE_URL = 'https://pegatudo-vitrine.pages.dev';
+    const MAX_ACTIVE_OFFERS = 60;
+    const SAVED_STORAGE_KEY = 'pegatudo_saved_offers_v1';
+    const DEFAULT_WHATSAPP_VIP = 'https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE';
+    const DEFAULT_INSTAGRAM_URL = 'https://www.instagram.com/pega.tudo.loja/';
+
+    const STORES = ['TODOS', 'SALVOS', 'CUPONS', 'MERCADO LIVRE', 'SHOPEE', 'AMAZON', 'MAGALU'];
 
     const STORE_STYLES = {
+      'SALVOS': {
+        badge: 'bg-rose-500/15 text-rose-300 border-rose-500/40',
+        dot: 'bg-rose-400',
+        tabActive: 'bg-rose-500 text-white border-rose-500 shadow-rose-500/20',
+      },
       'CUPONS': {
         badge: 'bg-violet-500/15 text-violet-300 border-violet-500/40',
         dot: 'bg-violet-400',
@@ -198,10 +239,49 @@
       }
     };
 
+    function loadSavedIds() {
+      try {
+        const raw = localStorage.getItem(SAVED_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+      } catch (_) {
+        return new Set();
+      }
+    }
+
+    function persistSavedIds(idSet) {
+      try {
+        localStorage.setItem(SAVED_STORAGE_KEY, JSON.stringify([...idSet]));
+      } catch (_) {}
+    }
+
+    function getInitialUrlState() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          ofertaId: params.get('oferta') || '',
+          lojaParam: (params.get('loja') || '').toUpperCase(),
+        };
+      } catch (_) {
+        return { ofertaId: '', lojaParam: '' };
+      }
+    }
+
+    const urlState = getInitialUrlState();
+
     const state = {
       ofertas: [],
-      selectedStore: 'TODOS',
+      selectedStore: STORES.includes(urlState.lojaParam) ? urlState.lojaParam : 'TODOS',
       searchQuery: '',
+      sortBy: 'recent',
+      savedIds: loadSavedIds(),
+      highlightedId: urlState.ofertaId,
+      config: {
+        nomeSite: 'PegaTudo Ofertas',
+        whatsappVip: DEFAULT_WHATSAPP_VIP,
+        instagram: DEFAULT_INSTAGRAM_URL,
+        atualizadoEm: '',
+      },
     };
 
     const brlFormatter = new Intl.NumberFormat('pt-BR', {
@@ -226,6 +306,53 @@
         .replace(/'/g, '&#039;');
     }
 
+    function isValidHttpUrl(url) {
+      return typeof url === 'string' && /^https?:\/\//i.test(url.trim());
+    }
+
+    function isValidOffer(item) {
+      if (!item || item.ativo === false) return false;
+      if (!isValidHttpUrl(item.imagem)) return false;
+      const precoPor = Number(item.precoPor || 0);
+      const temCupom = Boolean(String(item.cupom || '').trim());
+      return precoPor > 0 || temCupom;
+    }
+
+    function getOfferTimestamp(item) {
+      const raw = item?.adicionadoEm || item?.criadoEm || item?.dataCadastro || item?.createdAt || '';
+      if (!raw) return null;
+      const ms = Date.parse(raw);
+      return Number.isNaN(ms) ? null : ms;
+    }
+
+    function formatRelativeTime(item, fallbackIso) {
+      const itemMs = getOfferTimestamp(item);
+      const fallbackMs = fallbackIso ? Date.parse(fallbackIso) : NaN;
+      const targetMs = itemMs !== null ? itemMs : (!Number.isNaN(fallbackMs) ? fallbackMs : null);
+      if (targetMs === null) return '';
+
+      const diffMs = Math.max(0, Date.now() - targetMs);
+      const diffMinutes = Math.floor(diffMs / 60000);
+      if (diffMinutes < 5) return 'Agora';
+      if (diffMinutes < 60) return `Há ${diffMinutes} min`;
+
+      const diffHours = Math.floor(diffMinutes / 60);
+      if (diffHours < 24) {
+        return diffHours === 1 ? 'Há 1 hora' : `Há ${diffHours} horas`;
+      }
+
+      const now = new Date();
+      const target = new Date(targetMs);
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const startOfTarget = new Date(target.getFullYear(), target.getMonth(), target.getDate()).getTime();
+      const diffDays = Math.round((startOfToday - startOfTarget) / 86400000);
+
+      if (diffDays <= 0) return 'Hoje';
+      if (diffDays === 1) return 'Ontem';
+      if (diffDays < 7) return `Há ${diffDays} dias`;
+      return target.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    }
+
     function getDiscountPercent(precoDe, precoPor) {
       const de = Number(precoDe);
       const por = Number(precoPor);
@@ -233,16 +360,179 @@
       return Math.round(((de - por) / de) * 100);
     }
 
+    function buildWhatsAppShareUrl(item) {
+      const cupom = String(item.cupom || '').trim();
+      const regra = String(item.regra_cupom || '').trim();
+      const hasPrice = Number(item.precoPor) > 0;
+      const discount = getDiscountPercent(item.precoDe, item.precoPor);
+      const ofertaUrl = item.id
+        ? `${SITE_URL}/?oferta=${encodeURIComponent(String(item.id))}`
+        : `${SITE_URL}/`;
+
+      const lines = [
+        `🔥 *${item.titulo}*`,
+        `🏪 Loja: ${String(item.loja || 'Oferta').toUpperCase()}`,
+      ];
+
+      if (hasPrice) {
+        const discountLabel = discount > 0 ? ` (-${discount}%)` : '';
+        lines.push(`💰 Por apenas *${brlFormatter.format(Number(item.precoPor))}*${discountLabel}`);
+      } else if (regra) {
+        lines.push(`🏷️ Benefício: *${regra}*`);
+      }
+
+      if (cupom) {
+        lines.push(`🎟️ Cupom: *${cupom}*`);
+      }
+
+      lines.push(`👉 Confira na vitrine: ${ofertaUrl}`);
+      return `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
+    function renderVipBanner(index) {
+      const whatsappHref = escapeHtml(state.config.whatsappVip || DEFAULT_WHATSAPP_VIP);
+      const instaHref = escapeHtml(state.config.instagram || DEFAULT_INSTAGRAM_URL);
+
+      return `
+        <aside
+          aria-label="Entre no Grupo VIP e siga no Instagram"
+          data-vip-banner="${index}"
+          class="col-span-full overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/70 via-slate-900 to-pink-950/50 p-5 shadow-xl sm:p-6"
+        >
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div class="space-y-1.5">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-emerald-300">
+                ⚡ Alertas em Primeira Mão
+              </span>
+              <h3 class="text-lg font-extrabold tracking-tight text-white sm:text-xl">
+                Receba cupons relâmpago antes que acabem!
+              </h3>
+              <p class="max-w-2xl text-xs text-slate-300 sm:text-sm">
+                Entre no nosso <strong class="text-emerald-300">Grupo VIP do WhatsApp</strong> e siga <strong class="text-pink-300">@pega.tudo.loja</strong> no Instagram para pegar achados, promoções bugadas e códigos exclusivos todos os dias.
+              </p>
+            </div>
+
+            <div class="flex flex-col gap-2.5 sm:flex-row sm:items-center shrink-0">
+              <a
+                href="${whatsappHref}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs font-extrabold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400 sm:text-sm"
+              >
+                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
+                </svg>
+                <span>Entrar no Grupo VIP</span>
+              </a>
+
+              <a
+                href="${instaHref}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-xl border border-pink-500/40 bg-pink-500/15 px-4 py-2.5 text-xs font-extrabold text-pink-200 transition hover:bg-pink-500/25 sm:text-sm"
+              >
+                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>Seguir @pega.tudo.loja</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      `;
+    }
+
+    function updateSeoMetadata(offers, config) {
+      const siteName = config?.nomeSite || 'PegaTudo Ofertas';
+      const focused = state.highlightedId
+        ? offers.find((o) => String(o.id) === String(state.highlightedId))
+        : null;
+
+      let title = `${siteName} — As Melhores Ofertas e Cupons do Dia`;
+      let description = `Confira ${offers.length} ofertas e cupons verificados do Mercado Livre, Shopee, Amazon, Magalu e grandes lojas atualizados em tempo real.`;
+      let pageUrl = `${SITE_URL}/`;
+      let image = offers[0]?.imagem || 'https://placehold.co/1200x630/0b0f19/10b981?text=PegaTudo+Ofertas';
+
+      if (focused) {
+        const cupomTxt = focused.cupom ? ` | Cupom: ${focused.cupom}` : '';
+        const precoTxt = Number(focused.precoPor) > 0
+          ? ` por ${brlFormatter.format(Number(focused.precoPor))}`
+          : '';
+        title = `${focused.titulo}${precoTxt} — ${siteName}`;
+        description = `Oferta na loja ${String(focused.loja || '').toUpperCase()}${precoTxt}${cupomTxt}. Garimpada pelo ${siteName}.`;
+        pageUrl = `${SITE_URL}/?oferta=${encodeURIComponent(String(focused.id))}`;
+        image = focused.imagem || image;
+      }
+
+      document.title = title;
+      const setAttr = (id, attr, val) => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute(attr, val);
+      };
+
+      setAttr('meta-description', 'content', description);
+      setAttr('canonical-link', 'href', pageUrl);
+      setAttr('og-site-name', 'content', siteName);
+      setAttr('og-title', 'content', title);
+      setAttr('og-description', 'content', description);
+      setAttr('og-url', 'content', pageUrl);
+      setAttr('og-image', 'content', image);
+      setAttr('twitter-title', 'content', title);
+      setAttr('twitter-description', 'content', description);
+      setAttr('twitter-image', 'content', image);
+
+      const ldEl = document.getElementById('structured-data');
+      if (ldEl) {
+        const ldJson = {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: title,
+          description,
+          url: pageUrl,
+          numberOfItems: offers.length,
+          itemListElement: offers.slice(0, 20).map((item, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            url: item.id ? `${SITE_URL}/?oferta=${encodeURIComponent(String(item.id))}` : `${SITE_URL}/`,
+            item: {
+              '@type': 'Product',
+              name: item.titulo,
+              image: item.imagem,
+              brand: {
+                '@type': 'Brand',
+                name: String(item.loja || 'PegaTudo Ofertas'),
+              },
+              offers: {
+                '@type': 'Offer',
+                priceCurrency: 'BRL',
+                price: Number(item.precoPor || 0) > 0 ? Number(item.precoPor).toFixed(2) : '0.00',
+                availability: 'https://schema.org/InStock',
+                url: item.linkAfiliado,
+              },
+            },
+          })),
+        };
+        ldEl.textContent = JSON.stringify(ldJson);
+      }
+    }
+
     function renderTabs() {
       const container = document.getElementById('filter-tabs');
       container.innerHTML = STORES.map((store) => {
         const isActive = state.selectedStore === store;
         const style = STORE_STYLES[store] || STORE_STYLES['TODOS'];
-        const count = store === 'TODOS'
-          ? state.ofertas.length
-          : (store === 'CUPONS'
-              ? state.ofertas.filter((o) => Boolean(String(o.cupom || '').trim())).length
-              : state.ofertas.filter((o) => String(o.loja || '').toUpperCase() === store).length);
+        let count = 0;
+        if (store === 'TODOS') {
+          count = state.ofertas.length;
+        } else if (store === 'SALVOS') {
+          count = state.ofertas.filter((o) => state.savedIds.has(String(o.id))).length;
+        } else if (store === 'CUPONS') {
+          count = state.ofertas.filter((o) => Boolean(String(o.cupom || '').trim())).length;
+        } else {
+          count = state.ofertas.filter((o) => String(o.loja || '').toUpperCase() === store).length;
+        }
 
         const classes = isActive
           ? `${style.tabActive} shadow-md`
@@ -256,7 +546,13 @@
             data-store="${escapeHtml(store)}"
             class="inline-flex shrink-0 items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-bold tracking-wide transition ${classes}"
           >
-            <span class="h-2 w-2 rounded-full ${isActive ? 'bg-current opacity-80' : style.dot}"></span>
+            ${store === 'SALVOS' ? `
+              <svg class="h-3.5 w-3.5 ${isActive ? 'text-white fill-current' : 'text-rose-400 fill-current'}" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            ` : `
+              <span class="h-2 w-2 rounded-full ${isActive ? 'bg-current opacity-80' : style.dot}"></span>
+            `}
             <span>${escapeHtml(store)}</span>
             <span class="rounded-md bg-black/20 px-1.5 py-0.5 text-[10px] font-bold">${count}</span>
           </button>
@@ -272,6 +568,45 @@
       });
     }
 
+    function sortOffers(list) {
+      const copy = list.slice();
+
+      if (state.sortBy === 'discount') {
+        copy.sort((a, b) => {
+          const discDiff = getDiscountPercent(b.precoDe, b.precoPor) - getDiscountPercent(a.precoDe, a.precoPor);
+          if (discDiff !== 0) return discDiff;
+          const aCoupon = a.cupom ? 1 : 0;
+          const bCoupon = b.cupom ? 1 : 0;
+          return bCoupon - aCoupon;
+        });
+      } else if (state.sortBy === 'price_asc') {
+        copy.sort((a, b) => {
+          const pa = Number(a.precoPor) > 0 ? Number(a.precoPor) : Number.POSITIVE_INFINITY;
+          const pb = Number(b.precoPor) > 0 ? Number(b.precoPor) : Number.POSITIVE_INFINITY;
+          return pa - pb;
+        });
+      } else {
+        copy.sort((a, b) => {
+          const ta = getOfferTimestamp(a);
+          const tb = getOfferTimestamp(b);
+          if (ta !== null && tb !== null && tb !== ta) return tb - ta;
+          if (ta !== null && tb === null) return -1;
+          if (tb !== null && ta === null) return 1;
+          return (a._sourceIndex ?? 0) - (b._sourceIndex ?? 0);
+        });
+      }
+
+      if (state.highlightedId && state.sortBy === 'recent') {
+        const idx = copy.findIndex((o) => String(o.id) === String(state.highlightedId));
+        if (idx > 0) {
+          const [match] = copy.splice(idx, 1);
+          copy.unshift(match);
+        }
+      }
+
+      return copy;
+    }
+
     function renderOffers() {
       const grid = document.getElementById('offers-grid');
       const empty = document.getElementById('empty-state');
@@ -281,9 +616,12 @@
       const filtered = state.ofertas.filter((item) => {
         const loja = String(item.loja || '').toUpperCase();
         const temCupom = Boolean(String(item.cupom || '').trim());
+        const isSaved = state.savedIds.has(String(item.id));
         const matchesStore =
           state.selectedStore === 'TODOS' ||
-          (state.selectedStore === 'CUPONS' ? temCupom : loja === state.selectedStore);
+          (state.selectedStore === 'SALVOS'
+            ? isSaved
+            : (state.selectedStore === 'CUPONS' ? temCupom : loja === state.selectedStore));
         if (!matchesStore) return false;
 
         if (!query) return true;
@@ -291,16 +629,20 @@
         return haystack.includes(query);
       });
 
-      countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'oferta' : 'ofertas'}`;
+      const sorted = sortOffers(filtered);
 
-      if (filtered.length === 0) {
+      countEl.textContent = `${sorted.length} ${sorted.length === 1 ? 'oferta' : 'ofertas'}`;
+
+      if (sorted.length === 0) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
         return;
       }
 
       empty.classList.add('hidden');
-      grid.innerHTML = filtered.map((item) => {
+      const chunks = [];
+
+      sorted.forEach((item, index) => {
         const loja = String(item.loja || 'OFERTA').toUpperCase();
         const storeStyle = STORE_STYLES[loja] || STORE_STYLES['TODOS'];
         const discount = getDiscountPercent(item.precoDe, item.precoPor);
@@ -308,9 +650,13 @@
         const hasOldPrice = hasPrice && Number(item.precoDe) > Number(item.precoPor);
         const cupom = String(item.cupom || '').trim();
         const regraCupom = String(item.regra_cupom || '').trim();
+        const relativeTime = formatRelativeTime(item, state.config.atualizadoEm);
+        const isSaved = state.savedIds.has(String(item.id));
+        const isHighlighted = state.highlightedId && String(item.id) === String(state.highlightedId);
+        const whatsappShareUrl = buildWhatsAppShareUrl(item);
 
-        return `
-          <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-800/90 bg-slate-900/70 transition duration-200 hover:-translate-y-0.5 hover:border-slate-700 hover:shadow-xl hover:shadow-black/40">
+        chunks.push(`
+          <article class="group flex flex-col overflow-hidden rounded-2xl border ${isHighlighted ? 'border-emerald-400 ring-2 ring-emerald-400/30' : 'border-slate-800/90 hover:border-slate-700'} bg-slate-900/70 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40">
             <div class="relative aspect-square w-full overflow-hidden bg-white p-4">
               <img
                 src="${escapeHtml(item.imagem)}"
@@ -332,12 +678,28 @@
                   CUPOM
                 </span>
               ` : '')}
+              ${relativeTime ? `
+                <span class="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-lg border border-slate-700/80 bg-slate-950/85 px-2 py-0.5 text-[11px] font-semibold text-slate-200 backdrop-blur-md">
+                  <svg class="h-3 w-3 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  ${escapeHtml(relativeTime)}
+                </span>
+              ` : ''}
             </div>
 
             <div class="flex flex-1 flex-col justify-between p-4">
-              <h2 class="line-clamp-2 text-sm font-semibold leading-snug text-slate-100 sm:text-base">
-                ${escapeHtml(item.titulo)}
-              </h2>
+              <div>
+                ${isHighlighted ? `
+                  <span class="mb-1.5 inline-block rounded-md bg-emerald-500/15 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-emerald-300">
+                    Oferta em destaque
+                  </span>
+                ` : ''}
+                <h2 class="line-clamp-2 text-sm font-semibold leading-snug text-slate-100 sm:text-base">
+                  ${escapeHtml(item.titulo)}
+                </h2>
+              </div>
 
               <div class="mt-4">
                 ${hasPrice ? `
@@ -405,11 +767,43 @@
                     </svg>
                   </a>
                 </div>
+
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    data-save-offer="${escapeHtml(item.id)}"
+                    aria-pressed="${isSaved}"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-2 text-xs font-bold transition ${isSaved ? 'border-rose-500/60 bg-rose-500/20 text-rose-200 hover:bg-rose-500/30' : 'border-slate-700/80 bg-slate-950/60 text-slate-300 hover:border-rose-500/40 hover:text-rose-200'}"
+                  >
+                    <svg class="h-3.5 w-3.5 shrink-0 ${isSaved ? 'fill-rose-400 text-rose-400' : 'fill-none text-current'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                    </svg>
+                    <span>${isSaved ? 'Salvo' : 'Salvar'}</span>
+                  </button>
+
+                  <a
+                    href="${escapeHtml(whatsappShareUrl)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-2 text-xs font-bold text-emerald-300 transition hover:bg-emerald-500/20"
+                  >
+                    <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
+                    </svg>
+                    <span>Enviar no WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </div>
           </article>
-        `;
-      }).join('');
+        `);
+
+        if ((index + 1) % 8 === 0) {
+          chunks.push(renderVipBanner(index + 1));
+        }
+      });
+
+      grid.innerHTML = chunks.join('');
 
       grid.querySelectorAll('button[data-copy-coupon]').forEach((btn) => {
         btn.addEventListener('click', async () => {
@@ -442,20 +836,38 @@
           }, 2000);
         });
       });
+
+      grid.querySelectorAll('button[data-save-offer]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = String(btn.getAttribute('data-save-offer') || '');
+          if (!id) return;
+          if (state.savedIds.has(id)) {
+            state.savedIds.delete(id);
+          } else {
+            state.savedIds.add(id);
+          }
+          persistSavedIds(state.savedIds);
+          renderTabs();
+          renderOffers();
+        });
+      });
     }
 
     function applyConfig(config) {
       if (!config || typeof config !== 'object') return;
+      state.config.atualizadoEm = config.atualizadoEm || '';
       if (config.nomeSite) {
+        state.config.nomeSite = config.nomeSite;
         document.getElementById('site-title').textContent = config.nomeSite;
-        document.title = `${config.nomeSite} — As Melhores Ofertas do Dia`;
       }
       if (config.whatsappVip) {
+        state.config.whatsappVip = config.whatsappVip;
         document.getElementById('btn-whatsapp').href = config.whatsappVip;
       }
-      if (config.instagram) {
-        document.getElementById('btn-instagram').href = config.instagram;
-      }
+      const hasCustomInsta =
+        config.instagram && !/^https?:\/\/(www\.)?instagram\.com\/?$/i.test(String(config.instagram).trim());
+      state.config.instagram = hasCustomInsta ? config.instagram : DEFAULT_INSTAGRAM_URL;
+      document.getElementById('btn-instagram').href = state.config.instagram;
       if (config.telegram) {
         document.getElementById('btn-telegram').href = config.telegram;
       }
@@ -483,7 +895,21 @@
         const data = await response.json();
         applyConfig(data.config);
         const rawOffers = Array.isArray(data.ofertas) ? data.ofertas : [];
-        state.ofertas = rawOffers.filter((item) => item && item.ativo !== false);
+        const validOffers = rawOffers
+          .map((item, idx) => (item ? { ...item, _sourceIndex: idx } : null))
+          .filter(isValidOffer);
+
+        validOffers.sort((a, b) => {
+          const ta = getOfferTimestamp(a);
+          const tb = getOfferTimestamp(b);
+          if (ta !== null && tb !== null && tb !== ta) return tb - ta;
+          if (ta !== null && tb === null) return -1;
+          if (tb !== null && ta === null) return 1;
+          return a._sourceIndex - b._sourceIndex;
+        });
+
+        state.ofertas = validOffers.slice(0, MAX_ACTIVE_OFFERS);
+        updateSeoMetadata(state.ofertas, state.config);
         renderTabs();
         renderOffers();
       } catch (err) {
@@ -499,10 +925,18 @@
       renderOffers();
     });
 
+    document.getElementById('sort-select').addEventListener('change', (event) => {
+      state.sortBy = event.target.value || 'recent';
+      renderOffers();
+    });
+
     document.getElementById('reset-filters-btn').addEventListener('click', () => {
       state.selectedStore = 'TODOS';
       state.searchQuery = '';
+      state.sortBy = 'recent';
+      state.highlightedId = '';
       document.getElementById('search-input').value = '';
+      document.getElementById('sort-select').value = 'recent';
       renderTabs();
       renderOffers();
     });
