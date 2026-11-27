@@ -4,9 +4,19 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T00:22:14.669Z"
+    "atualizadoEm": "2026-11-27T00:28:49.673Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-4917",
+      "loja": "CANDIDE",
+      "titulo": "Fone de Ouvido Bluetooth Bluey",
+      "precoDe": 129.99,
+      "precoPor": 129.99,
+      "imagem": "https://candide.vtexassets.com/arquivos/ids/1454050/79170_0-.jpg?v=639294816987800000",
+      "linkAfiliado": "https://lmdee.link/AyohJxC1HJ6u",
+      "ativo": true
+    },
     {
       "id": "LMD-91239",
       "loja": "SHOPINFO",
