@@ -4,9 +4,23 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T15:00:39.775Z"
+    "atualizadoEm": "2026-11-27T16:00:37.487Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-CPN-6b09a4c9fe8d9cd25debc755",
+      "loja": "LOJA PARCEIRA",
+      "categoria": "OUTROS",
+      "titulo": "Black November - 15% OFF EXTRA- Na NOVA COLEÇÃO de Alto Verão",
+      "precoDe": 0,
+      "precoPor": 0,
+      "imagem": "https://cdn.lomadee.com.br/logos/c364d4e3-56e2-4da9-a6ea-195716da559a/logo",
+      "linkAfiliado": "https://lmdee.link/robJVLEVa2n0",
+      "cupom": "VERAO",
+      "regra_cupom": "Black November - 15% OFF EXTRA- Na NOVA COLEÇÃO de Alto Verão",
+      "adicionadoEm": "2026-11-27T16:00:37.487Z",
+      "ativo": true
+    },
     {
       "id": "LMD-CPN-6b09938cfe8d9cd25debb197",
       "loja": "LOJA PARCEIRA",
