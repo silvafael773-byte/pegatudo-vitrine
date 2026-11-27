@@ -4,9 +4,57 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T22:00:21.297Z"
+    "atualizadoEm": "2026-11-27T22:30:15.029Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-1033791",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall Philco 18000 BTUS/h Quente e Frio PAC18QI – 220 Volts",
+      "precoDe": 4898,
+      "precoPor": 3419,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/244295/236012-600-auto.jpg.jpg?v=638804092801770000",
+      "linkAfiliado": "https://lmdee.link/owXwysCSG3bt",
+      "adicionadoEm": "2026-11-27T22:30:15.029Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-158058",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Cooktop Itatiaia 5 Bocas Essencial Preto - Bivolt",
+      "precoDe": 638.88,
+      "precoPor": 438,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/244648/158058.jpg?v=638941696710730000",
+      "linkAfiliado": "https://lmdee.link/LAOIf6ANHI88",
+      "adicionadoEm": "2026-11-27T22:30:15.029Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-1030608",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Ar Condicionado Split Hi Wall R32 LG Dual Inverter Voice +AI 18000 BTU/h Frio S3-Q18KL31B – 220 Volts",
+      "precoDe": 5893.8,
+      "precoPor": 3848,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/232017/kit.jpg?v=638911469777800000",
+      "linkAfiliado": "https://lmdee.link/V5IQli3GWYFs",
+      "adicionadoEm": "2026-11-27T22:30:15.029Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-144092",
+      "loja": "FRIOPEÇAS PARAÍBA",
+      "categoria": "AUTOMOTIVO",
+      "titulo": "Cervejeira Imbera 453 Litros Porta de Vidro Padrão Preta CCV315 - 127 Volts",
+      "precoDe": 8009.76,
+      "precoPor": 5088,
+      "imagem": "https://friopecas.vteximg.com.br/arquivos/ids/239627/ccv315-porta-vidro-padrao-cervejeira-frontal.jpg.jpg?v=638835247557600000",
+      "linkAfiliado": "https://lmdee.link/c2Qp9hR7jImz",
+      "adicionadoEm": "2026-11-27T22:30:15.029Z",
+      "ativo": true
+    },
     {
       "id": "LMD-1032681",
       "loja": "FRIOPEÇAS PARAÍBA",
