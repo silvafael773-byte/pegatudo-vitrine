@@ -469,13 +469,71 @@
       width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
     }
 
-    /* ===== SORTING BAR ===== */
+    /* ===== SORTING & COMBINED FILTERS BAR ===== */
     .sort-bar {
       max-width: 1280px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px 8px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 12px 0 12px;
     }
     .sort-bar .count { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+    .filter-controls {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    }
+    .filter-chip-toggle {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border); background: var(--surface);
+      font-size: 12px; font-weight: 700; color: var(--text-secondary);
+      cursor: pointer; font-family: inherit; transition: all .2s;
+    }
+    .filter-chip-toggle:hover { border-color: var(--coupon-border); color: var(--coupon-text); }
+    .filter-chip-toggle.active {
+      background: var(--brand-gold); color: #141B2D; border-color: var(--brand-amber);
+    }
+    .price-range-group {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 3px 8px;
+    }
+    .price-range-group span { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+    .price-range-input {
+      width: 68px; border: none; background: transparent;
+      font-size: 12.5px; font-weight: 600; color: var(--text-primary);
+      font-family: inherit; outline: none; padding: 3px 2px;
+    }
+    .price-range-input::placeholder { color: var(--text-muted); font-weight: 500; }
+    .btn-coupon-info {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid var(--coupon-border); background: rgba(255,255,255,.7);
+      color: var(--coupon-text); font-size: 11px; font-weight: 800;
+      cursor: pointer; flex-shrink: 0; font-family: inherit; line-height: 1;
+    }
+    [data-theme="dark"] .btn-coupon-info { background: rgba(0,0,0,.3); }
+    .btn-coupon-info:hover { background: var(--coupon-hover); }
+    .alert-form { display: flex; flex-direction: column; gap: 7px; margin-bottom: 8px; }
+    .alert-input {
+      width: 100%; padding: 8px 10px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); background: var(--bg);
+      color: var(--text-primary); font-size: 12.5px; font-family: inherit; outline: none;
+    }
+    .alert-input:focus { border-color: var(--brand-blue); }
+    .alert-submit {
+      width: 100%; padding: 8px 12px; border-radius: var(--radius-sm);
+      border: none; background: var(--brand-blue); color: #FFFFFF;
+      font-size: 12.5px; font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: background .2s;
+    }
+    .alert-submit:hover { background: var(--brand-blue-dark); }
+    .alert-submit:disabled { opacity: .65; cursor: wait; }
+    .alert-status { font-size: 11.5px; font-weight: 600; min-height: 16px; }
+    .alert-status.ok { color: var(--brand-green); }
+    .alert-status.err { color: #DC2626; }
+    .alert-vip-secondary {
+      display: block; text-align: center; font-size: 11.5px; font-weight: 700;
+      color: var(--brand-green); text-decoration: none; margin-top: 2px;
+    }
+    .alert-vip-secondary:hover { text-decoration: underline; }
     .sort-select {
       padding: 7px 12px; border-radius: var(--radius-sm);
       border: 1.5px solid var(--border); background: var(--surface);
@@ -1145,7 +1203,16 @@
 
     <div class="sort-bar">
       <span id="offers-count" class="count"></span>
-      <div>
+      <div class="filter-controls">
+        <button id="filter-only-coupons" type="button" class="filter-chip-toggle" aria-pressed="false">
+          🎟️ Só com Cupom
+        </button>
+        <div class="price-range-group" aria-label="Faixa de preço">
+          <span>R$</span>
+          <input id="filter-price-min" type="number" min="0" step="10" placeholder="Mín" class="price-range-input" aria-label="Preço mínimo" />
+          <span>–</span>
+          <input id="filter-price-max" type="number" min="0" step="10" placeholder="Máx" class="price-range-input" aria-label="Preço máximo" />
+        </div>
         <label for="sort-select" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Ordenar ofertas</label>
         <select id="sort-select" class="sort-select">
           <option value="recent">Mais Recentes</option>
@@ -1249,12 +1316,18 @@
   <!-- Floating Price Alert Widget -->
   <aside id="price-alert-widget" class="price-alert-widget hidden" aria-label="Ativar Alertas de Preço">
     <div class="price-alert-head">
-      <span class="price-alert-title">🔔 Ativar Alertas de Preço</span>
+      <span class="price-alert-title">🔔 Alertas de Preço Grátis</span>
       <button id="close-price-alert" type="button" class="price-alert-close" aria-label="Fechar aviso de alertas">&times;</button>
     </div>
-    <p class="price-alert-body">Entre no Grupo VIP ou ative notificações para ser avisado quando seus itens favoritados caírem de preço!</p>
-    <a id="price-alert-vip-link" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="price-alert-cta">
-      Entrar no Grupo VIP
+    <p class="price-alert-body">Receba no WhatsApp assim que o produto que você procura entrar em promoção:</p>
+    <form id="alert-lead-form" class="alert-form">
+      <input id="alert-keyword" type="text" required minlength="2" maxlength="80" placeholder="Produto desejado (ex: Airfryer, SSD, Celular)" class="alert-input" />
+      <input id="alert-whatsapp" type="tel" required minlength="10" maxlength="20" placeholder="Seu WhatsApp (com DDD)" class="alert-input" />
+      <button id="alert-submit-btn" type="submit" class="alert-submit">Criar Alerta Grátis</button>
+      <p id="alert-form-status" class="alert-status" aria-live="polite"></p>
+    </form>
+    <a id="price-alert-vip-link" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer" class="alert-vip-secondary">
+      Ou entrar direto no Grupo VIP &rarr;
     </a>
   </aside>
 
@@ -1348,6 +1421,9 @@
       ofertas: [],
       selectedCategory: 'TODOS',
       selectedStore: '',
+      onlyCoupons: false,
+      priceMin: '',
+      priceMax: '',
       searchQuery: '',
       sortBy: 'recent',
       savedIds: loadSavedIds(),
@@ -1619,8 +1695,17 @@
         if (!root) return;
         root.querySelectorAll('button[data-cat]').forEach((btn) => {
           btn.addEventListener('click', () => {
-            state.selectedCategory = btn.getAttribute('data-cat');
-            state.selectedStore = '';
+            const cat = btn.getAttribute('data-cat');
+            if (cat === 'CUPONS') {
+              state.onlyCoupons = !state.onlyCoupons;
+              if (state.selectedCategory === 'CUPONS') state.selectedCategory = 'TODOS';
+            } else {
+              state.selectedCategory = cat;
+              if (cat === 'TODOS') {
+                state.selectedStore = '';
+                state.onlyCoupons = false;
+              }
+            }
             if (dropdownMenu) dropdownMenu.classList.remove('open');
             const ddBtn = document.getElementById('cat-dropdown-btn');
             if (ddBtn) ddBtn.setAttribute('aria-expanded', 'false');
@@ -1630,8 +1715,8 @@
         });
         root.querySelectorAll('button[data-store]').forEach((btn) => {
           btn.addEventListener('click', () => {
-            state.selectedStore = btn.getAttribute('data-store');
-            state.selectedCategory = '';
+            const store = btn.getAttribute('data-store');
+            state.selectedStore = state.selectedStore === store ? '' : store;
             if (dropdownMenu) dropdownMenu.classList.remove('open');
             const ddBtn = document.getElementById('cat-dropdown-btn');
             if (ddBtn) ddBtn.setAttribute('aria-expanded', 'false');
@@ -1680,7 +1765,7 @@
       return copy;
     }
 
-    function renderOfferCardHtml(item) {
+    function renderOfferCardHtml(item, options = {}) {
       const loja = String(item.loja || 'OFERTA').toUpperCase();
       const dotClass = STORE_DOTS[loja] || 'dot-default';
       const discount = getDiscountPercent(item.precoDe, item.precoPor);
@@ -1692,11 +1777,16 @@
       const isSaved = state.savedIds.has(String(item.id));
       const isHighlighted = state.highlightedId && String(item.id) === String(state.highlightedId);
       const whatsappShareUrl = buildWhatsAppShareUrl(item);
+      const origem = options.origem || (cupom && !hasPrice ? 'cupom' : 'grade');
+      const goUrl = item.id
+        ? `/go?id=${encodeURIComponent(String(item.id))}&src=${encodeURIComponent(origem)}`
+        : item.linkAfiliado;
+      const imgLoadingAttr = options.isLcp ? 'fetchpriority="high"' : 'loading="lazy"';
 
       return `
         <article class="card ${isHighlighted ? 'highlighted' : ''}">
           <div class="card-img">
-            <img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.titulo)}" loading="lazy"
+            <img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.titulo)}" ${imgLoadingAttr}
               onerror="this.src='https://placehold.co/400x400/f5f5f5/aaa?text=PegaTudo'" />
             <span class="card-store-badge">
               <span class="store-dot ${dotClass}"></span>
@@ -1748,6 +1838,7 @@
                   <div class="card-coupon-left">
                     <span class="card-coupon-strip-label">🎟️ CUPOM:</span>
                     <code>${escapeHtml(cupom)}</code>
+                    ${regraCupom ? `<button type="button" class="btn-coupon-info" data-coupon-rule="${escapeHtml(regraCupom)}" data-coupon-code="${escapeHtml(cupom)}" aria-label="Ver regra do cupom" title="Ver regra do cupom">i</button>` : ''}
                   </div>
                   <button type="button" data-copy-coupon="${escapeHtml(cupom)}" class="btn-copy-inline" aria-label="Copiar cupom ${escapeHtml(cupom)}" title="Copiar cupom">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
@@ -1759,7 +1850,7 @@
                 </div>
               ` : ''}
               <div class="card-actions-row">
-                <a href="${escapeHtml(item.linkAfiliado)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
+                <a href="${escapeHtml(goUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-ver-oferta">
                   <span>Ver Oferta na Loja</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                     <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
@@ -1801,6 +1892,20 @@
         });
       });
 
+      root.querySelectorAll('button[data-coupon-rule]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const rule = btn.getAttribute('data-coupon-rule') || '';
+          const code = btn.getAttribute('data-coupon-code') || '';
+          const backdrop = document.getElementById('legal-modal-backdrop');
+          const titleEl = document.getElementById('legal-modal-title');
+          const bodyEl = document.getElementById('legal-modal-body');
+          if (!backdrop || !titleEl || !bodyEl) return;
+          titleEl.textContent = `🎟️ Regra do Cupom ${code}`;
+          bodyEl.innerHTML = `<p>${escapeHtml(rule)}</p>`;
+          backdrop.classList.add('open');
+        });
+      });
+
       root.querySelectorAll('button[data-save-offer]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const id = String(btn.getAttribute('data-save-offer') || '');
@@ -1830,7 +1935,7 @@
       const grid = document.getElementById('best-of-day-grid');
       if (!section || !grid) return;
 
-      const hasFilter = Boolean(state.searchQuery.trim()) || Boolean(state.selectedStore) || state.selectedCategory !== 'TODOS';
+      const hasFilter = Boolean(state.searchQuery.trim()) || Boolean(state.selectedStore) || state.selectedCategory !== 'TODOS' || state.onlyCoupons || state.priceMin !== '' || state.priceMax !== '';
       if (hasFilter || state.ofertas.length === 0) {
         section.classList.add('hidden');
         grid.innerHTML = '';
@@ -1853,7 +1958,7 @@
         return;
       }
 
-      grid.innerHTML = topOffers.map(renderOfferCardHtml).join('');
+      grid.innerHTML = topOffers.map((item) => renderOfferCardHtml(item, { origem: 'melhores_do_dia', isLcp: true })).join('');
       section.classList.remove('hidden');
       bindCardInteractions(grid);
     }
@@ -1864,24 +1969,29 @@
       const empty = document.getElementById('empty-state');
       const countEl = document.getElementById('offers-count');
       const query = normalizeText(state.searchQuery);
+      const pMin = state.priceMin !== '' ? Number(state.priceMin) : null;
+      const pMax = state.priceMax !== '' ? Number(state.priceMax) : null;
+      const couponToggleEl = document.getElementById('filter-only-coupons');
+      if (couponToggleEl) {
+        const activeCoupons = state.onlyCoupons || state.selectedCategory === 'CUPONS';
+        couponToggleEl.classList.toggle('active', activeCoupons);
+        couponToggleEl.setAttribute('aria-pressed', String(activeCoupons));
+      }
 
       const filtered = state.ofertas.filter((item) => {
         const loja = String(item.loja || '').toUpperCase();
         const temCupom = Boolean(String(item.cupom || '').trim());
         const isSaved = state.savedIds.has(String(item.id));
+        const precoPor = Number(item.precoPor || 0);
 
-        // Store filter
-        if (state.selectedStore) {
-          if (loja !== state.selectedStore) return false;
-        }
-        // Category filter
-        else if (state.selectedCategory === 'SALVOS') {
-          if (!isSaved) return false;
-        } else if (state.selectedCategory === 'CUPONS') {
-          if (!temCupom) return false;
-        } else if (state.selectedCategory && state.selectedCategory !== 'TODOS') {
+        if (state.selectedStore && loja !== state.selectedStore) return false;
+        if (state.selectedCategory === 'SALVOS' && !isSaved) return false;
+        if ((state.selectedCategory === 'CUPONS' || state.onlyCoupons) && !temCupom) return false;
+        if (state.selectedCategory && !['TODOS', 'SALVOS', 'CUPONS'].includes(state.selectedCategory)) {
           if (!matchesCategory(item, state.selectedCategory)) return false;
         }
+        if (pMin !== null && !Number.isNaN(pMin) && precoPor < pMin) return false;
+        if (pMax !== null && !Number.isNaN(pMax) && (precoPor <= 0 || precoPor > pMax)) return false;
 
         if (!query) return true;
         const haystack = normalizeText(`${item.titulo} ${item.loja} ${item.id} ${item.cupom || ''} ${item.regra_cupom || ''}`);
@@ -1983,14 +2093,77 @@
     document.getElementById('reset-filters-btn').addEventListener('click', () => {
       state.selectedCategory = 'TODOS';
       state.selectedStore = '';
+      state.onlyCoupons = false;
+      state.priceMin = '';
+      state.priceMax = '';
       state.searchQuery = '';
       state.sortBy = 'recent';
       state.highlightedId = '';
       document.getElementById('search-input').value = '';
       document.getElementById('sort-select').value = 'recent';
+      const pMinEl = document.getElementById('filter-price-min');
+      const pMaxEl = document.getElementById('filter-price-max');
+      if (pMinEl) pMinEl.value = '';
+      if (pMaxEl) pMaxEl.value = '';
       renderTabs();
       renderOffers();
     });
+
+    const filterOnlyCouponsEl = document.getElementById('filter-only-coupons');
+    if (filterOnlyCouponsEl) {
+      filterOnlyCouponsEl.addEventListener('click', () => {
+        state.onlyCoupons = !state.onlyCoupons;
+        if (!state.onlyCoupons && state.selectedCategory === 'CUPONS') state.selectedCategory = 'TODOS';
+        renderTabs();
+        renderOffers();
+      });
+    }
+    const filterPriceMinEl = document.getElementById('filter-price-min');
+    const filterPriceMaxEl = document.getElementById('filter-price-max');
+    if (filterPriceMinEl) {
+      filterPriceMinEl.addEventListener('input', (e) => { state.priceMin = e.target.value; renderOffers(); });
+    }
+    if (filterPriceMaxEl) {
+      filterPriceMaxEl.addEventListener('input', (e) => { state.priceMax = e.target.value; renderOffers(); });
+    }
+
+    const alertLeadForm = document.getElementById('alert-lead-form');
+    if (alertLeadForm) {
+      alertLeadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const kwEl = document.getElementById('alert-keyword');
+        const waEl = document.getElementById('alert-whatsapp');
+        const btnEl = document.getElementById('alert-submit-btn');
+        const statusEl = document.getElementById('alert-form-status');
+        const palavraChave = (kwEl?.value || '').trim();
+        const whatsapp = (waEl?.value || '').trim();
+        if (!palavraChave || !whatsapp) return;
+
+        btnEl.disabled = true;
+        statusEl.className = 'alert-status';
+        statusEl.textContent = 'Ativando alerta...';
+
+        try {
+          const resp = await fetch('/api/alerta', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ palavraChave, whatsapp }),
+          });
+          const data = await resp.json().catch(() => ({}));
+          if (!resp.ok || data.ok === false) {
+            throw new Error(data.message || 'Erro ao salvar alerta.');
+          }
+          statusEl.className = 'alert-status ok';
+          statusEl.textContent = data.message || 'Alerta ativado! Confira seu WhatsApp.';
+          alertLeadForm.reset();
+        } catch (err) {
+          statusEl.className = 'alert-status err';
+          statusEl.textContent = err.message || 'Verifique o WhatsApp e tente novamente.';
+        } finally {
+          btnEl.disabled = false;
+        }
+      });
+    }
 
     // Theme Toggle
     const THEME_STORAGE_KEY = 'pegatudo_theme_v1';
