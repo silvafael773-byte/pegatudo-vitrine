@@ -1426,9 +1426,10 @@
         return {
           ofertaId: params.get('oferta') || '',
           catParam: (params.get('cat') || params.get('loja') || '').toUpperCase(),
+          qParam: (params.get('q') || '').trim(),
         };
       } catch (_) {
-        return { ofertaId: '', catParam: '' };
+        return { ofertaId: '', catParam: '', qParam: '' };
       }
     }
 
@@ -1441,7 +1442,7 @@
       onlyCoupons: false,
       priceMin: '',
       priceMax: '',
-      searchQuery: '',
+      searchQuery: urlState.qParam,
       sortBy: 'recent',
       savedIds: loadSavedIds(),
       highlightedId: urlState.ofertaId,
@@ -2284,6 +2285,9 @@
     // Search button, Cupons shortcuts, Dropdown, Price Alert & LGPD
     const searchInputEl = document.getElementById('search-input');
     const searchBtnEl = document.getElementById('search-btn');
+    if (searchInputEl && urlState.qParam) {
+      searchInputEl.value = urlState.qParam;
+    }
     if (searchBtnEl && searchInputEl) {
       searchBtnEl.addEventListener('click', () => {
         state.searchQuery = searchInputEl.value;
