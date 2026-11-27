@@ -1,5 +1,5 @@
 const SITE_URL = 'https://pegatudo-vitrine.pages.dev';
-const MAX_ACTIVE_OFFERS = 60;
+const MAX_ACTIVE_OFFERS = 80;
 
 function escapeXml(value) {
   return String(value || '')
