@@ -4,9 +4,37 @@
     "whatsappVip": "https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE",
     "instagram": "https://instagram.com/pega.tudo.loja",
     "telegram": "https://t.me",
-    "atualizadoEm": "2026-11-27T17:00:35.233Z"
+    "atualizadoEm": "2026-11-27T18:00:34.966Z"
   },
   "ofertas": [
+    {
+      "id": "LMD-CPN-6b09c043fe8d9cd25debe0a6",
+      "loja": "CHINA IN BOX",
+      "categoria": "OUTROS",
+      "titulo": "15% OFF em pedidos a partir de R$ 50",
+      "precoDe": 0,
+      "precoPor": 0,
+      "imagem": "https://cdn.lomadee.com.br/logos/ca85cb50-d5f9-4b8b-8c08-70e2dbc9ca75/logo",
+      "linkAfiliado": "https://lmdee.link/AMwZlydqrDiI",
+      "cupom": "CHINAFRIDAY",
+      "regra_cupom": "15% OFF em pedidos a partir de R$ 50",
+      "adicionadoEm": "2026-11-27T18:00:34.966Z",
+      "ativo": true
+    },
+    {
+      "id": "LMD-CPN-6b09c160fe8d9cd25debe1d3",
+      "loja": "LOJA PARCEIRA",
+      "categoria": "OUTROS",
+      "titulo": "Cupom de 100 reais de desconto em itens selecionados",
+      "precoDe": 0,
+      "precoPor": 0,
+      "imagem": "https://cdn.lomadee.com.br/logos/e36f5bbb-3e5f-42e2-be4c-6c32dac101c2/logo",
+      "linkAfiliado": "https://lmdee.link/AK0U8U0PiqfA",
+      "cupom": "BLACK100OFF",
+      "regra_cupom": "Cupom de 100 reais de desconto em itens selecionados",
+      "adicionadoEm": "2026-11-27T18:00:34.966Z",
+      "ativo": true
+    },
     {
       "id": "LMD-86340",
       "loja": "NUTRI BULLET",
