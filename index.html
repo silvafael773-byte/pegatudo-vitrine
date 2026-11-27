@@ -1519,20 +1519,23 @@
       const regra = String(item.regra_cupom || '').trim();
       const hasPrice = Number(item.precoPor) > 0;
       const discount = getDiscountPercent(item.precoDe, item.precoPor);
-      const ofertaUrl = item.id ? `${SITE_URL}/?oferta=${encodeURIComponent(String(item.id))}` : `${SITE_URL}/`;
+      const ofertaId = item.id ? encodeURIComponent(String(item.id)) : '';
+      const ofertaUrl = ofertaId ? `${SITE_URL}/?oferta=${ofertaId}` : `${SITE_URL}/`;
+      const goUrl = ofertaId ? `${SITE_URL}/go?id=${ofertaId}&src=share` : (item.linkAfiliado || `${SITE_URL}/`);
       const lines = [
-        `🔥 *${item.titulo}*`,
-        `🏪 Loja: ${String(item.loja || 'Oferta').toUpperCase()}`,
+        `\u{1F525} *${item.titulo}*`,
+        `\u{1F3EA} Loja: ${String(item.loja || 'Oferta').toUpperCase()}`,
       ];
       if (hasPrice) {
-        const discountLabel = discount > 0 ? ` (-${discount}%)` : '';
-        lines.push(`💰 Por apenas *${brlFormatter.format(Number(item.precoPor))}*${discountLabel}`);
+        const discountLabel = discount > 0 ? ` (-${discount}% OFF)` : '';
+        lines.push(`\u{1F4B0} Por apenas *${brlFormatter.format(Number(item.precoPor))}*${discountLabel}`);
       } else if (regra) {
-        lines.push(`🏷️ Benefício: *${regra}*`);
+        lines.push(`\u{1F3F7}\uFE0F Benefício: *${regra}*`);
       }
-      if (cupom) lines.push(`🎟️ Cupom: *${cupom}*`);
-      lines.push(`👉 Confira na vitrine: ${ofertaUrl}`);
-      return `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
+      if (cupom) lines.push(`\u{1F39F}\uFE0F Cupom: *${cupom}*`);
+      lines.push(`\u{1F6D2} Comprar direto na loja: ${goUrl}`);
+      lines.push(`\u{1F440} Ver na vitrine PegaTudo: ${ofertaUrl}`);
+      return `https://api.whatsapp.com/send?text=${encodeURIComponent(lines.join('\n'))}`;
     }
 
     function renderVipBanner(index) {
