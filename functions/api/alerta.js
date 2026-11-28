@@ -13,6 +13,8 @@ export async function onRequestPost(context) {
     const body = await context.request.json().catch(() => ({}));
     const palavraChave = String(body.palavraChave || body.produto || '').trim();
     const whatsapp = normalizeWhatsapp(body.whatsapp);
+    const precoDesejadoNum = Number(body.precoDesejado || 0);
+    const precoDesejado = Number.isFinite(precoDesejadoNum) && precoDesejadoNum > 0 ? precoDesejadoNum : null;
 
     if (palavraChave.length < 2) {
       return new Response(
@@ -31,7 +33,11 @@ export async function onRequestPost(context) {
     const upstream = await fetch(N8N_LEAD_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ palavraChave, whatsapp }),
+      body: JSON.stringify({
+        palavraChave,
+        whatsapp,
+        ...(precoDesejado !== null ? { precoDesejado } : {}),
+      }),
     });
     const text = await upstream.text();
     let parsed = null;
