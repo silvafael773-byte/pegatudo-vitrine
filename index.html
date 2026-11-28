@@ -165,6 +165,12 @@
       box-shadow: var(--shadow-sm);
       transition: background-color .2s ease, border-color .2s ease;
     }
+    [data-theme="dark"] .header,
+    [data-theme="dark"] .categories-bar {
+      background: rgba(11, 17, 32, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
     .header-inner {
       max-width: 1280px; margin: 0 auto;
       display: flex; align-items: center; gap: 12px;
@@ -537,18 +543,6 @@
     .filter-chip-toggle.active {
       background: var(--brand-gold); color: #141B2D; border-color: var(--brand-amber);
     }
-    .price-range-group {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); padding: 3px 8px;
-    }
-    .price-range-group span { font-size: 11px; font-weight: 700; color: var(--text-muted); }
-    .price-range-input {
-      width: 68px; border: none; background: transparent;
-      font-size: 12.5px; font-weight: 600; color: var(--text-primary);
-      font-family: inherit; outline: none; padding: 3px 2px;
-    }
-    .price-range-input::placeholder { color: var(--text-muted); font-weight: 500; }
     .btn-coupon-info {
       display: inline-flex; align-items: center; justify-content: center;
       width: 18px; height: 18px; border-radius: 50%;
@@ -940,13 +934,37 @@
     }
 
     /* ===== STORE PILLS, LOAD MORE, EMPTY ALERT & TOAST ===== */
+    .store-pills-wrap {
+      position: relative;
+      display: flex; align-items: center;
+      margin-bottom: 8px;
+    }
+    .store-pills-wrap.hidden { display: none; }
     .store-pills-bar {
       display: flex; align-items: center; gap: 7px;
       overflow-x: auto; scrollbar-width: none;
-      padding: 2px 0 10px; margin-bottom: 4px;
+      padding: 2px 36px 4px;
+      width: 100%;
+      scroll-behavior: smooth;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
     }
     .store-pills-bar::-webkit-scrollbar { display: none; }
-    .store-pills-bar.hidden { display: none; }
+    .store-scroll-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 2;
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface); color: var(--text-primary);
+      font-size: 16px; font-weight: 700; line-height: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow-sm);
+      transition: opacity .18s, border-color .18s, color .18s;
+    }
+    .store-scroll-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+    .store-scroll-btn:disabled { opacity: 0; pointer-events: none; }
+    .store-scroll-btn.left { left: 0; }
+    .store-scroll-btn.right { right: 0; }
     .store-pill {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 5px 11px; border-radius: var(--radius-pill);
@@ -1613,7 +1631,11 @@
       </div>
     </section>
 
-    <div id="store-pills-bar" class="store-pills-bar hidden" aria-label="Filtrar por loja"></div>
+    <div id="store-pills-wrap" class="store-pills-wrap hidden">
+      <button id="store-scroll-left" type="button" class="store-scroll-btn left" aria-label="Rolar lojas para a esquerda">&lsaquo;</button>
+      <div id="store-pills-bar" class="store-pills-bar" aria-label="Filtrar por loja"></div>
+      <button id="store-scroll-right" type="button" class="store-scroll-btn right" aria-label="Rolar lojas para a direita">&rsaquo;</button>
+    </div>
 
     <div class="sort-bar">
       <span id="offers-count" class="count"></span>
@@ -1621,12 +1643,6 @@
         <button id="filter-only-coupons" type="button" class="filter-chip-toggle" aria-pressed="false">
           🎟️ Só com Cupom
         </button>
-        <div class="price-range-group" aria-label="Faixa de preço">
-          <span>R$</span>
-          <input id="filter-price-min" type="number" min="0" step="10" placeholder="Mín" class="price-range-input" aria-label="Preço mínimo" />
-          <span>–</span>
-          <input id="filter-price-max" type="number" min="0" step="10" placeholder="Máx" class="price-range-input" aria-label="Preço máximo" />
-        </div>
         <label for="sort-select" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Ordenar ofertas</label>
         <select id="sort-select" class="sort-select">
           <option value="recent">Mais Recentes</option>
@@ -1854,6 +1870,18 @@
       'MAGALU': 'dot-magalu',
     };
 
+    function formatStoreName(raw) {
+      const lowerWords = new Set(['e', 'de', 'da', 'do', 'dos', 'das']);
+      return String(raw || '')
+        .trim()
+        .toLocaleLowerCase('pt-BR')
+        .replace(/(^|\s)\S+/g, (match, space, offset) => {
+          const word = match.slice(space.length);
+          if (offset > 0 && lowerWords.has(word)) return space + word;
+          return space + word.charAt(0).toLocaleUpperCase('pt-BR') + word.slice(1);
+        });
+    }
+
     function getDynamicStores(ofertas) {
       const counts = new Map();
       ofertas.forEach((o) => {
@@ -1865,7 +1893,7 @@
         .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'pt-BR'))
         .map(([key, count]) => ({
           key,
-          label: key.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()),
+          label: formatStoreName(key),
           dot: STORE_DOTS[key] || 'dot-default',
           count,
         }));
@@ -1907,8 +1935,6 @@
       selectedCategory: 'TODOS',
       selectedStore: '',
       onlyCoupons: false,
-      priceMin: '',
-      priceMax: '',
       searchQuery: urlState.qParam,
       sortBy: 'recent',
       savedIds: loadSavedIds(),
@@ -2517,7 +2543,7 @@
       const grid = document.getElementById('best-of-day-grid');
       if (!section || !grid) return;
 
-      const hasFilter = Boolean(state.searchQuery.trim()) || Boolean(state.selectedStore) || state.selectedCategory !== 'TODOS' || state.onlyCoupons || state.priceMin !== '' || state.priceMax !== '';
+      const hasFilter = Boolean(state.searchQuery.trim()) || Boolean(state.selectedStore) || state.selectedCategory !== 'TODOS' || state.onlyCoupons;
       if (hasFilter || state.ofertas.length === 0) {
         section.classList.add('hidden');
         grid.innerHTML = '';
@@ -2555,12 +2581,23 @@
       toastTimer = setTimeout(() => toast.classList.remove('visible'), 2400);
     }
 
-    function renderStorePills() {
+    function updateStoreArrows() {
       const bar = document.getElementById('store-pills-bar');
-      if (!bar) return;
+      const leftBtn = document.getElementById('store-scroll-left');
+      const rightBtn = document.getElementById('store-scroll-right');
+      if (!bar || !leftBtn || !rightBtn) return;
+      const maxScroll = bar.scrollWidth - bar.clientWidth;
+      leftBtn.disabled = bar.scrollLeft <= 4;
+      rightBtn.disabled = maxScroll <= 4 || bar.scrollLeft >= maxScroll - 4;
+    }
+
+    function renderStorePills() {
+      const wrap = document.getElementById('store-pills-wrap');
+      const bar = document.getElementById('store-pills-bar');
+      if (!bar || !wrap) return;
       const stores = getDynamicStores(state.ofertas);
       if (stores.length === 0) {
-        bar.classList.add('hidden');
+        wrap.classList.add('hidden');
         bar.innerHTML = '';
         return;
       }
@@ -2571,7 +2608,7 @@
         html += `<button type="button" data-store-pill="${escapeHtml(store.key)}" class="store-pill ${isActive ? 'active' : ''}"><span class="store-dot ${store.dot}" style="width:7px;height:7px;border-radius:50%;display:inline-block;"></span><span>${escapeHtml(store.label)}</span><span class="store-pill-count">${store.count}</span></button>`;
       });
       bar.innerHTML = html;
-      bar.classList.remove('hidden');
+      wrap.classList.remove('hidden');
       bar.querySelectorAll('button[data-store-pill]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const store = btn.getAttribute('data-store-pill') || '';
@@ -2581,6 +2618,7 @@
           renderOffers();
         });
       });
+      requestAnimationFrame(updateStoreArrows);
     }
 
     function renderOffers(resetLimit = true) {
@@ -2593,8 +2631,6 @@
       const loadMoreBtn = document.getElementById('load-more-btn');
       const countEl = document.getElementById('offers-count');
       const query = normalizeText(state.searchQuery);
-      const pMin = state.priceMin !== '' ? Number(state.priceMin) : null;
-      const pMax = state.priceMax !== '' ? Number(state.priceMax) : null;
       const couponToggleEl = document.getElementById('filter-only-coupons');
       if (couponToggleEl) {
         const activeCoupons = state.onlyCoupons || state.selectedCategory === 'CUPONS';
@@ -2606,7 +2642,6 @@
         const loja = String(item.loja || '').toUpperCase();
         const temCupom = Boolean(String(item.cupom || '').trim());
         const isSaved = state.savedIds.has(String(item.id));
-        const precoPor = Number(item.precoPor || 0);
 
         if (state.selectedStore && loja !== state.selectedStore) return false;
         if (state.selectedCategory === 'SALVOS' && !isSaved) return false;
@@ -2614,8 +2649,6 @@
         if (state.selectedCategory && !['TODOS', 'SALVOS', 'CUPONS'].includes(state.selectedCategory)) {
           if (!matchesCategory(item, state.selectedCategory)) return false;
         }
-        if (pMin !== null && !Number.isNaN(pMin) && precoPor < pMin) return false;
-        if (pMax !== null && !Number.isNaN(pMax) && (precoPor <= 0 || precoPor > pMax)) return false;
 
         if (!query) return true;
         return matchesSearchQuery(item, state.searchQuery);
@@ -2733,20 +2766,24 @@
       state.selectedCategory = 'TODOS';
       state.selectedStore = '';
       state.onlyCoupons = false;
-      state.priceMin = '';
-      state.priceMax = '';
       state.searchQuery = '';
       state.sortBy = 'recent';
       state.highlightedId = '';
       document.getElementById('search-input').value = '';
       document.getElementById('sort-select').value = 'recent';
-      const pMinEl = document.getElementById('filter-price-min');
-      const pMaxEl = document.getElementById('filter-price-max');
-      if (pMinEl) pMinEl.value = '';
-      if (pMaxEl) pMaxEl.value = '';
       renderTabs();
       renderOffers();
     });
+
+    const storeBarEl = document.getElementById('store-pills-bar');
+    const storeLeftBtn = document.getElementById('store-scroll-left');
+    const storeRightBtn = document.getElementById('store-scroll-right');
+    if (storeBarEl && storeLeftBtn && storeRightBtn) {
+      storeLeftBtn.addEventListener('click', () => storeBarEl.scrollBy({ left: -220, behavior: 'smooth' }));
+      storeRightBtn.addEventListener('click', () => storeBarEl.scrollBy({ left: 220, behavior: 'smooth' }));
+      storeBarEl.addEventListener('scroll', updateStoreArrows, { passive: true });
+      window.addEventListener('resize', updateStoreArrows);
+    }
 
     const filterOnlyCouponsEl = document.getElementById('filter-only-coupons');
     if (filterOnlyCouponsEl) {
@@ -2756,14 +2793,6 @@
         renderTabs();
         renderOffers();
       });
-    }
-    const filterPriceMinEl = document.getElementById('filter-price-min');
-    const filterPriceMaxEl = document.getElementById('filter-price-max');
-    if (filterPriceMinEl) {
-      filterPriceMinEl.addEventListener('input', (e) => { state.priceMin = e.target.value; renderOffers(); });
-    }
-    if (filterPriceMaxEl) {
-      filterPriceMaxEl.addEventListener('input', (e) => { state.priceMax = e.target.value; renderOffers(); });
     }
 
     const loadMoreBtnEl = document.getElementById('load-more-btn');
