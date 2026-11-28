@@ -7,8 +7,13 @@
   <meta id="meta-description" name="description" content="Vitrine de ofertas selecionadas e cupons verificados do Mercado Livre, Shopee, Amazon, Magalu e grandes lojas com descontos atualizados em tempo real." />
   <meta name="robots" content="index, follow" />
   <link id="canonical-link" rel="canonical" href="https://pegatudo-vitrine.pages.dev/" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#16a34a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PegaTudo" />
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
-  <link rel="apple-touch-icon" href="./assets/favicon.png" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
 
   <!-- Open Graph / Social -->
   <meta id="og-type" property="og:type" content="website" />
@@ -1057,6 +1062,71 @@
     }
     .btn-lgpd-accept:hover { background: var(--brand-blue-dark); }
 
+    /* ===== PWA INSTALL BANNER ===== */
+    .pwa-install-banner {
+      position: fixed; right: 16px; bottom: 16px; z-index: 97;
+      width: min(340px, calc(100vw - 32px));
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      animation: fadeSlideUp .25s ease-out;
+    }
+    .pwa-install-banner.above-lgpd { bottom: 72px; }
+    .pwa-install-banner.hidden { display: none; }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .pwa-install-head {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pwa-install-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      flex-shrink: 0; object-fit: cover;
+      border: 1px solid var(--border);
+      background: #0b1120;
+    }
+    .pwa-install-copy { flex: 1; min-width: 0; }
+    .pwa-install-title {
+      font-size: 14px; font-weight: 800; color: var(--text-primary);
+      line-height: 1.25; margin: 0 0 3px;
+    }
+    .pwa-install-sub {
+      font-size: 12px; color: var(--text-secondary);
+      line-height: 1.4; margin: 0;
+    }
+    .pwa-ios-guide {
+      font-size: 12px; color: var(--text-primary);
+      background: var(--surface-elevated);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      line-height: 1.45;
+    }
+    .pwa-ios-guide.hidden { display: none; }
+    .pwa-install-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-pwa-install {
+      flex: 1;
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      border: none; background: var(--brand-green);
+      color: #FFFFFF; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background .2s;
+    }
+    .btn-pwa-install:hover { background: var(--brand-green-dark); }
+    .btn-pwa-dismiss {
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--surface-elevated);
+      color: var(--text-secondary); font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-pwa-dismiss:hover { color: var(--text-primary); }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .top-bar { font-size: 11px; }
@@ -1358,6 +1428,24 @@
       </div>
     </div>
   </div>
+
+  <!-- PWA Install Banner -->
+  <aside id="pwa-install-banner" class="pwa-install-banner hidden" role="dialog" aria-label="Instalar aplicativo PegaTudo">
+    <div class="pwa-install-head">
+      <img src="./assets/icon-192.png" alt="Ícone PegaTudo" class="pwa-install-icon" width="40" height="40" />
+      <div class="pwa-install-copy">
+        <h3 class="pwa-install-title">📲 Instale o App PegaTudo</h3>
+        <p class="pwa-install-sub">Acesse ofertas relâmpago mais rápido direto da sua tela inicial.</p>
+      </div>
+    </div>
+    <div id="pwa-ios-guide" class="pwa-ios-guide hidden">
+      No iPhone/iPad (Safari): toque em <strong>Compartilhar</strong> (⬆️) e depois em <strong>Adicionar à Tela de Início</strong>.
+    </div>
+    <div class="pwa-install-actions">
+      <button id="pwa-install-btn" type="button" class="btn-pwa-install">Instalar Aplicativo</button>
+      <button id="pwa-dismiss-btn" type="button" class="btn-pwa-dismiss">Agora não</button>
+    </div>
+  </aside>
 
   <script>
     const SITE_URL = 'https://pegatudo-vitrine.pages.dev';
@@ -2360,11 +2448,41 @@
 
     const ALERT_DISMISSED_KEY = 'pegatudo_alert_dismissed_v1';
     const LGPD_CONSENT_KEY = 'pegatudo_lgpd_consent_v1';
+    const PWA_DISMISSED_KEY = 'pegatudo_pwa_dismissed_until_v1';
+    const PWA_DISMISS_TTL_MS = 7 * 24 * 60 * 60 * 1000;
     const alertWidget = document.getElementById('price-alert-widget');
     const closeAlertBtn = document.getElementById('close-price-alert');
     const lgpdBanner = document.getElementById('lgpd-banner');
     const lgpdAcceptBtn = document.getElementById('lgpd-accept');
     const lgpdDeclineBtn = document.getElementById('lgpd-decline');
+    const pwaBanner = document.getElementById('pwa-install-banner');
+    const pwaInstallBtn = document.getElementById('pwa-install-btn');
+    const pwaDismissBtn = document.getElementById('pwa-dismiss-btn');
+    const pwaIosGuide = document.getElementById('pwa-ios-guide');
+
+    let deferredPwaPrompt = null;
+    let pwaSessionHidden = false;
+    const isStandaloneApp = Boolean(
+      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+      window.navigator.standalone === true
+    );
+    const isIosSafari = /iphone|ipad|ipod/i.test(window.navigator.userAgent || '') &&
+      !/crios|fxios|edgios/i.test(window.navigator.userAgent || '');
+
+    function isPwaDismissed() {
+      if (pwaSessionHidden || isStandaloneApp) return true;
+      try {
+        const until = Number(localStorage.getItem(PWA_DISMISSED_KEY) || 0);
+        return Number.isFinite(until) && until > Date.now();
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function canShowPwaBanner() {
+      if (isPwaDismissed()) return false;
+      return Boolean(deferredPwaPrompt) || isIosSafari;
+    }
 
     function syncFloatingWidgets() {
       let alertDismissed = false;
@@ -2374,11 +2492,64 @@
         lgpdDone = Boolean(localStorage.getItem(LGPD_CONSENT_KEY));
       } catch (_) {}
 
+      const showPwa = canShowPwaBanner();
       if (lgpdBanner) lgpdBanner.classList.toggle('hidden', lgpdDone);
+      if (pwaBanner) {
+        pwaBanner.classList.toggle('hidden', !showPwa);
+        pwaBanner.classList.toggle('above-lgpd', !lgpdDone);
+      }
       if (alertWidget) {
-        alertWidget.classList.toggle('hidden', alertDismissed);
+        alertWidget.classList.toggle('hidden', alertDismissed || showPwa);
         alertWidget.classList.toggle('above-lgpd', !lgpdDone);
       }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      if (pwaIosGuide) pwaIosGuide.classList.add('hidden');
+      syncFloatingWidgets();
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPwaPrompt = null;
+      pwaSessionHidden = true;
+      try { localStorage.setItem(PWA_DISMISSED_KEY, String(Date.now() + 365 * 24 * 60 * 60 * 1000)); } catch (_) {}
+      syncFloatingWidgets();
+    });
+
+    if (pwaInstallBtn) {
+      pwaInstallBtn.addEventListener('click', async () => {
+        if (deferredPwaPrompt) {
+          deferredPwaPrompt.prompt();
+          try {
+            const choice = await deferredPwaPrompt.userChoice;
+            if (choice && choice.outcome === 'accepted') {
+              pwaSessionHidden = true;
+            }
+          } catch (_) {}
+          deferredPwaPrompt = null;
+          syncFloatingWidgets();
+          return;
+        }
+        if (isIosSafari && pwaIosGuide) {
+          pwaIosGuide.classList.toggle('hidden');
+        }
+      });
+    }
+
+    if (pwaDismissBtn) {
+      pwaDismissBtn.addEventListener('click', () => {
+        pwaSessionHidden = true;
+        try { localStorage.setItem(PWA_DISMISSED_KEY, String(Date.now() + PWA_DISMISS_TTL_MS)); } catch (_) {}
+        syncFloatingWidgets();
+      });
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
     }
 
     if (closeAlertBtn) {
@@ -2465,6 +2636,7 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
           setTimeout(() => { const inp = document.getElementById('search-input'); if (inp) inp.focus(); }, 250);
         } else if (action === 'alerts') {
+          pwaSessionHidden = true;
           try { sessionStorage.removeItem(ALERT_DISMISSED_KEY); } catch (_) {}
           syncFloatingWidgets();
         } else if (action === 'cookies') {
