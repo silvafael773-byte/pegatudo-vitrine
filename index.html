@@ -576,6 +576,53 @@
     .alert-status { font-size: 11.5px; font-weight: 600; min-height: 16px; }
     .alert-status.ok { color: var(--brand-green); }
     .alert-status.err { color: #DC2626; }
+    .alert-success-card {
+      margin-top: 8px; padding: 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.30);
+      display: flex; flex-direction: column; gap: 8px;
+      text-align: left;
+    }
+    [data-theme="dark"] .alert-success-card {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    .alert-success-title {
+      font-size: 12.5px; font-weight: 800; color: var(--brand-green-dark);
+      line-height: 1.35; margin: 0;
+    }
+    [data-theme="dark"] .alert-success-title { color: #34D399; }
+    .alert-success-sub {
+      font-size: 11.5px; color: var(--text-secondary);
+      line-height: 1.4; margin: 0;
+    }
+    .alert-success-actions {
+      display: flex; flex-direction: column; gap: 6px; margin-top: 2px;
+    }
+    .btn-vip-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 9px 12px; border-radius: var(--radius-sm);
+      background: #16A34A; color: #FFFFFF;
+      font-size: 12.5px; font-weight: 700; text-decoration: none;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+    }
+    .btn-vip-cta:hover { background: #15803D; transform: translateY(-1px); }
+    .btn-tg-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 7px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-secondary); font-size: 12px; font-weight: 600;
+      text-decoration: none; transition: border-color .2s, color .2s;
+    }
+    .btn-tg-cta:hover { border-color: #0088CC; color: #0088CC; }
+    [data-theme="dark"] .btn-tg-cta {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #CBD5E1;
+    }
+    [data-theme="dark"] .btn-tg-cta:hover { border-color: #38BDF8; color: #38BDF8; }
     .alert-vip-secondary {
       display: block; text-align: center; font-size: 11.5px; font-weight: 700;
       color: var(--brand-green); text-decoration: none; margin-top: 2px;
@@ -2748,7 +2795,17 @@
           throw new Error(data.message || `Erro ao salvar alerta (HTTP ${resp.status}).`);
         }
         statusEl.className = 'alert-status ok';
-        statusEl.textContent = data.message || 'Alerta ativado! Confira seu WhatsApp.';
+        const vipHref = escapeHtml(state.config.whatsappVip || DEFAULT_WHATSAPP_VIP);
+        statusEl.innerHTML = `
+          <div class="alert-success-card">
+            <p class="alert-success-title">✅ Alerta ativado! Você será avisado no WhatsApp assim que o preço cair.</p>
+            <p class="alert-success-sub">Quer receber outras ofertas relâmpago em tempo real enquanto espera?</p>
+            <div class="alert-success-actions">
+              <a href="${vipHref}" target="_blank" rel="noopener noreferrer" class="btn-vip-cta">💬 Entrar no Grupo VIP do WhatsApp</a>
+              <a href="https://t.me/pegatudo_ofertas" target="_blank" rel="noopener noreferrer" class="btn-tg-cta">✈️ Entrar no Canal do Telegram</a>
+            </div>
+          </div>
+        `;
         if (formEl) formEl.reset();
         if (typeof onSuccess === 'function') onSuccess(data);
       } catch (err) {
