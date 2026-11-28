@@ -1068,6 +1068,64 @@
       padding: 36px 16px 20px;
       margin-top: 24px;
     }
+    .footer-status-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 8px; margin-bottom: 10px;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      background: rgba(16, 185, 129, 0.10);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      font-size: 11px; font-weight: 700; color: var(--brand-green-dark);
+    }
+    [data-theme="dark"] .footer-status-pill {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(52, 211, 153, 0.32);
+      color: #34D399;
+    }
+    .footer-status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreenDot 1.8s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseGreenDot {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.65); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .footer-trust-badges {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 12px;
+    }
+    .footer-trust-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 9px; border-radius: var(--radius-pill);
+      font-size: 11px; font-weight: 600;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    [data-theme="dark"] .footer-trust-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(8px);
+    }
+    .footer-monitored-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      margin-top: 10px;
+      font-size: 11px; color: var(--text-muted);
+    }
+    .footer-monitored-tag {
+      padding: 2px 8px; border-radius: 6px;
+      font-size: 10.5px; font-weight: 600;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    [data-theme="dark"] .footer-monitored-tag {
+      background: rgba(15, 23, 42, 0.55);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
     .footer-inner {
       max-width: 1280px; margin: 0 auto;
     }
@@ -1569,9 +1627,25 @@
             <img src="./assets/favicon.png" alt="Logo PegaTudo" class="footer-brand-logo" width="36" height="36" />
             <span class="footer-brand-name">PEGA TUDO</span>
           </div>
+          <div class="footer-status-pill" aria-label="Status do sistema">
+            <span class="footer-status-dot" aria-hidden="true"></span>
+            <span>Sistema ativo · Monitorando ofertas 24/7</span>
+          </div>
           <p class="footer-brand-desc">
-            Seu portal inteligente para encontrar as melhores ofertas, achados e cupons de desconto verificados nas principais lojas do Brasil.
+            Monitoramento inteligente 24h por dia. Nossa tecnologia varre automaticamente as maiores lojas do Brasil em busca dos maiores descontos reais, ofertas relâmpago e cupons verificados — entregando os links diretos para você economizar sem precisar perder horas procurando.
           </p>
+          <div class="footer-trust-badges" aria-label="Diferenciais PegaTudo">
+            <span class="footer-trust-pill">⚡ Varredura Automática 24h</span>
+            <span class="footer-trust-pill">🛡️ Links 100% Oficiais</span>
+            <span class="footer-trust-pill">🔔 Alertas no WhatsApp</span>
+          </div>
+          <div class="footer-monitored-row" aria-label="Lojas monitoradas">
+            <span>Lojas monitoradas:</span>
+            <span class="footer-monitored-tag">Mercado Livre</span>
+            <span class="footer-monitored-tag">Shopee</span>
+            <span class="footer-monitored-tag">Amazon</span>
+            <span class="footer-monitored-tag">Parceiros Oficiais</span>
+          </div>
         </div>
 
         <div>
