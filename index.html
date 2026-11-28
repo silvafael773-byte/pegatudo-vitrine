@@ -296,6 +296,17 @@
     .btn-insta:hover { background: var(--brand-blue-dark); transform: translateY(-1px); }
     .btn-insta svg { width: 16px; height: 16px; flex-shrink: 0; }
 
+    .btn-telegram {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--radius-pill);
+      background: #0088CC;
+      color: #fff; font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: background .2s, border-color .2s, transform .15s;
+      box-shadow: 0 2px 8px rgba(0, 136, 204, .22);
+    }
+    .btn-telegram:hover { background: #0077B5; transform: translateY(-1px); }
+    .btn-telegram svg { width: 16px; height: 16px; flex-shrink: 0; }
+
     .btn-cupons-header {
       display: inline-flex; align-items: center; gap: 5px;
       padding: 8px 13px; border-radius: var(--radius-pill);
@@ -317,6 +328,16 @@
     [data-theme="dark"] .btn-vip:hover {
       background: rgba(16, 185, 129, 0.22);
       border-color: rgba(52, 211, 153, 0.55);
+    }
+    [data-theme="dark"] .btn-telegram {
+      background: rgba(14, 165, 233, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      box-shadow: none;
+    }
+    [data-theme="dark"] .btn-telegram:hover {
+      background: rgba(14, 165, 233, 0.22);
+      border-color: rgba(56, 189, 248, 0.55);
     }
     [data-theme="dark"] .btn-cupons-header {
       background: rgba(245, 158, 11, 0.12);
@@ -1192,8 +1213,8 @@
       .top-bar { font-size: 11px; }
       .header-inner { flex-wrap: wrap; gap: 8px; }
       .search-box { order: 3; max-width: 100%; width: 100%; }
-      .btn-insta span, .btn-vip span, .btn-cupons-header span.cup-lbl, .logo-sub { display: none; }
-      .btn-insta, .btn-vip, .btn-cupons-header { padding: 8px 10px; }
+      .btn-insta span, .btn-telegram span, .btn-vip span, .btn-cupons-header span.cup-lbl, .logo-sub { display: none; }
+      .btn-insta, .btn-telegram, .btn-vip, .btn-cupons-header { padding: 8px 10px; }
       .categories-bar { top: 134px; }
       .categories-wrap { padding: 0 10px; }
       .btn-daily-coupons { display: none; }
@@ -1289,6 +1310,13 @@
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z" />
           </svg>
           <span>Grupo VIP</span>
+        </a>
+
+        <a id="btn-telegram" href="https://t.me/pegatudo_ofertas" target="_blank" rel="noopener noreferrer" class="btn-telegram" aria-label="Canal do Telegram @pegatudo_ofertas">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+          <span>Telegram</span>
         </a>
 
         <a id="btn-instagram" href="https://www.instagram.com/pega.tudo.loja/" target="_blank" rel="noopener noreferrer" class="btn-insta" aria-label="Instagram @pega.tudo.loja">
@@ -1414,6 +1442,7 @@
           <ul class="footer-links">
             <li><a href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer">🔥 Grupos VIP de Ofertas</a></li>
             <li><a id="footer-whatsapp-link" href="https://chat.whatsapp.com/L752rDFc5WHEID7fpD9dkE" target="_blank" rel="noopener noreferrer">WhatsApp VIP (Entrar)</a></li>
+            <li><a id="footer-telegram-link" href="https://t.me/pegatudo_ofertas" target="_blank" rel="noopener noreferrer">Canal no Telegram (@pegatudo_ofertas)</a></li>
             <li><a id="footer-instagram-link" href="https://www.instagram.com/pega.tudo.loja/" target="_blank" rel="noopener noreferrer">Instagram (@pega.tudo.loja)</a></li>
             <li><button type="button" data-footer-action="search">Buscar Produtos</button></li>
             <li><button type="button" data-footer-action="coupons">Cupons do Dia</button></li>
@@ -1748,6 +1777,10 @@
             <a href="${whatsappHref}" target="_blank" rel="noopener noreferrer" class="btn-vip">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.18-4.94-4.38-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.1.98 2.02 1.28 2.31 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></svg>
               <span>Entrar no Grupo VIP</span>
+            </a>
+            <a href="https://t.me/pegatudo_ofertas" target="_blank" rel="noopener noreferrer" class="btn-telegram">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <span>Canal Telegram</span>
             </a>
             <a href="${instaHref}" target="_blank" rel="noopener noreferrer" class="btn-insta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
